@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  session_token: MyString
+  login_frequency: MyString
+  query_frequency: MyString
+
+two:
+  email: MyString
+  session_token: MyString
+  login_frequency: MyString
+  query_frequency: MyString
