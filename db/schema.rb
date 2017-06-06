@@ -56,12 +56,12 @@ ActiveRecord::Schema.define(version: 20170606170425) do
   end
 
   create_table "recommendations", force: :cascade do |t|
-    t.integer "mood_id", null: false
-    t.integer "activity_id", null: false
-    t.integer "location_id", null: false
+    t.string "mood", null: false
+    t.string "activity", null: false
+    t.string "location", null: false
     t.boolean "feedback"
     t.integer "user_id", null: false
-    t.string "time_spent", null: false
+    t.integer "time_spent", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
