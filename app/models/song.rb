@@ -4,13 +4,16 @@ class Song < ApplicationRecord
 
   after_initialize :first_impression
 
+  # inverse of seems dicy here, might need to relook if anything breaks
+  has_many :likes, inverse_of: :song
+
   def first_impression
     self.impressions_in_recommendations = 0
   end
 
   def set_duration(duration)
     # TODO: Handles songs lesser than one hour, need to fix later on
-    
+
     if duration.is_a?(Integer)
       self.duration = duration
     else
