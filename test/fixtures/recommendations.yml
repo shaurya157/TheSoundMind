@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mood_id: MyString
+  activity_id: MyString
+  location_id: MyString
+  feedback: MyString
+  user_id: MyString
+  time_spent: MyString
+
+two:
+  mood_id: MyString
+  activity_id: MyString
+  location_id: MyString
+  feedback: MyString
+  user_id: MyString
+  time_spent: MyString
