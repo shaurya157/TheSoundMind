@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606135517) do
+ActiveRecord::Schema.define(version: 20170606144744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "songs", force: :cascade do |t|
+    t.string "url", null: false
+    t.string "artist", null: false
+    t.string "name", null: false
+    t.integer "duration", null: false
+    t.integer "impressions_in_recommendations", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "artist", "url", "duration"], name: "index_songs_on_name_and_artist_and_url_and_duration"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
