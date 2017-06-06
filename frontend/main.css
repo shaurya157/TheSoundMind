@@ -1,0 +1,309 @@
+/* Basic settings */
+
+* {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2, h3, h4, h5, h6 {
+  font-size-adjust: 0.5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  line-height: 1.25; /* equivalent to 20px */
+}
+
+@media (min-width: 43.75em) {
+  body {
+    line-height: 1.375; /* equivalent to 22px */
+  }
+}
+
+table, th, td {
+  border: none;
+  border-collapse: collapse;
+}
+
+#logo {
+  display: block;
+  margin: auto;
+  max-width: 30%;
+  height: auto;
+}
+
+/* Ask Page */
+
+#search {
+  position: relative;
+  margin: auto;
+  max-width: 400px;
+  padding: 1em;
+  text-align: center;
+}
+
+select, .searchBtn {
+  display: block;
+  margin: 8% auto;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+select {
+  width: 50%;
+  height: auto;
+  /* adopt h4 attributes */
+  font-size: 1.125em;
+  line-height: 1.11111111;
+}
+
+@media (min-width: 43.75em) {
+  select {
+    width: 60%;
+    /* adopt h4 attributes */
+    line-height: 1.22222222;
+  }
+}
+
+.searchBtn {
+  width: 20%;
+  height: auto;
+  /* adopt h3 attributes */
+  font-size: 1.375em;
+  font-weight: 900;
+  padding: 0.275em 0; /* 20% of font-size */
+
+}
+
+@media (min-width: 43.75em) {
+  .searchBtn {
+    /* adopt h3 attributes */
+    font-size: 1.5em;
+    padding: 0.3em 0; /* 20% of font-size */
+  }
+}
+
+@media (min-width: 56.25em) {
+  .searchBtn {
+    /* adopt h3 attributes */
+    font-size: 1.75em;
+    padding: 0.35em 0; /* 20% of font-size */
+  }
+}
+
+.searchBtn:hover { /* Search button inverts color */
+  background: #00239c;
+  border: none;
+  color: white;
+}
+
+/* Result Page */
+
+#result {
+  position: relative;
+  margin: auto;
+  max-width: 800px;
+  padding: 1em;
+  text-align: left;
+}
+
+.bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background-color: #00239c;
+}
+
+#player {
+  margin: auto;
+  max-width: 800px;
+  color: white;
+}
+
+.list {
+  width: 100%;
+}
+
+.list, .songPlaying {
+  /* adopt h3 attributes */
+  font-size: 1.375em;
+  font-weight: 900;
+  line-height: 1.13636364;
+}
+
+@media (min-width: 43.75em) {
+  .list, .songPlaying {
+    font-size: 1.5em; /* 1.5x body copy size = 24px */
+    line-height: 1.25;
+  }
+}
+
+@media (min-width: 56.25em) {
+  .list, .songPlaying {
+    font-size: 1.75em; /* 1.75x body copy size = 28px */
+    line-height: 1.25;
+  }
+}
+
+.song, .footerRight, .songPlaying {
+  width: 65%; /* Within the list div, there're 2 different tables w 2 columns (65-35 split) */
+}
+
+.action, .footerLeft {
+  width: 35%;
+}
+
+.loadMore {
+  width: 100%;
+  text-align: center;
+}
+
+.song, .footerLeft, td.action, .footerRight, .loadMore {
+  padding: 0.5em 0;
+}
+
+td.action, .footerRight {
+  text-align: right;
+}
+
+.song, td.action {
+  border-bottom: 2px solid #999; /* line separating each recommendation */
+}
+
+.footer {
+  width: 100%;
+  margin-top: 0.5em;
+  /* adopt h4 attributes */
+  font-size: 1.125em;
+  font-weight: 900;
+  line-height: 1.11111111;
+}
+
+@media (min-width: 43.75em) {
+  .footer {
+    /* adopt h4 attributes */
+    line-height: 1.22222222;
+  }
+}
+
+.footerLeft, .footerRight {
+  line-height: 1.75em;
+  vertical-align: text-top;
+}
+
+.songPlaying, div.action {
+  float: left;
+  height: 75px;
+  display: table;
+}
+
+.songPlaying {
+  padding-left: 1em;
+}
+
+div.action {
+  text-align: center;
+}
+
+/* Typography */
+
+a:link, a:visited { /* Links maintain at black */
+  text-decoration: none;
+  color: black;
+}
+
+.material-icons.black { /* Google action button fonts */
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+}
+
+.material-icons.black:hover, a:hover { /* Links and buttons turn blue */
+  text-decoration: none;
+  color: #00239c;
+}
+
+.material-icons.white { /* White Google action button fonts */
+  color: white;
+  font-size: 2.625em; /* 1.75 (list) x 1.5 (play-black) */
+}
+
+h1 {
+  font-size: 2em; /* 2x body copy size = 32px */
+  line-height: 1.25; /* 45px / 36px */
+}
+
+@media (min-width: 43.75em) {
+  h1 {
+    font-size: 2.5em; /* 2.5x body copy size = 40px */
+    line-height: 1.125;
+  }
+}
+
+@media (min-width: 56.25em) {
+  h1 {
+    font-size: 3em; /* 3x body copy size = 48px */
+    line-height: 1.05;
+    /* keep to a multiple of the 20px line height and something more appropriate for display headings */
+  }
+}
+
+h2 {
+  font-size: 1.625em; /* 1.625x body copy size = 26px */
+  line-height: 1.15384615; /* 30px / 26px */
+}
+
+@media (min-width: 43.75em) {
+  h2 {
+    font-size: 2em; /* 2x body copy size = 32px */
+    line-height: 1.25;
+  }
+}
+
+@media (min-width: 56.25em) {
+  h2 {
+    font-size: 2.25em; /* 2.25x body copy size = 36px */
+    line-height: 1.25;
+  }
+}
+
+h3 {
+  font-size: 1.375em; /* 1.375x body copy size = 22px */
+  line-height: 1.13636364; /* 25px / 22px */
+}
+
+@media (min-width: 43.75em) {
+  h3 {
+    font-size: 1.5em; /* 1.5x body copy size = 24px */
+    line-height: 1.25;
+  }
+}
+
+@media (min-width: 56.25em) {
+  h3 {
+    font-size: 1.75em; /* 1.75x body copy size = 28px */
+    line-height: 1.25;
+  }
+}
+
+h4 {
+  font-size: 1.125em; /* 1.125x body copy size = 18px */
+  line-height: 1.11111111;
+}
+
+@media (min-width: 43.75em) {
+  h4 {
+    line-height: 1.22222222; /* 22px / 18px */
+  }
+}
+
+/* Alignment Hacks */
+
+.verticalCenter { /* To vertically align content in a container */
+  display: table-cell;
+  vertical-align: middle;
+}

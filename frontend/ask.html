@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Sound Mind</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,900" rel="stylesheet">
+  <link href="main.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+  <img src="images/logo.png" alt="Logo" id="logo">
+  <!-- Header ends here -->
+  <!-- User moment panel -->
+  <div id="search">
+    <h2>What are you doing right now?</h2>
+    <!-- User moment selection -->
+    <form class="searchForm" action="">
+      <!-- Location selection -->
+      <select name="location">
+        <option selected disabled>Click to choose location</option>
+        <option value="Library">Library</option>
+        <option value="Home">Home</option>
+        <option value="Train">Train</option>
+        <option value="Gym">Gym</option>
+        <option value="Cafe">Cafe</option>
+      </select>
+      <!-- Activity selection -->
+      <select name="activity">
+        <option selected disabled>Click to choose activity</option>
+        <option value="Studying">Studying</option>
+        <option value="Relaxing">Relaxing</option>
+        <option value="Traveling">Traveling</option>
+        <option value="Running">Running</option>
+        <option value="Reading">Reading</option>
+      </select>
+      <!-- Mood selection -->
+      <select name="mood">
+        <option selected disabled>Click to choose mood</option>
+        <option value="Happy">Happy</option>
+        <option value="Frustrated">Frustrated</option>
+        <option value="Angry">Angry</option>
+        <option value="Contemplative">Contemplative</option>
+        <option value="Chill">Chill</option>
+      </select>
+      <!-- User moment submission -->
+      <input type="submit" class="searchBtn" value="Ask" formaction="result.html">
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
