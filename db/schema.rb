@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606162057) do
+ActiveRecord::Schema.define(version: 20170606165855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "song_id"], name: "index_activities_on_name_and_song_id"
+  end
 
   create_table "dislikes", force: :cascade do |t|
     t.integer "song_id", null: false
@@ -29,6 +37,22 @@ ActiveRecord::Schema.define(version: 20170606162057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["song_id", "user_id"], name: "index_likes_on_song_id_and_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "song_id"], name: "index_locations_on_name_and_song_id"
+  end
+
+  create_table "moods", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "song_id"], name: "index_moods_on_name_and_song_id"
   end
 
   create_table "songs", force: :cascade do |t|
