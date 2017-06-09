@@ -3,8 +3,7 @@ class Api::UsersController < ApplicationController
   # of lack of differenciation between login and signup.
   # TODO: add a session controller and redo user controller
 
-  # TODO: null session here is a placeholder for actual auth.
-  # Since this is an alpha, don't need it yet, change later.
+  # TODO: Remove this for actual build, this is a hack for alpha
   skip_before_action :verify_authenticity_token
 
   def create

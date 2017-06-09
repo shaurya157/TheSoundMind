@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  # TODO: null session here is a placeholder for actual auth.
+  # Since this is an alpha, don't need it yet, change later.
+
+  # protect_from_forgery with: :exception
   protect_from_forgery with: :null_session
   helper_method :current_user
 
