@@ -1,8 +1,8 @@
 /* Basic settings */
 
 * {
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
 }
 
 body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2, h3, h4, h5, h6 {
@@ -34,7 +34,89 @@ table, th, td {
   height: auto;
 }
 
-/* Ask Page */
+/* index.html */
+
+body#index {
+  background: url("images/jukebox.jpg") no-repeat fixed 15% 100%;
+  background-size: cover;
+  color: black;
+}
+
+.intro {
+  position: relative;
+  margin: auto;
+  max-width: 600px;
+  border-radius: 45px;
+  background-color: rgba(153, 153, 153, 0.4);
+  text-align: center;
+  padding: 2em 0.8em 4em 0.8em;
+}
+
+@media (min-width: 145em) {
+  .intro {
+    width: 600px;
+    margin-right: 10%;
+    float: right;
+  }
+}
+
+input[type=text] {
+  margin-bottom: 1em;
+  width: 15%;
+  min-width: 200px;
+  padding: 0.5em;
+  border: none;
+  border-radius: 10px;
+  /* adopt h4 attributes */
+  font-size: 1.125em;
+  font-weight: 900;
+  line-height: 1.11111111;
+}
+
+@media (min-width: 43.75em) {
+  input[type=text] {
+    line-height: 1.22222222; /* 22px / 18px */
+  }
+}
+
+.loginBtn {
+  display: block;
+  clear: both;
+  margin: auto;
+  width: 150px;
+  height: auto;
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 20px;
+  /* adopt h3 attributes */
+  font-size: 1.375em;
+  font-weight: 900;
+  padding: 0.275em 0; /* 20% of font-size */
+}
+
+@media (min-width: 43.75em) {
+  .loginBtn {
+    /* adopt h3 attributes */
+    font-size: 1.5em;
+    padding: 0.3em 0; /* 20% of font-size */
+  }
+}
+
+@media (min-width: 56.25em) {
+  .loginBtn {
+    /* adopt h3 attributes */
+    font-size: 1.75em;
+    padding: 0.35em 0; /* 20% of font-size */
+  }
+}
+
+.loginBtn:hover { /* Search button inverts color */
+  background: #092796;
+  border: none;
+  color: white;
+}
+
+/* ask.html */
 
 #search {
   position: relative;
@@ -75,7 +157,6 @@ select {
   font-size: 1.375em;
   font-weight: 900;
   padding: 0.275em 0; /* 20% of font-size */
-
 }
 
 @media (min-width: 43.75em) {
@@ -95,12 +176,12 @@ select {
 }
 
 .searchBtn:hover { /* Search button inverts color */
-  background: #00239c;
+  background: #092796;
   border: none;
   color: white;
 }
 
-/* Result Page */
+/* result.html */
 
 #result {
   position: relative;
@@ -116,7 +197,7 @@ select {
   left: 0;
   width: 100%;
   height: 75px;
-  background-color: #00239c;
+  background-color: #092796;
 }
 
 #player {
@@ -224,7 +305,7 @@ a:link, a:visited { /* Links maintain at black */
 
 .material-icons.black:hover, a:hover { /* Links and buttons turn blue */
   text-decoration: none;
-  color: #00239c;
+  color: #092796;
 }
 
 .material-icons.white { /* White Google action button fonts */
@@ -302,6 +383,12 @@ h4 {
 }
 
 /* Alignment Hacks */
+
+.container { /* for alignment purposes */
+  position: relative;
+  padding: 2em;
+  width: auto;
+}
 
 .verticalCenter { /* To vertically align content in a container */
   display: table-cell;
