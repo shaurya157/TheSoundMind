@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   end
 
   def login!(user)
+    user.login_frequency += 1
+    user.save
     session[:session_token] = user.session_token
   end
 
