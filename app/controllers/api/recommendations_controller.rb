@@ -9,7 +9,7 @@ class Api::RecommendationsController < ApplicationController
     # Check if line below syntax is correct
     @recommendation = Recommendation.create(recommendation_params)
     increment_query
-    
+
     @sorted_songs = song_sorter(mood_songs, activity_songs, location_songs)
     render 'api/recommendations/show'
   end
