@@ -3,8 +3,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
     create_table :users do |t|
       t.string :email, null: false
       t.string :session_token, null: false
-      t.string :login_frequency, null: false
-      t.string :query_frequency, null: false
+      t.integer :login_frequency, null: false, default: 0
+      t.integer :query_frequency, null: false, default: 0
 
       t.timestamps
     end

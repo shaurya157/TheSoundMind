@@ -13,6 +13,7 @@ class Api::UsersController < ApplicationController
       login!(@user)
       render 'api/users/show'
     else
+      # TODO: Change to proper http status
       render json: ['Invalid email format'], status: 401
     end
   end
@@ -26,6 +27,7 @@ class Api::UsersController < ApplicationController
       logout!
       render json: {}
     else
+      # TODO: Change to proper http status
       render json: ['No current user'], status: 404
     end
   end

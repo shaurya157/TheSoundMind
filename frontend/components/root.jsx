@@ -8,7 +8,6 @@ const Root = ({ store }) => {
       replace("/");
     }
   }
-debugger
 // <Provider store={ store }>
 //   <Router history = { hashHistory }>
 //     <h1>Temp h1</h1>
