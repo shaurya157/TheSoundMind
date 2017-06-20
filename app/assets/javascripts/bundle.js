@@ -13249,7 +13249,7 @@ var SessionReducer = function SessionReducer() {
 
   Object.freeze(oldState);
   var newState = (0, _merge2.default)({}, oldState);
-
+  debugger;
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
       newState.currentUser = action.currentUser;
@@ -31054,13 +31054,11 @@ var SessionMiddleware = function SessionMiddleware(_ref) {
   var dispatch = _ref.dispatch;
   return function (next) {
     return function (action) {
-      // let success = (data) => dispatch(receiveCurrentUser(data));
-      // let error = (data) => dispatch(receiveErrors(data));
       var success = function success(data) {
-        return console.log(data);
+        return dispatch((0, _session_actions.receiveCurrentUser)(data));
       };
       var error = function error(data) {
-        return console.log(data);
+        return dispatch((0, _session_actions.receiveErrors)(data));
       };
 
       switch (action.type) {
