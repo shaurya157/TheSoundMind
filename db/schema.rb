@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 20170606173421) do
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "session_token", null: false
-    t.string "login_frequency", null: false
-    t.string "query_frequency", null: false
+    t.integer "login_frequency", default: 0, null: false
+    t.integer "query_frequency", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
