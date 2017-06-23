@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Route, HashRouter } from 'react-router-dom';
+import SplashContainer from './splash/splash_container'
 
 const Root = ({ store }) => {
   const _requireLogin = (nextState, replace) => {
@@ -8,17 +9,14 @@ const Root = ({ store }) => {
       replace("/");
     }
   }
-// <Provider store={ store }>
-//   <Router history = { hashHistory }>
-//     <h1>Temp h1</h1>
-//   </Router>
-// </Provider>
   return (
-    <HashRouter>
-      <div>
-        <Route exact path="/" render={()=><div>Hello!</div>} />
-      </div>
-    </HashRouter>
+    <Provider store={ store }>
+      <HashRouter>
+        <div>
+          <Route exact path="/" component={ SplashContainer } />
+        </div>
+      </HashRouter>
+    </Provider>
   )
 }
 
