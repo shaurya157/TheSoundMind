@@ -1,9 +1,12 @@
 export const ask = (mood, location, activity, userId, success, error) => {
   $.ajax({
-    method: 'SHOW',
+    method: 'GET',
     url: 'api/recommendations',
-    data: { mood: mood, location: location,
-            activity: activity, user_id: userId},
+    data: { recommendation: {
+                              mood: mood,
+                              location: location,
+                              activity: activity,
+                              user_id: userId}},
     success,
     error
   })

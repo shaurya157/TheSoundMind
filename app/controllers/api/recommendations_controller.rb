@@ -2,12 +2,12 @@ class Api::RecommendationsController < ApplicationController
   # Need to add likes and dislikes as a metric for recommendation
 
   def index
-    mood_songs = Mood.find_by_name(recommendation_params[:mood])
-    activity_songs = Activity.find_by_name(recommendation_params[:activity])
-    location_songs = Location.find_by_name(recommendation_params[:location])
+    mood_songs = Mood.includes(:song).where(name: recommendation_params[:mood])
+    activity_songs = Activity.includes(:song).where(name: recommendation_params[:activity])
+    location_songs = Location.includes(:song).where(name: recommendation_params[:location])
 
-    # Check if line below syntax is correct
     @recommendation = Recommendation.create(recommendation_params)
+    @user = User.find_by_id(recommendation_params[:user_id])
     increment_query
 
     @sorted_songs = song_sorter(mood_songs, activity_songs, location_songs)
@@ -24,9 +24,8 @@ class Api::RecommendationsController < ApplicationController
   end
 
   def increment_query
-    user = User.find_by_id(recommendation_params[:user_id])
-    user.query_frequency += 1
-    user.save
+    @user.query_frequency += 1
+    @user.save
   end
 
   # Algorithm to select the importance of song display in recommendation
@@ -38,10 +37,11 @@ class Api::RecommendationsController < ApplicationController
     sorted_songs = {}
 
     (arr1 + arr2 + arr3).each do |classifier|
-      if sorted_songs[classifier]
-        sorted_songs[classifier] += 1
+      song = classifier.song
+      if sorted_songs[song]
+        sorted_songs[song] += 1
       else
-        sorted_songs[classifier] = 1
+        sorted_songs[song] = 1
       end
     end
 
@@ -51,18 +51,16 @@ class Api::RecommendationsController < ApplicationController
       third_recommendation: []
     }
 
-    # TODO: this looks particularly slow; its hitting the database repeatedly
-    # TODO: fix so that key.song is retrieved automatically
-    sorted_songs.each do |key, value|
-      Recommended_song.create(song_id: key.song.id,
-                              recommendation_id: @recommendation.id)
+    sorted_songs.each do |song, value|
+      RecommendedSong.create(song_id: song.id,
+                             recommendation_id: @recommendation.id)
       case value
       when 3
-        result[:first_recommendation] << key.song
+        result[:first_recommendation] << song
       when 2
-        result[:second_recommendation] << key.song
+        result[:second_recommendation] << song
       when 1
-        result[:third_recommendation] << key.song
+        result[:third_recommendation] << song
       end
     end
 

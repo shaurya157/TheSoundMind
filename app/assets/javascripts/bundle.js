@@ -13652,7 +13652,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // debugging purposes
   window.store = store;
-  // window.login = login
   window.success = function (data) {
     return console.log(data);
   };
