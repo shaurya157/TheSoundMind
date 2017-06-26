@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store'
 import Root from './components/root'
-import {login} from './actions/session_actions'
+import {ask} from './actions/ask_actions'
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootEl = document.getElementById('root');
@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.store = store;
   window.success = (data) => console.log(data);
   window.error = data => console.log(data);
-
+  window.ask = ask;
   ReactDOM.render(<Root store={store} />, rootEl);
 });
