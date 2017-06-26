@@ -8,7 +8,7 @@ class Api::UsersController < ApplicationController
 
   def create
     if user_params[:email] =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-      @user = User.find_by_email(user_params[:email])
+      @user = User.includes(:liked_songs, :disliked_songs).find_by_email(user_params[:email])
       @user = User.new(user_params) unless @user
       login!(@user)
       render 'api/users/show'
