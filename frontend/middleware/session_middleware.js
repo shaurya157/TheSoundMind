@@ -2,7 +2,6 @@ import {receiveErrors,
         receiveCurrentUser,
         LOGIN} from '../actions/session_actions';
 import {signupOrLogin} from '../util/session_api_util';
-import {HashRouter} from 'react-router-dom';
 
 const SessionMiddleware = ({dispatch}) => next => action => {
   let success = (data) => dispatch(receiveCurrentUser(data));

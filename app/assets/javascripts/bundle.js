@@ -13493,9 +13493,13 @@ var _session_middleware = __webpack_require__(148);
 
 var _session_middleware2 = _interopRequireDefault(_session_middleware);
 
+var _ask_middleware = __webpack_require__(368);
+
+var _ask_middleware2 = _interopRequireDefault(_ask_middleware);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default);
+var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _ask_middleware2.default);
 
 exports.default = RootMiddleware;
 
@@ -13513,8 +13517,6 @@ Object.defineProperty(exports, "__esModule", {
 var _session_actions = __webpack_require__(33);
 
 var _session_api_util = __webpack_require__(152);
-
-var _reactRouterDom = __webpack_require__(130);
 
 var SessionMiddleware = function SessionMiddleware(_ref) {
   var dispatch = _ref.dispatch;
@@ -13557,10 +13559,15 @@ var _session_reducer = __webpack_require__(150);
 
 var _session_reducer2 = _interopRequireDefault(_session_reducer);
 
+var _ask_reducer = __webpack_require__(371);
+
+var _ask_reducer2 = _interopRequireDefault(_ask_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
-    session: _session_reducer2.default
+    session: _session_reducer2.default,
+    recommendations: _ask_reducer2.default
 });
 
 exports.default = RootReducer;
@@ -13637,7 +13644,7 @@ var _root = __webpack_require__(140);
 
 var _root2 = _interopRequireDefault(_root);
 
-var _session_actions = __webpack_require__(33);
+var _ask_actions = __webpack_require__(370);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13658,7 +13665,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.error = function (data) {
     return console.log(data);
   };
-
+  window.ask = _ask_actions.ask;
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), rootEl);
 });
 
@@ -31338,6 +31345,146 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 368 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ask_actions = __webpack_require__(370);
+
+var _ask_util = __webpack_require__(369);
+
+var AskMiddleware = function AskMiddleware(_ref) {
+  var dispatch = _ref.dispatch;
+  return function (next) {
+    return function (action) {
+      var success = function success(data) {
+        return dispatch((0, _ask_actions.receiveRecommendations)(data));
+      };
+      // TODO: write proper error handling
+      var error = function error(data) {
+        return console.log(data);
+      };
+
+      switch (action.type) {
+        case _ask_actions.ASK:
+          (0, _ask_util.ask)(action.mood, action.location, action.activity, action.user_id, success, error);
+          return next(action);
+        default:
+          return next(action);
+      }
+    };
+  };
+};
+
+exports.default = AskMiddleware;
+
+/***/ }),
+/* 369 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ask = exports.ask = function ask(mood, location, activity, userId, success, error) {
+  $.ajax({
+    method: 'GET',
+    url: 'api/recommendations',
+    data: { recommendation: {
+        mood: mood,
+        location: location,
+        activity: activity,
+        user_id: userId } },
+    success: success,
+    error: error
+  });
+};
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ASK = exports.ASK = "ASK";
+var RECEIVE_RECOMMENDATIONS = exports.RECEIVE_RECOMMENDATIONS = "RECEIVE_RECOMMENDATIONS";
+
+var ask = exports.ask = function ask(mood, location, activity, user_id) {
+  return {
+    type: ASK,
+    mood: mood,
+    location: location,
+    activity: activity,
+    user_id: user_id
+  };
+};
+
+var receiveRecommendations = exports.receiveRecommendations = function receiveRecommendations(recommendations) {
+  return {
+    type: RECEIVE_RECOMMENDATIONS,
+    recommendations: recommendations
+  };
+};
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ask_actions = __webpack_require__(370);
+
+var _merge = __webpack_require__(244);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _defaultState = {
+  firstRecommendation: [],
+  secondRecommendation: [],
+  thirdRecommendation: []
+};
+
+var AskReducer = function AskReducer() {
+  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
+  var action = arguments[1];
+
+  Object.freeze(oldState);
+  var newState = (0, _merge2.default)({}, oldState);
+
+  switch (action.type) {
+    case _ask_actions.RECEIVE_RECOMMENDATIONS:
+      newState.firstRecommendation = action.recommendations.firstRecommendation;
+      newState.secondRecommendation = action.recommendations.secondRecommendation;
+      newState.thirdRecommendation = action.recommendations.thirdRecommendation;
+
+      return newState;
+    default:
+      return oldState;
+  }
+};
+
+exports.default = AskReducer;
 
 /***/ })
 /******/ ]);
