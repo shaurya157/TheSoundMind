@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 class Splash extends React.Component{
   constructor(props){
@@ -16,6 +17,12 @@ class Splash extends React.Component{
 
   handleChange(event){
     this.setState({ email: event.target.value })
+  }
+
+  componentWillReceiveProps(newProps){
+    if(Object.keys(newProps.currentUser).length !== 0){
+      this.props.history.push('ask')
+    }
   }
 
   render(){
