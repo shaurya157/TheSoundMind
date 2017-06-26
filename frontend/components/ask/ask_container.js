@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import Ask from './ask'
 
 const mapStateToProps = ({session}) => ({
-  currentUser: session.currentUsers
+  currentUser: session.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

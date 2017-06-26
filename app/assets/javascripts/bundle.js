@@ -13189,11 +13189,10 @@ var Root = function Root(_ref) {
 
   // TODO: this doesnt work, need to fix routing
   var _requireLogin = function _requireLogin(nextState, replace) {
-    debugger;
     if (!store.getState().session.currentUser) {
       replace("/");
     } else {
-      replace("ask");
+      replace("/ask");
     }
   };
 
@@ -13207,7 +13206,7 @@ var Root = function Root(_ref) {
         'div',
         null,
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _splash_container2.default, onEnter: _requireLogin }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: 'ask', component: _ask_container2.default, onEnter: _requireLogin })
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/ask', component: _ask_container2.default, onEnter: _requireLogin })
       )
     )
   );
@@ -13328,7 +13327,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(_ref) {
   var session = _ref.session;
   return {
-    currentUser: session.currentUsers
+    currentUser: session.currentUser
   };
 };
 

@@ -7,11 +7,10 @@ import AskContainer from './ask/ask_container';
 const Root = ({ store }) => {
   // TODO: this doesnt work, need to fix routing
   const _requireLogin = (nextState, replace) => {
-    debugger
     if(!store.getState().session.currentUser) {
       replace("/");
     } else {
-      replace("ask");
+      replace("/ask");
     }
   }
 
@@ -20,7 +19,7 @@ const Root = ({ store }) => {
       <HashRouter>
         <div>
           <Route exact path="/" component={ SplashContainer } onEnter={ _requireLogin }/>
-          <Route exact path="ask" component={ AskContainer } onEnter={ _requireLogin }/>
+          <Route exact path="/ask" component={ AskContainer } onEnter={ _requireLogin }/>
         </div>
       </HashRouter>
     </Provider>
