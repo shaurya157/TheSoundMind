@@ -10,6 +10,7 @@ class Song < ApplicationRecord
   has_many :likes, inverse_of: :song
   has_many :dislikes, inverse_of: :song
 
+# TODO: Change this to be set default 0 in migration
   def first_impression
     self.impressions_in_recommendations = 0
   end
