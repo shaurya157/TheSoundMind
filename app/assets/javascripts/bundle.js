@@ -13652,9 +13652,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // debugging purposes
   window.store = store;
-  window.login = _session_actions.login;
-  // window.success = (data) => console.log(data);
-  // window.error = data => console.log(data);
+  // window.login = login
+  window.success = function (data) {
+    return console.log(data);
+  };
+  window.error = function (data) {
+    return console.log(data);
+  };
 
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), rootEl);
 });

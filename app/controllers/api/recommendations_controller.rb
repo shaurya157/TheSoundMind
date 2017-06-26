@@ -1,7 +1,7 @@
 class Api::RecommendationsController < ApplicationController
   # Need to add likes and dislikes as a metric for recommendation
 
-  def show
+  def index
     mood_songs = Mood.find_by_name(recommendation_params[:mood])
     activity_songs = Activity.find_by_name(recommendation_params[:activity])
     location_songs = Location.find_by_name(recommendation_params[:location])
@@ -11,7 +11,7 @@ class Api::RecommendationsController < ApplicationController
     increment_query
 
     @sorted_songs = song_sorter(mood_songs, activity_songs, location_songs)
-    render 'api/recommendations/show'
+    render 'api/recommendations/index'
   end
 
   private

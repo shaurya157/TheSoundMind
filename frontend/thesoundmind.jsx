@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // debugging purposes
   window.store = store;
-  window.login = login
-  // window.success = (data) => console.log(data);
-  // window.error = data => console.log(data);
+  // window.login = login
+  window.success = (data) => console.log(data);
+  window.error = data => console.log(data);
 
   ReactDOM.render(<Root store={store} />, rootEl);
 });
