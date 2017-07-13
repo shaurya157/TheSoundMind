@@ -7,7 +7,6 @@
 
 html, body {
   height: 100%;
-  overflow: scroll;
 }
 
 body {
@@ -15,7 +14,7 @@ body {
   padding: 0;
   font-size: 100%;
   font-weight: 300;
-  line-height: 1em;
+  line-height: 1.2em;
   letter-spacing: -0.03em;
 }
 
@@ -38,10 +37,23 @@ table, th, td {
   text-align: center;
 }
 
+.content-container-center-dynamic {
+  display: block;
+  position: relative;
+  text-align: center;
+}
+
+@media (min-height: 32em) {
+  .content-container-center-dynamic {
+    display: table-row;
+    position: relative;
+    text-align: center;
+  }
+}
+
 .content-container-left {
   display: block;
   position: relative;
-  overflow: scroll;
 }
 
 .footer-container {
@@ -125,27 +137,55 @@ table, th, td {
 
 .vp-main {
   display: block;
-  font-size: 3em;
+  font-size: 2em;
   font-weight: 800;
-  line-height: 1em;
+  line-height: 1.2em;
+}
+
+@media (min-width: 37.5em) {
+  .vp-main {
+    display: block;
+    font-size: 3em;
+    font-weight: 800;
+    line-height: 1.2em;
+  }
 }
 
 .vp-sub {
   display: block;
   padding-top: 0.5em;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: 600;
-  line-height: 1em;
+  line-height: 1.2em;
+}
+
+@media (min-width: 37.5em) {
+  .vp-sub {
+    display: block;
+    padding-top: 0.5em;
+    font-size: 1.5em;
+    font-weight: 600;
+    line-height: 1.2em;
+  }
 }
 
 .signup-container {
   margin-top: 15%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (min-width: 37.5em) {
+  .cta {
+    font-size: 1.25em;
+    line-height: 1.2em;
+  }
 }
 
 .email-input {
   display: inline-block;
   margin: 0;
-  font-size: 1em;
+  font-size: 0.75em;
   width: 250px;
   max-width: 60%;
   background: white;
@@ -158,9 +198,9 @@ table, th, td {
   display: inline-block;
   position: relative;
   margin: 0;
-  font-size: 1em;
+  font-size: 0.75em;
   width: 150px;
-  max-width: 35%;
+  max-width: 30%;
   background: #0630CB;
   border: none;
   color: white;
@@ -170,6 +210,12 @@ table, th, td {
   padding: 0.75em;
   font-weight: 700;
   letter-spacing: 0.05em;
+}
+
+@media (min-width: 37.5em) {
+  .login-btn, .email-input {
+    font-size: 1em;
+  }
 }
 
 .login-btn:hover {
@@ -187,18 +233,36 @@ table, th, td {
 .search-option {
   display: block;
   margin: auto;
-  font-size: 1em;
+  font-size: 0.75em;
   width: 50%;
-  margin-bottom: 3em;
   background: #fff;
   border: 2px solid black;
   font-weight: 300;
 }
 
+@media (min-height: 32em) {
+  .search-option {
+    margin-bottom: 2.5em;
+  }
+}
+
+@media (min-height: 37.5em) {
+  .search-option {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 37.5em) {
+  .search-option {
+    font-size: 1em;
+    margin-bottom: 3em;
+  }
+}
+
 .search-btn {
   display: block;
-  margin: auto;
-  font-size: 1em;
+  margin: 1.75em auto auto auto;
+  font-size: 0.75em;
   width: 125px;
   background: #0630CB;
   border: none;
@@ -211,15 +275,29 @@ table, th, td {
   letter-spacing: 0.05em;
 }
 
+@media (min-height: 32em) {
+  .search-btn {
+    font-size: 1em;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 37.5em) {
+  .search-btn {
+    font-size: 1em;
+    margin-top: 0;
+  }
+}
+
 .search-btn:hover {
   background: #14F;
   border: none;
 }
 
-/* ask.html */
+/* result.html */
 
 #result {
-    background-image: linear-gradient(180deg, #fff 60%, #F0F1F2 100%);
+  background-image: linear-gradient(180deg, #fff 60%, #F0F1F2 100%);
 }
 
 .result-title {
@@ -237,16 +315,30 @@ table, th, td {
 .result-song {
   text-align: left;
   width: 100% - 131px;
-  font-size: 1.25em;
+  font-size: 1.125em;
   font-weight: 800;
-  line-height: 1.5em;
+  line-height: 1.2em;
   padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (min-width: 37.5em) {
+  .result-song {
+    text-align: left;
+    width: 100% - 140px;
+    font-size: 1.25em;
+    font-weight: 800;
+    line-height: 1.2em;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .result-option {
   text-align: right;
-  width: 131px;
-  line-height: 1.5em;
+  width: 140px;
+  line-height: 1.2em;
+  padding-left: 10px;
   padding-right: 10px;
 }
 
@@ -268,7 +360,7 @@ table, th, td {
   text-align: left;
   font-size: 0.75em;
   font-weight: 800;
-  line-height: 1.5em;
+  line-height: 1.2em;
   padding-left: 10px;
 }
 
@@ -278,7 +370,7 @@ table, th, td {
   text-align: right;
   font-size: 0.75em;
   font-weight: 800;
-  line-height: 1.5em;
+  line-height: 1.2em;
   padding-right: 10px;
 }
 
@@ -329,8 +421,8 @@ table, th, td {
 }
 
 #thumbdown-btn, #thumbup-btn, #more-btn, #satisfied-btn, #dissatisfied-btn {
- color: black;
- opacity: 0.54;
+  color: black;
+  opacity: 0.54;
 }
 
 #thumbdown-btn:hover, #thumbup-btn:hover, #more-btn:hover, #satisfied-btn:hover, #dissatisfied-btn:hover {
@@ -338,12 +430,12 @@ table, th, td {
 }
 
 #thumbdown-btn-1 {
-  color: red;
+  color: #C70101;
   opacity: 1;
 }
 
 #thumbup-btn-1 {
-  color: green;
+  color: #229722;
   opacity: 1;
 }
 
@@ -353,7 +445,7 @@ table, th, td {
 }
 
 #satisfied-btn-1 {
-  color: gold;
+  color: #E8C507;
   opacity: 1;
 }
 
@@ -365,15 +457,31 @@ table, th, td {
 /* Typography */
 
 h1 {
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: 800;
-  line-height: 1.8em;
+  line-height: 1.2em;
+}
+
+@media (min-width: 37.5em) {
+  h1 {
+    font-size: 1.5em;
+    font-weight: 800;
+    line-height: 1.2em;
+  }
 }
 
 h2 {
-  font-size: 1.25em;
+  font-size: 1.125em;
   font-weight: 800;
-  line-height: 1.5em;
+  line-height: 1.2em;
+}
+
+@media (min-width: 37.5em) {
+  h2 {
+    font-size: 1.25em;
+    font-weight: 800;
+    line-height: 1.2em;
+  }
 }
 
 h3 {
@@ -385,7 +493,19 @@ h3 {
 h4 {
   font-size: 0.75em;
   font-weight: 800;
-  line-height: 0.9em;
+  line-height: 1.2em;
+}
+
+a:link, a:visited { /* Links maintain at black */
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #0630CB;
+  cursor: pointer;
 }
 
 .material-icons.md-24 {
@@ -533,12 +653,12 @@ input[type=range]::-ms-track {
 }
 
 input[type=range]::-ms-fill-lower {
-	background-color: #0630CB;
+  background-color: #0630CB;
   height: 7px;
 }
 
 input[type=range]::-moz-range-progress {
-	background-color: #0630CB;
+  background-color: #0630CB;
   height: 7px;
 }
 
