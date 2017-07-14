@@ -54,6 +54,8 @@ table, th, td {
 .content-container-left {
   display: block;
   position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .footer-container {
@@ -318,7 +320,6 @@ table, th, td {
   font-size: 1.125em;
   font-weight: 800;
   line-height: 1.2em;
-  padding-left: 10px;
   padding-right: 10px;
 }
 
@@ -329,7 +330,6 @@ table, th, td {
     font-size: 1.25em;
     font-weight: 800;
     line-height: 1.2em;
-    padding-left: 10px;
     padding-right: 10px;
   }
 }
@@ -339,19 +339,44 @@ table, th, td {
   width: 140px;
   line-height: 1.2em;
   padding-left: 10px;
-  padding-right: 10px;
 }
 
 .result-review {
+  display: none;
+}
 
+.result-artist {
+  display: block;
+  font-size: 0.875em;
+  font-weight: 300;
+  line-height: 1.2em;
+}
+
+@media (min-width: 37.5em) {
+  .result-artist {
+    display: block;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1.2em;
+  }
 }
 
 .result-expand {
   text-align: center;
-  font-size: 1em;
+  font-size: 0.875em;
   font-weight: 800;
   line-height: 1.2em;
   cursor: pointer;
+}
+
+@media (min-width: 37.5em) {
+  .result-expand {
+    text-align: center;
+    font-size: 1em;
+    font-weight: 800;
+    line-height: 1.2em;
+    cursor: pointer;
+  }
 }
 
 .result-reset {
@@ -361,7 +386,6 @@ table, th, td {
   font-size: 0.75em;
   font-weight: 800;
   line-height: 1.2em;
-  padding-left: 10px;
 }
 
 .result-feedback {
@@ -371,7 +395,6 @@ table, th, td {
   font-size: 0.75em;
   font-weight: 800;
   line-height: 1.2em;
-  padding-right: 10px;
 }
 
 .footer-container.player {
@@ -386,6 +409,8 @@ table, th, td {
   margin: auto;
   width: 100%;
   max-width: 600px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .player-song {
@@ -393,7 +418,6 @@ table, th, td {
   vertical-align: middle;
   width: 100% - 112px;
   text-align: left;
-  padding-left: 20px;
 }
 
 .player-option {
@@ -401,7 +425,6 @@ table, th, td {
   vertical-align: middle;
   width: 112px;
   text-align: right;
-  padding-right: 20px;
 }
 
 .player-song-name {
@@ -440,7 +463,7 @@ table, th, td {
 }
 
 #more-btn-1 {
-  color: black;
+  color: #0630CB;
   opacity: 1;
 }
 
@@ -485,9 +508,17 @@ h2 {
 }
 
 h3 {
-  font-size: 1em;
+  font-size: 0.875em;
   font-weight: 800;
   line-height: 1.2em;
+}
+
+@media (min-width: 37.5em) {
+  h3 {
+    font-size: 1em;
+    font-weight: 800;
+    line-height: 1.2em;
+  }
 }
 
 h4 {
