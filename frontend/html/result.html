@@ -4,67 +4,56 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Sound Mind</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600,700,800" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="main.css" type="text/css" rel="stylesheet">
 </head>
-<body>
-  <img src="images/logo.png" alt="Logo" id="logo">
-  <!-- Header ends here -->
-  <!-- Recommendation panel -->
-  <div id="result">
-    <h2>Here are the songs other users have recommended for you:</h2>
-    <!-- Song recommendations -->
-    <table class="list">
-      <!-- Song name + artist expanded -->
-      <tr>
-        <td class="song">Oh My My</td>
-        <!-- Action buttons -->
-        <td class="action">
-          <i class="material-icons black">play_circle_filled</i>
-          <i class="material-icons black">thumb_up</i>
-          <i class="material-icons black">thumb_down</i>
-          <i class="material-icons black">info</i>
-        </td>
-      </tr>
-    </table>
-    <!-- Footer recommendation panel -->
-    <table class="footer">
-      <tr>
-        <!-- Generate 5 more recommendations -->
-        <td class="loadMore" colspan="2">Load 5 more</td>
-      </tr>
-      <tr>
-        <!-- Go back to search -->
-        <td class="footerLeft">
-          <a href="ask.html">Ask again</a>
-        </td>
-        <!-- Recommendation feedback -->
-        <td class="footerRight">
-          Was this recommendation useful?<br>
-          <i class="material-icons black">sentiment_very_satisfied</i>
-          <i class="material-icons black">sentiment_very_dissatisfied</i>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <!-- Music Player -->
-  <div class="bar">
-    <div id="player">
-      <!-- Song playing -->
-      <div class="songPlaying">
-        <div class="verticalCenter">
-          Oh My My
-        </div>
+<body id="result">
+  <div class="main-container">
+    <img src="../images/logo-header.jpg" alt="The Sound Mind" class="logo-header">
+    <h1 class="result-title">Other users recommend these songs for you:</h1>
+    <div class="content-container-left">
+      <table class="result-list">
+        <tr>
+          <td class="result-song">This Ain't A Scene, It's A Goddamn Arms Race</td>
+          <td class="result-option">
+            <span class="play-pause" onclick="play()">
+              <i class="material-icons init md-36">play_circle_outline</i>
+              <i class="material-icons hover md-36">play_circle_filled</i>
+            </span>
+            <i class="material-icons md-24" id="thumbup-btn" onclick="thumbUpInit()">thumb_up</i>
+            <i class="material-icons md-24" id="thumbdown-btn" onclick="thumbDownInit()">thumb_down</i>
+            <i class="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
+          </td>
+        </tr>
+        <tr class="result-review"></tr>
+      </table>
+      <h2 class="result-expand">Load 5 More</h2>
+      <a href="ask.html" class="result-reset">Ask again</a>
+      <div class="result-feedback">
+        Was this recommendation useful?<br>
+        <i class="material-icons md-24" id="satisfied-btn" onclick="satisfiedInit()">sentiment_very_satisfied</i>
+        <i class="material-icons md-24" id="dissatisfied-btn" onclick="dissatisfiedInit()">sentiment_very_dissatisfied</i>
       </div>
-      <!-- Play button + drag -->
-      <div class="action">
-        <div class="verticalCenter">
-          <i class="material-icons white">play_circle_filled</i>
+    </div>
+    <div class="footer-container player">
+      <input type="range" class="player-time">
+      <div class="player-container">
+        <div class="player-song">
+          <h3 class="player-song-name">Oh My My</h3>
+          <h4 class="player-song-artist">Fall Out Boy</h4>
+        </div>
+        <div class="player-option">
+          <i class="material-icons md-24-light">skip_previous</i>
+          <span class="play-pause" onclick="play()">
+            <i class="material-icons init md-36-light">play_circle_outline</i>
+            <i class="material-icons hover md-36-light">play_circle_filled</i>
+          </span>
+          <i class="material-icons md-24-light">skip_next</i>
         </div>
       </div>
     </div>
   </div>
-  <script src="main.js"></script>
 </body>
+<script src="result.js" type="text/javascript"></script>
 </html>
