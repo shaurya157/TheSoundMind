@@ -42,37 +42,44 @@ class Ask extends React.Component{
   render(){
     return (
       <div id="search">
-        <h2>What are you doing right now?</h2>
-
         <form className="searchForm" onSubmit = { this.handleSubmit }>
+          <h1>Where are you right now?</h1>
           <select name="location" onChange = { this.handleChange }>
             <option selected disabled>Click to choose location</option>
-            <option value="Library">Library</option>
-            <option value="Home">Home</option>
-            <option value="Train">Train</option>
-            <option value="Gym">Gym</option>
-            <option value="Cafe">Cafe</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Gym">Gym</option>
+              <option value="Home">Home</option>
+              <option value="School">School</option>
+              <option value="Street">Street</option>
+              <option value="Transport">Transport</option>
+              <option value="Workplace">Workplace</option>
           </select>
 
+          <h1>What activity are you doing?</h1>
           <select name="activity" onChange = { this.handleChange }>
             <option selected disabled>Click to choose activity</option>
-            <option value="Studying">Studying</option>
-            <option value="Relaxing">Relaxing</option>
-            <option value="Traveling">Traveling</option>
-            <option value="Running">Running</option>
-            <option value="Reading">Reading</option>
+              <option value="Browse & Chill">Browse & Chill</option>
+              <option value="Chores">Chores</option>
+              <option value="Creative & Fun">Creative & Fun</option>
+              <option value="Exercise">Exercise</option>
+              <option value="Productivity">Productivity</option>
+              <option value="Shower">Shower</option>
+              <option value="Travel & Drive">Travel & Drive</option>
           </select>
 
+          <h1>How are you feeling?</h1>
           <select name="mood" onChange = { this.handleChange }>
             <option selected disabled>Click to choose mood</option>
+            <option value="Deep In Thought">Deep In Thought</option>
+            <option value="Energetic">Energetic</option>
+            <option value="Focused">Focused</option>
             <option value="Happy">Happy</option>
-            <option value="Frustrated">Frustrated</option>
-            <option value="Angry">Angry</option>
-            <option value="Contemplative">Contemplative</option>
-            <option value="Chill">Chill</option>
+            <option value="Relaxed">Relaxed</option>
+            <option value="Sad">Sad</option>
+            <option value="Stressed">Stressed</option>
           </select>
 
-          <input type="submit" className="searchBtn" value="Ask" />
+          <input type="submit" className="search-btn" value="Ask" />
         </form>
       </div>
     )

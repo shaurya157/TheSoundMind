@@ -13352,13 +13352,13 @@ var Ask = function (_React$Component) {
         "div",
         { id: "search" },
         _react2.default.createElement(
-          "h2",
-          null,
-          "What are you doing right now?"
-        ),
-        _react2.default.createElement(
           "form",
           { className: "searchForm", onSubmit: this.handleSubmit },
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Where are you right now?"
+          ),
           _react2.default.createElement(
             "select",
             { name: "location", onChange: this.handleChange },
@@ -13369,18 +13369,8 @@ var Ask = function (_React$Component) {
             ),
             _react2.default.createElement(
               "option",
-              { value: "Library" },
-              "Library"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Home" },
-              "Home"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Train" },
-              "Train"
+              { value: "Cafe" },
+              "Cafe"
             ),
             _react2.default.createElement(
               "option",
@@ -13389,9 +13379,34 @@ var Ask = function (_React$Component) {
             ),
             _react2.default.createElement(
               "option",
-              { value: "Cafe" },
-              "Cafe"
+              { value: "Home" },
+              "Home"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "School" },
+              "School"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Street" },
+              "Street"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Transport" },
+              "Transport"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Workplace" },
+              "Workplace"
             )
+          ),
+          _react2.default.createElement(
+            "h1",
+            null,
+            "What activity are you doing?"
           ),
           _react2.default.createElement(
             "select",
@@ -13403,29 +13418,44 @@ var Ask = function (_React$Component) {
             ),
             _react2.default.createElement(
               "option",
-              { value: "Studying" },
-              "Studying"
+              { value: "Browse & Chill" },
+              "Browse & Chill"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Relaxing" },
-              "Relaxing"
+              { value: "Chores" },
+              "Chores"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Traveling" },
-              "Traveling"
+              { value: "Creative & Fun" },
+              "Creative & Fun"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Running" },
-              "Running"
+              { value: "Exercise" },
+              "Exercise"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Reading" },
-              "Reading"
+              { value: "Productivity" },
+              "Productivity"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Shower" },
+              "Shower"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Travel & Drive" },
+              "Travel & Drive"
             )
+          ),
+          _react2.default.createElement(
+            "h1",
+            null,
+            "How are you feeling?"
           ),
           _react2.default.createElement(
             "select",
@@ -13437,31 +13467,41 @@ var Ask = function (_React$Component) {
             ),
             _react2.default.createElement(
               "option",
+              { value: "Deep In Thought" },
+              "Deep In Thought"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Energetic" },
+              "Energetic"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "Focused" },
+              "Focused"
+            ),
+            _react2.default.createElement(
+              "option",
               { value: "Happy" },
               "Happy"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Frustrated" },
-              "Frustrated"
+              { value: "Relaxed" },
+              "Relaxed"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Angry" },
-              "Angry"
+              { value: "Sad" },
+              "Sad"
             ),
             _react2.default.createElement(
               "option",
-              { value: "Contemplative" },
-              "Contemplative"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Chill" },
-              "Chill"
+              { value: "Stressed" },
+              "Stressed"
             )
           ),
-          _react2.default.createElement("input", { type: "submit", className: "searchBtn", value: "Ask" })
+          _react2.default.createElement("input", { type: "submit", className: "search-btn", value: "Ask" })
         )
       );
     }
@@ -13543,7 +13583,6 @@ var Result = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
 
-    _this.recommendations = _this.props.recommendations;
     _this.firstRecommendation = _this.firstRecommendation.bind(_this);
     _this.secondRecommendation = _this.secondRecommendation.bind(_this);
     _this.thirdRecommendation = _this.thirdRecommendation.bind(_this);
@@ -13552,67 +13591,38 @@ var Result = function (_React$Component) {
 
   _createClass(Result, [{
     key: 'firstRecommendation',
-    value: function (_firstRecommendation) {
-      function firstRecommendation() {
-        return _firstRecommendation.apply(this, arguments);
-      }
-
-      firstRecommendation.toString = function () {
-        return _firstRecommendation.toString();
-      };
-
-      return firstRecommendation;
-    }(function () {
-      return this.recommendations[firstRecommendation].map(function (song, idx) {
+    value: function firstRecommendation() {
+      debugger;
+      return this.props.firstRecommendation.map(function (song, idx) {
         _react2.default.createElement(
           'li',
           { key: idx },
           song.name
         );
       });
-    })
+    }
   }, {
     key: 'secondRecommendation',
-    value: function (_secondRecommendation) {
-      function secondRecommendation() {
-        return _secondRecommendation.apply(this, arguments);
-      }
-
-      secondRecommendation.toString = function () {
-        return _secondRecommendation.toString();
-      };
-
-      return secondRecommendation;
-    }(function () {
-      return this.recommendations[secondRecommendation].map(function (song, idx) {
+    value: function secondRecommendation() {
+      return this.props.secondRecommendation.map(function (song, idx) {
         _react2.default.createElement(
           'li',
           { key: idx },
           song.name
         );
       });
-    })
+    }
   }, {
     key: 'thirdRecommendation',
-    value: function (_thirdRecommendation) {
-      function thirdRecommendation() {
-        return _thirdRecommendation.apply(this, arguments);
-      }
-
-      thirdRecommendation.toString = function () {
-        return _thirdRecommendation.toString();
-      };
-
-      return thirdRecommendation;
-    }(function () {
-      return this.recommendations[thirdRecommendation].map(function (song, idx) {
+    value: function thirdRecommendation() {
+      return this.props.thirdRecommendation.map(function (song, idx) {
         _react2.default.createElement(
           'li',
           { key: idx },
           song.name
         );
       });
-    })
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -13622,9 +13632,9 @@ var Result = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           null,
-          this.firstRecommendation,
-          this.secondRecommendation,
-          this.thirdRecommendation
+          this.firstRecommendation(),
+          this.secondRecommendation(),
+          this.thirdRecommendation()
         )
       );
     }
@@ -13654,11 +13664,15 @@ var _result2 = _interopRequireDefault(_result);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// TODO: map first second and third recommendations to this
 var mapStateToProps = function mapStateToProps(_ref) {
-  var session = _ref.session;
+  var session = _ref.session,
+      recommendations = _ref.recommendations;
   return {
     currentUser: session.currentUser,
-    recommendations: session.recommendations
+    firstRecommendation: recommendations[firstRecommendation],
+    secondRecommendation: recommendations[secondRecommendation],
+    thirdRecommendation: recommendations[thirdRecommendation]
   };
 };
 

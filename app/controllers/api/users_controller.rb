@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
       @user = User.includes(:liked_songs, :disliked_songs).find_by_email(user_params[:email])
       @user = User.new(user_params) unless @user
       login!(@user)
-      render 'api/users/show'
+      render 'api/users/_show'
     else
       # TODO: Change to proper http status
       render json: ['Invalid email format'], status: 401
