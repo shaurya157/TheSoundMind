@@ -34,7 +34,7 @@ class Splash extends React.Component{
     // <div style={ divStyle } className='login background'></div>
 
     return (
-      <div className="container">
+      <div className="main-container">
         <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1498198209/logo-transparent_motead.png"
              alt="Logo"
              id="logo"></img>
