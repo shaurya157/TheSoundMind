@@ -33,7 +33,7 @@ class Ask extends React.Component{
         this.setState({activity: event.target.value})
         break;
       case 'mood':
-        this.setState({mood: event.target.values})
+        this.setState({mood: event.target.value})
       default:
         break;
     }

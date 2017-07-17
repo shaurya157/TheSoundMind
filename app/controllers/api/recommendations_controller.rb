@@ -38,11 +38,7 @@ class Api::RecommendationsController < ApplicationController
 
     (arr1 + arr2 + arr3).each do |classifier|
       song = classifier.song
-      if sorted_songs[song]
-        sorted_songs[song] += 1
-      else
-        sorted_songs[song] = 1
-      end
+      sorted_songs[song] ? sorted_songs[song] += 1 : sorted_songs[song] = 1
     end
 
     result = {

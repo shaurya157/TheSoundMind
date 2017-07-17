@@ -13340,7 +13340,7 @@ var Ask = function (_React$Component) {
           this.setState({ activity: event.target.value });
           break;
         case 'mood':
-          this.setState({ mood: event.target.values });
+          this.setState({ mood: event.target.value });
         default:
           break;
       }
@@ -13632,9 +13632,9 @@ var Result = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           null,
-          this.firstRecommendation(),
-          this.secondRecommendation(),
-          this.thirdRecommendation()
+          this.firstRecommendation,
+          this.secondRecommendation,
+          this.thirdRecommendation
         )
       );
     }
@@ -13670,9 +13670,9 @@ var mapStateToProps = function mapStateToProps(_ref) {
       recommendations = _ref.recommendations;
   return {
     currentUser: session.currentUser,
-    firstRecommendation: recommendations[firstRecommendation],
-    secondRecommendation: recommendations[secondRecommendation],
-    thirdRecommendation: recommendations[thirdRecommendation]
+    firstRecommendation: recommendations.firstRecommendation,
+    secondRecommendation: recommendations.secondRecommendation,
+    thirdRecommendation: recommendations.thirdRecommendation
   };
 };
 

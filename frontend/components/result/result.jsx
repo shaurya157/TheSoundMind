@@ -37,9 +37,9 @@ class Result extends React.Component{
     return(
       <div>
         <ul>
-          {this.firstRecommendation()}
-          {this.secondRecommendation()}
-          {this.thirdRecommendation()}
+          {this.firstRecommendation}
+          {this.secondRecommendation}
+          {this.thirdRecommendation}
         </ul>
       </div>
     )
