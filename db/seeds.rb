@@ -1,4 +1,5 @@
 # Strictly testing purposes
+require 'csv'
 
 # Users
 User.create(email: 'shaurya157@gmail.com')
@@ -6,59 +7,22 @@ User.create(email: 'test@gmail.com')
 User.create(email: '123@gmail.com')
 
 # Songs
-Song.create(url: 'qeweq', artist: 'link', name: 'WHAM!', duration: 123)
-Song.create(url: '123', artist: 'zelda', name: 'adewdw', duration: 43)
-Song.create(url: 'fdfs', artist: 'parl', name: '1e1e', duration: 675)
-Song.create(url: 'qqqq', artist: 'woozaa', name: 'qweqweqw', duration: 321)
-Song.create(url: 'aaaa', artist: 'coldplay', name: 'qQqM!', duration: 231)
+CSV.foreach('./db/thesoundmind_recommendations.csv', encoding: 'iso-8859-1') do |row|
+  next if row[0] == 'Location'
 
-# Moods
-Mood.create(name: 'Happy', song_id: 1)
-Mood.create(name: 'Happy', song_id: 2)
-Mood.create(name: 'Happy', song_id: 3)
-Mood.create(name: 'Happy', song_id: 5)
-Mood.create(name: 'Sad', song_id: 2)
-Mood.create(name: 'Sexy', song_id: 3)
-Mood.create(name: 'Bored', song_id: 4)
-Mood.create(name: 'Bored', song_id: 3)
-Mood.create(name: 'Bored', song_id: 2)
-Mood.create(name: 'Lolz', song_id: 1)
-Mood.create(name: 'Confident', song_id: 2)
-Mood.create(name: 'Confident', song_id: 1)
-Mood.create(name: 'Confident', song_id: 5)
-Mood.create(name: 'Confident', song_id: 3)
+  song = Song.where(url: row[6])
+  id = song.first.id unless song.empty?
+  
+  if song.empty?
+    song = Song.new
+    song.name = row[3]
+    song.url = row[6]
+    song.artist = row[4]
+    song.save
+    id = song.id
+  end
 
-# Activity
-Activity.create(name: 'Studying', song_id: 1)
-Activity.create(name: 'Working', song_id: 2)
-Activity.create(name: 'Working', song_id: 3)
-Activity.create(name: 'Working', song_id: 4)
-Activity.create(name: 'Working', song_id: 1)
-Activity.create(name: 'Partying', song_id: 3)
-Activity.create(name: 'Partying', song_id: 2)
-Activity.create(name: 'Cycling', song_id: 5)
-Activity.create(name: 'Cycling', song_id: 1)
-Activity.create(name: 'Cycling', song_id: 2)
-Activity.create(name: 'Drinking', song_id: 2)
-Activity.create(name: 'Gaming', song_id: 4)
-Activity.create(name: 'Gaming', song_id: 1)
-Activity.create(name: 'Gaming', song_id: 2)
-Activity.create(name: 'Gaming', song_id: 3)
-
-# Location
-Location.create(name: 'Cafe', song_id: 1)
-Location.create(name: 'Cafe', song_id: 4)
-Location.create(name: 'Cafe', song_id: 3)
-Location.create(name: 'Cafe', song_id: 2)
-Location.create(name: 'Office', song_id: 2)
-Location.create(name: 'Office', song_id: 4)
-Location.create(name: 'Home', song_id: 1)
-Location.create(name: 'Home', song_id: 4)
-Location.create(name: 'Home', song_id: 2)
-Location.create(name: 'Park', song_id: 5)
-Location.create(name: 'Library', song_id: 3)
-Location.create(name: 'Library', song_id: 4)
-Location.create(name: 'Club', song_id: 5)
-Location.create(name: 'Club', song_id: 3)
-Location.create(name: 'Club', song_id: 1)
-Location.create(name: 'Club', song_id: 2)
+  Mood.create(name: row[2], song_id: id)
+  Location.create(name: row[0], song_id: id)
+  Activity.create(name: row[1], song_id: id)
+end

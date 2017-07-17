@@ -8,6 +8,7 @@ class Splash extends React.Component{
     this.state = { email: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.runBackgroundCarousel = this.runBackgroundCarousel.bind(this);
   }
 
   handleSubmit(event){
@@ -25,25 +26,45 @@ class Splash extends React.Component{
     }
   }
 
+  runBackgroundCarousel(interval, frames) {
+      let int = 1;
+
+      function func() {
+          document.body.id = "index-bg" + int;
+          int++;
+          if(int === frames) { int = 1; }
+      }
+
+      let swap = window.setInterval(func, interval);
+  }
+
   render(){
-    let divStyle = {
-      backgroundImage: `url(http://res.cloudinary.com/djv7nouxz/image/upload/v1498198211/jukebox_df5swz.jpg)`,
-      backgroundSize: `cover`,
-      backgroundPosition: `50%`,
-    };
+    // let divStyle = {
+    //   backgroundImage: `url(http://res.cloudinary.com/djv7nouxz/image/upload/v1498198211/jukebox_df5swz.jpg)`,
+    //   backgroundSize: `cover`,
+    //   backgroundPosition: `50%`,
+    // };
+    // <div style={ divStyle } className='login background'></div>
 
     return (
-      <div className="container">
-        <div style={ divStyle } className='login background'></div>
-        <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1498198209/logo-transparent_motead.png"
+      <div className="main-container">
+        <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png"
              alt="Logo"
-             id="logo"></img>
-         <form className="intro" onSubmit={this.handleSubmit}>
-            <h1>Music for your every moment.</h1>
-            <h3>Try our alpha now!</h3>
-            <input type="text" className="email" onChange={this.handleChange} />
-            <input type="submit" className="loginBtn" value="Sign In"/>
-        </form>
+             className="logo"></img>
+           <div className="content-container-center-center">
+             <span className="vp-main">Music for your every moment</span>
+             <span className="vp-sub">Powered by you. For you.</span>
+             <div className="signup-container">
+               <p className="cta">Register your email now to start your experience today!</p>
+                 <form className="form-w-btn" onSubmit={this.handleSubmit}>
+                    <h1>Music for your every moment.</h1>
+                    <h3>Try our alpha now!</h3>
+                    <input type="text" className="email-input" onChange={this.handleChange} />
+                    <input type="submit" className="login-btn" value="Sign In"/>
+                </form>
+             </div>
+           </div>
+           {this.runBackgroundCarousel(5000, 8)}
       </div>
     );
   }
