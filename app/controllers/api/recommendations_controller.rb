@@ -48,8 +48,9 @@ class Api::RecommendationsController < ApplicationController
     }
 
     sorted_songs.each do |song, value|
-      RecommendedSong.delay.create(song_id: song.id,
-                             recommendation_id: @recommendation.id)
+      # TODO: Come back to this when you have async figured out
+      # RecommendedSong.create(song_id: song.id,
+      #                        recommendation_id: @recommendation.id)
       case value
       when 3
         result[:first_recommendation] << song
