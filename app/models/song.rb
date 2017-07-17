@@ -13,6 +13,8 @@ class Song < ApplicationRecord
 # TODO: Change this to be set default 0 in migration
   def first_impression
     self.impressions_in_recommendations = 0
+    # TODO: fix later, take duration out of table
+    self.duration = 0
   end
 
   def check_duration
