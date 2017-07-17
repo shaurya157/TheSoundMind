@@ -13350,158 +13350,165 @@ var Ask = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { id: "search" },
+        { className: "main-container" },
+        _react2.default.createElement("img", { src: "http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg",
+          alt: "The Sound Mind",
+          className: "logo-header" }),
         _react2.default.createElement(
-          "form",
-          { className: "searchForm", onSubmit: this.handleSubmit },
+          "div",
+          { "class": "content-container-center-dynamic" },
           _react2.default.createElement(
-            "h1",
-            null,
-            "Where are you right now?"
-          ),
-          _react2.default.createElement(
-            "select",
-            { name: "location", onChange: this.handleChange },
+            "form",
+            { className: "searchForm", onSubmit: this.handleSubmit },
             _react2.default.createElement(
-              "option",
-              { selected: true, disabled: true },
-              "Click to choose location"
+              "h1",
+              null,
+              "Where are you right now?"
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Cafe" },
-              "Cafe"
+              "select",
+              { name: "location", onChange: this.handleChange, className: "search-option" },
+              _react2.default.createElement(
+                "option",
+                { selected: true, disabled: true },
+                "Click to choose location"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Cafe" },
+                "Cafe"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Gym" },
+                "Gym"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Home" },
+                "Home"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "School" },
+                "School"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Street" },
+                "Street"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Transport" },
+                "Transport"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Workplace" },
+                "Workplace"
+              )
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Gym" },
-              "Gym"
+              "h1",
+              null,
+              "What activity are you doing?"
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Home" },
-              "Home"
+              "select",
+              { name: "activity", onChange: this.handleChange, className: "search-option" },
+              _react2.default.createElement(
+                "option",
+                { selected: true, disabled: true },
+                "Click to choose activity"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Browse & Chill" },
+                "Browse & Chill"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Chores" },
+                "Chores"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Creative & Fun" },
+                "Creative & Fun"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Exercise" },
+                "Exercise"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Productivity" },
+                "Productivity"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Shower" },
+                "Shower"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Travel & Drive" },
+                "Travel & Drive"
+              )
             ),
             _react2.default.createElement(
-              "option",
-              { value: "School" },
-              "School"
+              "h1",
+              null,
+              "How are you feeling?"
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Street" },
-              "Street"
+              "select",
+              { name: "mood", onChange: this.handleChange, className: "search-option" },
+              _react2.default.createElement(
+                "option",
+                { selected: true, disabled: true },
+                "Click to choose mood"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Deep In Thought" },
+                "Deep In Thought"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Energetic" },
+                "Energetic"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Focused" },
+                "Focused"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Happy" },
+                "Happy"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Relaxed" },
+                "Relaxed"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Sad" },
+                "Sad"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "Stressed" },
+                "Stressed"
+              )
             ),
-            _react2.default.createElement(
-              "option",
-              { value: "Transport" },
-              "Transport"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Workplace" },
-              "Workplace"
-            )
-          ),
-          _react2.default.createElement(
-            "h1",
-            null,
-            "What activity are you doing?"
-          ),
-          _react2.default.createElement(
-            "select",
-            { name: "activity", onChange: this.handleChange },
-            _react2.default.createElement(
-              "option",
-              { selected: true, disabled: true },
-              "Click to choose activity"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Browse & Chill" },
-              "Browse & Chill"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Chores" },
-              "Chores"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Creative & Fun" },
-              "Creative & Fun"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Exercise" },
-              "Exercise"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Productivity" },
-              "Productivity"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Shower" },
-              "Shower"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Travel & Drive" },
-              "Travel & Drive"
-            )
-          ),
-          _react2.default.createElement(
-            "h1",
-            null,
-            "How are you feeling?"
-          ),
-          _react2.default.createElement(
-            "select",
-            { name: "mood", onChange: this.handleChange },
-            _react2.default.createElement(
-              "option",
-              { selected: true, disabled: true },
-              "Click to choose mood"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Deep In Thought" },
-              "Deep In Thought"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Energetic" },
-              "Energetic"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Focused" },
-              "Focused"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Happy" },
-              "Happy"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Relaxed" },
-              "Relaxed"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Sad" },
-              "Sad"
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: "Stressed" },
-              "Stressed"
-            )
-          ),
-          _react2.default.createElement("input", { type: "submit", className: "search-btn", value: "Ask" })
+            _react2.default.createElement("input", { type: "submit", className: "search-btn", value: "Ask" })
+          )
         )
       );
     }
@@ -13923,6 +13930,7 @@ var Splash = function (_React$Component) {
     _this.state = { email: "" };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.runBackgroundCarousel = _this.runBackgroundCarousel.bind(_this);
     return _this;
   }
 
@@ -13945,6 +13953,21 @@ var Splash = function (_React$Component) {
       }
     }
   }, {
+    key: 'runBackgroundCarousel',
+    value: function runBackgroundCarousel(interval, frames) {
+      var int = 1;
+
+      function func() {
+        document.body.id = "index-bg" + int;
+        int++;
+        if (int === frames) {
+          int = 1;
+        }
+      }
+
+      var swap = window.setInterval(func, interval);
+    }
+  }, {
     key: 'render',
     value: function render() {
       // let divStyle = {
@@ -13957,25 +13980,49 @@ var Splash = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'main-container' },
-        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1498198209/logo-transparent_motead.png',
+        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
           alt: 'Logo',
-          id: 'logo' }),
+          className: 'logo' }),
         _react2.default.createElement(
-          'form',
-          { className: 'intro', onSubmit: this.handleSubmit },
+          'div',
+          { className: 'content-container-center-center' },
           _react2.default.createElement(
-            'h1',
-            null,
-            'Music for your every moment.'
+            'span',
+            { className: 'vp-main' },
+            'Music for your every moment'
           ),
           _react2.default.createElement(
-            'h3',
-            null,
-            'Try our alpha now!'
+            'span',
+            { className: 'vp-sub' },
+            'Powered by you. For you.'
           ),
-          _react2.default.createElement('input', { type: 'text', className: 'email', onChange: this.handleChange }),
-          _react2.default.createElement('input', { type: 'submit', className: 'loginBtn', value: 'Sign In' })
-        )
+          _react2.default.createElement(
+            'div',
+            { className: 'signup-container' },
+            _react2.default.createElement(
+              'p',
+              { className: 'cta' },
+              'Register your email now to start your experience today!'
+            ),
+            _react2.default.createElement(
+              'form',
+              { className: 'form-w-btn', onSubmit: this.handleSubmit },
+              _react2.default.createElement(
+                'h1',
+                null,
+                'Music for your every moment.'
+              ),
+              _react2.default.createElement(
+                'h3',
+                null,
+                'Try our alpha now!'
+              ),
+              _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
+              _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
+            )
+          )
+        ),
+        this.runBackgroundCarousel(5000, 8)
       );
     }
   }]);

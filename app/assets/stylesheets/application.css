@@ -105,52 +105,61 @@
 
  /* index.html */
 
+/*BUG PROBABLY HERE, the initial screen is white*/
  #index-bg {
-   background: url("../images/index-bg7.jpg") no-repeat fixed 50%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/index-bg7_nomuea.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg1 {
-   background: url("../images/index-bg1.jpg") no-repeat fixed 50%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287108/index-bg1_mr3ion.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg2 {
-   background: url("../images/index-bg2.jpg") no-repeat fixed 65%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287108/index-bg2_pi0ufl.jpg") no-repeat fixed 65%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg3 {
-   background: url("../images/index-bg3.jpg") no-repeat fixed 50%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287108/index-bg3_z0po0a.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg4 {
-   background: url("../images/index-bg4.jpg") no-repeat fixed 50%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287108/index-bg4_sqxbi1.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg5 {
-   background: url("../images/index-bg5.jpg") no-repeat fixed 50%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/index-bg5_oflcn8.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg6 {
-   background: url("../images/index-bg6.jpg") no-repeat fixed 100%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287108/index-bg6_nhkscw.jpg") no-repeat fixed 100%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  #index-bg7 {
-   background: url("../images/index-bg7.jpg") no-repeat fixed 50%;
+   background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/index-bg7_nomuea.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;
+   transition: 0.3s;
  }
 
  .vp-main {
