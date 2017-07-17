@@ -13592,9 +13592,8 @@ var Result = function (_React$Component) {
   _createClass(Result, [{
     key: 'firstRecommendation',
     value: function firstRecommendation() {
-      debugger;
       return this.props.firstRecommendation.map(function (song, idx) {
-        _react2.default.createElement(
+        return _react2.default.createElement(
           'li',
           { key: idx },
           song.name
@@ -13605,7 +13604,7 @@ var Result = function (_React$Component) {
     key: 'secondRecommendation',
     value: function secondRecommendation() {
       return this.props.secondRecommendation.map(function (song, idx) {
-        _react2.default.createElement(
+        return _react2.default.createElement(
           'li',
           { key: idx },
           song.name
@@ -13616,7 +13615,7 @@ var Result = function (_React$Component) {
     key: 'thirdRecommendation',
     value: function thirdRecommendation() {
       return this.props.thirdRecommendation.map(function (song, idx) {
-        _react2.default.createElement(
+        return _react2.default.createElement(
           'li',
           { key: idx },
           song.name
@@ -13632,9 +13631,9 @@ var Result = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           null,
-          this.firstRecommendation,
-          this.secondRecommendation,
-          this.thirdRecommendation
+          this.firstRecommendation(),
+          this.secondRecommendation(),
+          this.thirdRecommendation()
         )
       );
     }

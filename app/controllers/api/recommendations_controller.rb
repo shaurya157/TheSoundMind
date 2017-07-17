@@ -48,7 +48,7 @@ class Api::RecommendationsController < ApplicationController
     }
 
     sorted_songs.each do |song, value|
-      RecommendedSong.create(song_id: song.id,
+      RecommendedSong.delay.create(song_id: song.id,
                              recommendation_id: @recommendation.id)
       case value
       when 3
