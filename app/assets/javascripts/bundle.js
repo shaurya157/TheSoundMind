@@ -13583,57 +13583,184 @@ var Result = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
 
-    _this.firstRecommendation = _this.firstRecommendation.bind(_this);
-    _this.secondRecommendation = _this.secondRecommendation.bind(_this);
-    _this.thirdRecommendation = _this.thirdRecommendation.bind(_this);
+    _this.nextFive = _this.nextFive.bind(_this);
+    _this.showSongs = _this.showSongs.bind(_this);
+    _this.state = { songsShowing: [] };
+    _this.counter = 0;
     return _this;
   }
 
   _createClass(Result, [{
-    key: 'firstRecommendation',
-    value: function firstRecommendation() {
-      return this.props.firstRecommendation.map(function (song, idx) {
+    key: "nextFive",
+    value: function nextFive() {
+      var firstLength = this.props.firstRecommendation.length;
+      var secondLength = this.props.secondRecommendation.length;
+      var thirdLength = this.props.thirdRecommendation.length;
+
+      var songsToAdd = [];
+      for (var i = 5; i > 0; i--) {
+        if (this.counter < firstLength) {
+          // this.setState((prevState) => ({songsShowing: prevState.songsShowing.concat(this.props.firstRecommendation[this.counter])}));
+          // this.setState({songsShowing: this.state.songsShowing.concat(this.props.firstRecommendation[this.counter])});
+          songsToAdd.push(this.props.firstRecommendation[this.counter]);
+        } else if (this.counter < secondLength) {
+          // this.setState({songsShowing: this.state.songsShowing.concat(this.props.secondRecommendation[this.counter - firstLength])});
+          songsToAdd.push(this.props.secondRecommendation[this.counter - firstLength]);
+        } else {
+          // this.setState({songsShowing: this.state.songsShowing.concat(this.props.thirdRecommendation[this.counter - firstLength - secondLength])});
+          songsToAdd.push(this.props.thirdRecommendation[this.counter - (firstLength + secondLength)]);
+        }
+
+        this.counter += 1;
+      }
+
+      this.setState({ songsShowing: this.state.songsShowing.concat(songsToAdd) });
+    }
+  }, {
+    key: "showSongs",
+    value: function showSongs() {
+      return this.state.songsShowing.map(function (song, idx) {
         return _react2.default.createElement(
-          'li',
+          "tr",
           { key: idx },
-          song.name
+          _react2.default.createElement(
+            "td",
+            { className: "result-song" },
+            song.name
+          ),
+          _react2.default.createElement(
+            "td",
+            { className: "result-option" },
+            _react2.default.createElement(
+              "span",
+              { className: "play-pause", onclick: "play()" },
+              _react2.default.createElement(
+                "i",
+                { className: "material-icons init md-36" },
+                "play_circle_outline"
+              ),
+              _react2.default.createElement(
+                "i",
+                { className: "material-icons hover md-36" },
+                "play_circle_filled"
+              )
+            ),
+            _react2.default.createElement(
+              "i",
+              { className: "material-icons md-24", id: "thumbup-btn", onclick: "thumbUpInit()" },
+              "thumb_up"
+            ),
+            _react2.default.createElement(
+              "i",
+              { className: "material-icons md-24", id: "thumbdown-btn", onclick: "thumbDownInit()" },
+              "thumb_down"
+            ),
+            _react2.default.createElement(
+              "i",
+              { className: "material-icons md-24", id: "more-btn", onclick: "moreInit()" },
+              "more_vert"
+            )
+          )
         );
       });
     }
   }, {
-    key: 'secondRecommendation',
-    value: function secondRecommendation() {
-      return this.props.secondRecommendation.map(function (song, idx) {
-        return _react2.default.createElement(
-          'li',
-          { key: idx },
-          song.name
-        );
-      });
-    }
-  }, {
-    key: 'thirdRecommendation',
-    value: function thirdRecommendation() {
-      return this.props.thirdRecommendation.map(function (song, idx) {
-        return _react2.default.createElement(
-          'li',
-          { key: idx },
-          song.name
-        );
-      });
-    }
-  }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        null,
+        "div",
+        { className: "main-container" },
+        _react2.default.createElement("img", { src: "http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg", alt: "The Sound Mind", className: "logo-header" }),
         _react2.default.createElement(
-          'ul',
-          null,
-          this.firstRecommendation(),
-          this.secondRecommendation(),
-          this.thirdRecommendation()
+          "h1",
+          { className: "result-title" },
+          "Other users recommend these songs for you:"
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "content-container-left" },
+          _react2.default.createElement(
+            "table",
+            { className: "result-list" },
+            this.showSongs()
+          ),
+          _react2.default.createElement(
+            "h2",
+            { className: "result-expand", onClick: this.nextFive },
+            "Load 5 More"
+          ),
+          _react2.default.createElement(
+            "a",
+            { href: "ask.html", className: "result-reset" },
+            "Ask again"
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "result-feedback" },
+            "Was this recommendation useful?",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "i",
+              { className: "material-icons md-24", id: "satisfied-btn", onclick: "satisfiedInit()" },
+              "sentiment_very_satisfied"
+            ),
+            _react2.default.createElement(
+              "i",
+              { className: "material-icons md-24", id: "dissatisfied-btn", onclick: "dissatisfiedInit()" },
+              "sentiment_very_dissatisfied"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "footer-container player" },
+          _react2.default.createElement("input", { type: "range", className: "player-time" }),
+          _react2.default.createElement(
+            "div",
+            { className: "player-container" },
+            _react2.default.createElement(
+              "div",
+              { className: "player-song" },
+              _react2.default.createElement(
+                "h3",
+                { className: "player-song-name" },
+                "Oh My My"
+              ),
+              _react2.default.createElement(
+                "h4",
+                { className: "player-song-artist" },
+                "Fall Out Boy"
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "player-option" },
+              _react2.default.createElement(
+                "i",
+                { className: "material-icons md-24-light" },
+                "skip_previous"
+              ),
+              _react2.default.createElement(
+                "span",
+                { className: "play-pause", onclick: "play()" },
+                _react2.default.createElement(
+                  "i",
+                  { className: "material-icons init md-36-light" },
+                  "play_circle_outline"
+                ),
+                _react2.default.createElement(
+                  "i",
+                  { className: "material-icons hover md-36-light" },
+                  "play_circle_filled"
+                )
+              ),
+              _react2.default.createElement(
+                "i",
+                { className: "material-icons md-24-light" },
+                "skip_next"
+              )
+            )
+          )
         )
       );
     }
