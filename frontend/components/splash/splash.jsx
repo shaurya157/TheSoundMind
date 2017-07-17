@@ -26,15 +26,15 @@ class Splash extends React.Component{
   }
 
   render(){
-    let divStyle = {
-      backgroundImage: `url(http://res.cloudinary.com/djv7nouxz/image/upload/v1498198211/jukebox_df5swz.jpg)`,
-      backgroundSize: `cover`,
-      backgroundPosition: `50%`,
-    };
+    // let divStyle = {
+    //   backgroundImage: `url(http://res.cloudinary.com/djv7nouxz/image/upload/v1498198211/jukebox_df5swz.jpg)`,
+    //   backgroundSize: `cover`,
+    //   backgroundPosition: `50%`,
+    // };
+    // <div style={ divStyle } className='login background'></div>
 
     return (
       <div className="container">
-        <div style={ divStyle } className='login background'></div>
         <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1498198209/logo-transparent_motead.png"
              alt="Logo"
              id="logo"></img>

@@ -15,11 +15,12 @@ class Ask extends React.Component{
 
   handleSubmit(event){
     event.preventDefault();
-    debugger
     this.props.ask(this.state.mood,
                    this.state.location,
                    this.state.activity,
                    this.props.currentUser.id);
+
+    this.props.history.push('ask/result')
   };
 
   handleChange(event){
