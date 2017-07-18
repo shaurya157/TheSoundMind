@@ -106,7 +106,7 @@
  /* index.html */
 
 /*BUG PROBABLY HERE, the initial screen is white*/
- #index-bg {
+ #index-bg0 {
    background: url("http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/index-bg7_nomuea.jpg") no-repeat fixed 50%;
    background-size: cover;
    color: white;

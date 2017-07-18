@@ -26,12 +26,12 @@ class Splash extends React.Component{
   }
 
   runBackgroundCarousel(interval, frames) {
-      let int = 1;
+      let int = 0;
 
       function func() {
-          document.body.id = "index-bg" + int;
-          int++;
-          if(int === frames) { int = 1; }
+          var x = document.getElementById("index-bg" + int);
+          if(int === frames) { int = 1; } else { int++; }
+          x.id = "index-bg" + int;
       }
 
       let swap = window.setInterval(func, interval);
@@ -46,6 +46,7 @@ class Splash extends React.Component{
     // <div style={ divStyle } className='login background'></div>
 
     return (
+      <div id="index-bg0">
       <div className="main-container">
         <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png"
              alt="Logo"
@@ -63,8 +64,9 @@ class Splash extends React.Component{
                 </form>
              </div>
            </div>
-           {this.runBackgroundCarousel(5000, 8)}
       </div>
+      {this.runBackgroundCarousel(5000, 7)}
+    </div>
     );
   }
 }

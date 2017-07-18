@@ -14623,14 +14623,16 @@ var Splash = function (_React$Component) {
   }, {
     key: 'runBackgroundCarousel',
     value: function runBackgroundCarousel(interval, frames) {
-      var int = 1;
+      var int = 0;
 
       function func() {
-        document.body.id = "index-bg" + int;
-        int++;
+        var x = document.getElementById("index-bg" + int);
         if (int === frames) {
           int = 1;
+        } else {
+          int++;
         }
+        x.id = "index-bg" + int;
       }
 
       var swap = window.setInterval(func, interval);
@@ -14647,50 +14649,54 @@ var Splash = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'main-container' },
-        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
-          alt: 'Logo',
-          className: 'logo' }),
+        { id: 'index-bg0' },
         _react2.default.createElement(
           'div',
-          { className: 'content-container-center-center' },
-          _react2.default.createElement(
-            'span',
-            { className: 'vp-main' },
-            'Music for your every moment'
-          ),
-          _react2.default.createElement(
-            'span',
-            { className: 'vp-sub' },
-            'Powered by you. For you.'
-          ),
+          { className: 'main-container' },
+          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
+            alt: 'Logo',
+            className: 'logo' }),
           _react2.default.createElement(
             'div',
-            { className: 'signup-container' },
+            { className: 'content-container-center-center' },
             _react2.default.createElement(
-              'p',
-              { className: 'cta' },
-              'Register your email now to start your experience today!'
+              'span',
+              { className: 'vp-main' },
+              'Music for your every moment'
             ),
             _react2.default.createElement(
-              'form',
-              { className: 'form-w-btn', onSubmit: this.handleSubmit },
+              'span',
+              { className: 'vp-sub' },
+              'Powered by you. For you.'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'signup-container' },
               _react2.default.createElement(
-                'h1',
-                null,
-                'Music for your every moment.'
+                'p',
+                { className: 'cta' },
+                'Register your email now to start your experience today!'
               ),
               _react2.default.createElement(
-                'h3',
-                null,
-                'Try our alpha now!'
-              ),
-              _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
-              _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
+                'form',
+                { className: 'form-w-btn', onSubmit: this.handleSubmit },
+                _react2.default.createElement(
+                  'h1',
+                  null,
+                  'Music for your every moment.'
+                ),
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Try our alpha now!'
+                ),
+                _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
+                _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
+              )
             )
           )
         ),
-        this.runBackgroundCarousel(5000, 8)
+        this.runBackgroundCarousel(5000, 7)
       );
     }
   }]);
