@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { Route, HashRouter } from 'react-router-dom';
 import SplashContainer from './splash/splash_container';
 import AskContainer from './ask/ask_container';
+import ResultContainer from './result/result_container';
 
 const Root = ({ store }) => {
   // TODO: this doesnt work, need to fix routing
@@ -20,6 +21,7 @@ const Root = ({ store }) => {
         <div>
           <Route exact path="/" component={ SplashContainer } onEnter={ _requireLogin }/>
           <Route exact path="/ask" component={ AskContainer } onEnter={ _requireLogin }/>
+          <Route exact path="/ask/result" component={ ResultContainer }/>
         </div>
       </HashRouter>
     </Provider>
