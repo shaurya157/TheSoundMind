@@ -20,7 +20,7 @@ class Ask extends React.Component{
                    this.state.activity,
                    this.props.currentUser.id);
 
-    this.props.history.push('ask/result')
+    this.props.history.replace('ask/result')
   };
 
   handleChange(event){
