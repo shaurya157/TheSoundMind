@@ -2,14 +2,16 @@ export const LIKE = 'LIKE';
 export const DISLIKE = 'DISLIKE';
 export const UNDO_LIKE = 'UNDO_LIKE';
 export const UNDO_DISLIKE = 'UNDO_DISLIKE';
+export const RECEIVE_NEW_LIKED_SONGS = 'RECEIVE_NEW_LIKED_SONGS';
+export const RECEIVE_NEW_DISLIKED_SONGS = 'RECEIVE_NEW_DISLIKED_SONGS';
 
 export const receiveNewLikedSongs = (liked_songs) => ({
-  type: LIKE,
+  type: RECEIVE_NEW_LIKED_SONGS,
   liked_songs
 });
 
 export const receiveNewDislikedSongs = (disliked_songs) => ({
-  type: DISLIKE,
+  type: RECEIVE_NEW_DISLIKED_SONGS,
   disliked_songs
 });
 

@@ -14944,6 +14944,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_actions = __webpack_require__(55);
 
+var _feedback_actions = __webpack_require__(390);
+
 var _merge = __webpack_require__(106);
 
 var _merge2 = _interopRequireDefault(_merge);
@@ -14951,7 +14953,10 @@ var _merge2 = _interopRequireDefault(_merge);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _defaultState = {
-  currentUser: {},
+  currentUser: {
+    liked_songs: [],
+    disliked_songs: []
+  },
   errors: []
 };
 
@@ -14961,7 +14966,6 @@ var SessionReducer = function SessionReducer() {
 
   Object.freeze(oldState);
   var newState = (0, _merge2.default)({}, oldState);
-
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
       newState.currentUser = action.currentUser;
@@ -14973,6 +14977,12 @@ var SessionReducer = function SessionReducer() {
       return newState;
     case _session_actions.LOGOUT:
       return _defaultState;
+    case _feedback_actions.RECEIVE_NEW_DISLIKED_SONGS:
+      newState.currentUser.liked_songs = action.liked_songs;
+      return newState;
+    case _feedback_actions.RECEIVE_NEW_DISLIKED_SONGS:
+      newState.currentUser.disliked_songs = action.disliked_songs;
+      return newState;
     default:
       return oldState;
   }
@@ -15003,7 +15013,7 @@ var _root = __webpack_require__(146);
 
 var _root2 = _interopRequireDefault(_root);
 
-var _ask_actions = __webpack_require__(35);
+var _feedback_actions = __webpack_require__(390);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15018,13 +15028,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // debugging purposes
   window.store = store;
+  window.like = _feedback_actions.like;
+  window.dislike = _feedback_actions.dislike;
+  window.dislike = _feedback_actions.dislike;
+  window.undoDislike = _feedback_actions.undoDislike;
   window.success = function (data) {
     return console.log(data);
   };
   window.error = function (data) {
     return console.log(data);
   };
-  window.ask = _ask_actions.ask;
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), rootEl);
 });
 
@@ -36058,17 +36071,19 @@ var LIKE = exports.LIKE = 'LIKE';
 var DISLIKE = exports.DISLIKE = 'DISLIKE';
 var UNDO_LIKE = exports.UNDO_LIKE = 'UNDO_LIKE';
 var UNDO_DISLIKE = exports.UNDO_DISLIKE = 'UNDO_DISLIKE';
+var RECEIVE_NEW_LIKED_SONGS = exports.RECEIVE_NEW_LIKED_SONGS = 'RECEIVE_NEW_LIKED_SONGS';
+var RECEIVE_NEW_DISLIKED_SONGS = exports.RECEIVE_NEW_DISLIKED_SONGS = 'RECEIVE_NEW_DISLIKED_SONGS';
 
 var receiveNewLikedSongs = exports.receiveNewLikedSongs = function receiveNewLikedSongs(liked_songs) {
   return {
-    type: LIKE,
+    type: RECEIVE_NEW_LIKED_SONGS,
     liked_songs: liked_songs
   };
 };
 
 var receiveNewDislikedSongs = exports.receiveNewDislikedSongs = function receiveNewDislikedSongs(disliked_songs) {
   return {
-    type: DISLIKE,
+    type: RECEIVE_NEW_DISLIKED_SONGS,
     disliked_songs: disliked_songs
   };
 };

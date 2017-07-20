@@ -14,10 +14,10 @@ class Api::DislikeController < ApplicationController
   private
 
   def get_user
-    @user = User.where(id: like_params[:user_id])
+    @user = User.where(id: dislike_params[:user_id]).first
   end
 
-  def like_params
+  def dislike_params
     params.require(:dislike).permit([:user_id, :song_id])
   end
 end
