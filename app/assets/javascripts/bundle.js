@@ -14806,9 +14806,13 @@ var _ask_middleware = __webpack_require__(155);
 
 var _ask_middleware2 = _interopRequireDefault(_ask_middleware);
 
+var _feedback_middleware = __webpack_require__(391);
+
+var _feedback_middleware2 = _interopRequireDefault(_feedback_middleware);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _ask_middleware2.default);
+var RootMiddleware = (0, _redux.applyMiddleware)(_session_middleware2.default, _ask_middleware2.default, _feedback_middleware2.default);
 
 exports.default = RootMiddleware;
 
@@ -36039,6 +36043,164 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var LIKE = exports.LIKE = 'LIKE';
+var DISLIKE = exports.DISLIKE = 'DISLIKE';
+var UNDO_LIKE = exports.UNDO_LIKE = 'UNDO_LIKE';
+var UNDO_DISLIKE = exports.UNDO_DISLIKE = 'UNDO_DISLIKE';
+
+var receiveNewLikedSongs = exports.receiveNewLikedSongs = function receiveNewLikedSongs(liked_songs) {
+  return {
+    type: LIKE,
+    liked_songs: liked_songs
+  };
+};
+
+var receiveNewDislikedSongs = exports.receiveNewDislikedSongs = function receiveNewDislikedSongs(disliked_songs) {
+  return {
+    type: DISLIKE,
+    disliked_songs: disliked_songs
+  };
+};
+
+var like = exports.like = function like(userId, songId) {
+  return {
+    type: LIKE,
+    userId: userId,
+    songId: songId
+  };
+};
+
+var dislike = exports.dislike = function dislike(userId, songId) {
+  return {
+    type: DISLIKE,
+    userId: userId,
+    songId: songId
+  };
+};
+
+var undoLike = exports.undoLike = function undoLike(userId, songId) {
+  return {
+    type: UNDO_LIKE,
+    userId: userId,
+    songId: songId
+  };
+};
+
+var undoDislike = exports.undoDislike = function undoDislike(userId, songId) {
+  return {
+    type: UNDO_DISLIKE,
+    userId: userId,
+    songId: songId
+  };
+};
+
+/***/ }),
+/* 391 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _feedback_actions = __webpack_require__(390);
+
+var _feedback_util = __webpack_require__(392);
+
+var FeedbackMiddleware = function FeedbackMiddleware(_ref) {
+  var dispatch = _ref.dispatch;
+  return function (next) {
+    return function (action) {
+      var likeSuccess = function likeSuccess(data) {
+        return dispatch((0, _feedback_actions.receiveNewDislikedSongs)(data));
+      };
+      var dislikeSuccess = function dislikeSuccess(data) {
+        return dispatch((0, _feedback_actions.receiveNewDislikedSongs)(data));
+      };
+
+      switch (action.type) {
+        case _feedback_actions.LIKE:
+          (0, _feedback_util.like)(action.userId, action.songId, likeSuccess);
+          return next(action);
+        case _feedback_actions.DISLIKE:
+          (0, _feedback_util.dislike)(action.userId, action.songId, dislikeSuccess);
+          return next(action);
+        case _feedback_actions.UNDO_LIKE:
+          (0, _feedback_util.undoLike)(action.userId, action.songId, likeSuccess);
+          return next(action);
+        case _feedback_actions.UNDO_DISLIKE:
+          (0, _feedback_util.undoDislike)(action.userId, action.songId, dislikeSuccess);
+          return next(action);
+        default:
+          return next(action);
+      }
+    };
+  };
+};
+
+exports.default = FeedbackMiddleware;
+
+/***/ }),
+/* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var like = exports.like = function like(userId, songId, success) {
+  $.ajax({
+    method: "POST",
+    url: 'api/likes',
+    data: { like: { user_id: userId, song_id: songId } },
+    success: success
+  });
+};
+
+var dislike = exports.dislike = function dislike(userId, songId, success) {
+  $.ajax({
+    method: "POST",
+    url: 'api/dislikes',
+    data: { like: { user_id: userId, song_id: songId } },
+    success: success
+  });
+};
+
+// Put nil here because we don't need an id to destroy in the controller
+// Just the song and user id. Still, we need an id to access destroy.
+
+var undoLike = exports.undoLike = function undoLike(userId, songId, success) {
+  $.ajax({
+    method: "DELETE",
+    url: "api/likes/nil",
+    data: { like: { user_id: userId, song_id: songId } },
+    success: success
+  });
+};
+
+var undoDislike = exports.undoDislike = function undoDislike(userId, songId, success) {
+  $.ajax({
+    method: "DELETE",
+    url: 'api/dislikes/nil',
+    data: { like: { user_id: userId, song_id: songId } },
+    success: success
+  });
+};
 
 /***/ })
 /******/ ]);

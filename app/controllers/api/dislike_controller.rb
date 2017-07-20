@@ -18,6 +18,6 @@ class Api::DislikeController < ApplicationController
   end
 
   def like_params
-    params.require(:like).permit([:user_id, :song_id])
+    params.require(:dislike).permit([:user_id, :song_id])
   end
 end
