@@ -14340,7 +14340,6 @@ var Result = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'result-detail' },
-            ' // To expand upon click on more_vert',
             _react2.default.createElement(
               'div',
               { className: 'result-detail sub' },

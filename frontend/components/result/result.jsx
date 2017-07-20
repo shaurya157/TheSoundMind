@@ -55,7 +55,7 @@ class Result extends React.Component{
           </span>
         </div>
 
-        <div className="result-detail"> // To expand upon click on more_vert
+        <div className="result-detail">
           <div className="result-detail sub">
             <span className="result-artist">Performed by {song.artist}</span>
             <span className="result-option">
