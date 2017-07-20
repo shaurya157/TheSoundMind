@@ -77,11 +77,13 @@ function thumbDownAfter() {
 function moreInit() {
   document.getElementById("more-btn").setAttribute("onclick", "moreAfter()");
   document.getElementById("more-btn").setAttribute("id", "more-btn-1");
+  $(".result-review").toggle();
 }
 
 function moreAfter() {
   document.getElementById("more-btn-1").setAttribute("onclick", "moreInit()");
   document.getElementById("more-btn-1").setAttribute("id", "more-btn");
+  $(".result-review").toggle();
 }
 
 function satisfiedInit() {

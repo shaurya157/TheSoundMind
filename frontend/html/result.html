@@ -6,6 +6,7 @@
   <title>The Sound Mind</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600,700,800" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="main.css" type="text/css" rel="stylesheet">
 </head>
 <body id="result">
@@ -15,7 +16,7 @@
     <div class="content-container-left">
       <table class="result-list">
         <tr>
-          <td class="result-song">This Ain't A Scene, It's A Goddamn Arms Race</td>
+          <td class="result-song">Oh My My</td>
           <td class="result-option">
             <span class="play-pause" onclick="play()">
               <i class="material-icons init md-36">play_circle_outline</i>
@@ -26,7 +27,11 @@
             <i class="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
           </td>
         </tr>
-        <tr class="result-review"></tr>
+        <tr>
+        <td class="result-review" colspan="2">
+          <span class="result-artist">Performed By OneRepublic</span>
+        </td>
+        </tr>
       </table>
       <h2 class="result-expand">Load 5 More</h2>
       <a href="ask.html" class="result-reset">Ask again</a>
@@ -55,5 +60,5 @@
     </div>
   </div>
 </body>
-<script src="result.js" type="text/javascript"></script>
+<script src="result.js"></script>
 </html>
