@@ -14026,7 +14026,7 @@ var Ask = function (_React$Component) {
           className: "logo-header" }),
         _react2.default.createElement(
           "div",
-          { "class": "content-container-center-dynamic" },
+          { className: "content-container-center-dynamic" },
           _react2.default.createElement(
             "form",
             { className: "searchForm", onSubmit: this.handleSubmit },
@@ -14624,7 +14624,6 @@ var Splash = function (_React$Component) {
     key: 'runBackgroundCarousel',
     value: function runBackgroundCarousel(interval, frames) {
       var int = 0;
-
       function func() {
         var x = document.getElementById("index-bg" + int);
         if (int === frames) {
@@ -14966,6 +14965,7 @@ var SessionReducer = function SessionReducer() {
 
   Object.freeze(oldState);
   var newState = (0, _merge2.default)({}, oldState);
+
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
       newState.currentUser = action.currentUser;
@@ -14977,11 +14977,11 @@ var SessionReducer = function SessionReducer() {
       return newState;
     case _session_actions.LOGOUT:
       return _defaultState;
-    case _feedback_actions.RECEIVE_NEW_DISLIKED_SONGS:
-      newState.currentUser.liked_songs = action.liked_songs;
+    case _feedback_actions.RECEIVE_NEW_LIKED_SONGS:
+      newState.currentUser.liked_songs = action.songs.liked_songs;
       return newState;
     case _feedback_actions.RECEIVE_NEW_DISLIKED_SONGS:
-      newState.currentUser.disliked_songs = action.disliked_songs;
+      newState.currentUser.disliked_songs = action.songs.disliked_songs;
       return newState;
     default:
       return oldState;
@@ -15029,8 +15029,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // debugging purposes
   window.store = store;
   window.like = _feedback_actions.like;
-  window.dislike = _feedback_actions.dislike;
-  window.dislike = _feedback_actions.dislike;
+  window.undoLike = _feedback_actions.undoLike;
   window.undoDislike = _feedback_actions.undoDislike;
   window.success = function (data) {
     return console.log(data);
@@ -36074,17 +36073,17 @@ var UNDO_DISLIKE = exports.UNDO_DISLIKE = 'UNDO_DISLIKE';
 var RECEIVE_NEW_LIKED_SONGS = exports.RECEIVE_NEW_LIKED_SONGS = 'RECEIVE_NEW_LIKED_SONGS';
 var RECEIVE_NEW_DISLIKED_SONGS = exports.RECEIVE_NEW_DISLIKED_SONGS = 'RECEIVE_NEW_DISLIKED_SONGS';
 
-var receiveNewLikedSongs = exports.receiveNewLikedSongs = function receiveNewLikedSongs(liked_songs) {
+var receiveNewLikedSongs = exports.receiveNewLikedSongs = function receiveNewLikedSongs(songs) {
   return {
     type: RECEIVE_NEW_LIKED_SONGS,
-    liked_songs: liked_songs
+    songs: songs
   };
 };
 
-var receiveNewDislikedSongs = exports.receiveNewDislikedSongs = function receiveNewDislikedSongs(disliked_songs) {
+var receiveNewDislikedSongs = exports.receiveNewDislikedSongs = function receiveNewDislikedSongs(songs) {
   return {
     type: RECEIVE_NEW_DISLIKED_SONGS,
-    disliked_songs: disliked_songs
+    songs: songs
   };
 };
 
@@ -36140,7 +36139,7 @@ var FeedbackMiddleware = function FeedbackMiddleware(_ref) {
   return function (next) {
     return function (action) {
       var likeSuccess = function likeSuccess(data) {
-        return dispatch((0, _feedback_actions.receiveNewDislikedSongs)(data));
+        return dispatch((0, _feedback_actions.receiveNewLikedSongs)(data));
       };
       var dislikeSuccess = function dislikeSuccess(data) {
         return dispatch((0, _feedback_actions.receiveNewDislikedSongs)(data));
@@ -36191,18 +36190,18 @@ var dislike = exports.dislike = function dislike(userId, songId, success) {
   $.ajax({
     method: "POST",
     url: 'api/dislikes',
-    data: { like: { user_id: userId, song_id: songId } },
+    data: { dislike: { user_id: userId, song_id: songId } },
     success: success
   });
 };
 
-// Put nil here because we don't need an id to destroy in the controller
+// Put 1 here because we need an id to destroy in the controller
 // Just the song and user id. Still, we need an id to access destroy.
 
 var undoLike = exports.undoLike = function undoLike(userId, songId, success) {
   $.ajax({
     method: "DELETE",
-    url: "api/likes/nil",
+    url: "api/likes",
     data: { like: { user_id: userId, song_id: songId } },
     success: success
   });
@@ -36211,8 +36210,8 @@ var undoLike = exports.undoLike = function undoLike(userId, songId, success) {
 var undoDislike = exports.undoDislike = function undoDislike(userId, songId, success) {
   $.ajax({
     method: "DELETE",
-    url: 'api/dislikes/nil',
-    data: { like: { user_id: userId, song_id: songId } },
+    url: 'api/dislikes',
+    data: { dislike: { user_id: userId, song_id: songId } },
     success: success
   });
 };

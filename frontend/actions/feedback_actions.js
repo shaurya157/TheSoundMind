@@ -5,14 +5,14 @@ export const UNDO_DISLIKE = 'UNDO_DISLIKE';
 export const RECEIVE_NEW_LIKED_SONGS = 'RECEIVE_NEW_LIKED_SONGS';
 export const RECEIVE_NEW_DISLIKED_SONGS = 'RECEIVE_NEW_DISLIKED_SONGS';
 
-export const receiveNewLikedSongs = (liked_songs) => ({
+export const receiveNewLikedSongs = (songs) => ({
   type: RECEIVE_NEW_LIKED_SONGS,
-  liked_songs
+  songs
 });
 
-export const receiveNewDislikedSongs = (disliked_songs) => ({
+export const receiveNewDislikedSongs = (songs) => ({
   type: RECEIVE_NEW_DISLIKED_SONGS,
-  disliked_songs
+  songs
 });
 
 export const like = (userId, songId) => ({

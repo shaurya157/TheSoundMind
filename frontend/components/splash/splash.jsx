@@ -27,7 +27,6 @@ class Splash extends React.Component{
 
   runBackgroundCarousel(interval, frames) {
       let int = 0;
-
       function func() {
           var x = document.getElementById("index-bg" + int);
           if(int === frames) { int = 1; } else { int++; }

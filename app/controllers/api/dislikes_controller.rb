@@ -1,13 +1,13 @@
-class Api::DislikeController < ApplicationController
+class Api::DislikesController < ApplicationController
   before_action :get_user
 
   def create
-    Dislike.create(like_params)
+    Dislike.create(dislike_params)
     render 'api/likes/show'
   end
 
   def destroy
-    Dislike.destroy(like_params)
+    Dislike.destroy(dislike_params)
     render 'api/likes/show'
   end
 
