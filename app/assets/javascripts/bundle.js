@@ -13996,7 +13996,7 @@ var Ask = function (_React$Component) {
       event.preventDefault();
       this.props.ask(this.state.mood, this.state.location, this.state.activity, this.props.currentUser.id);
 
-      this.props.history.push('ask/result');
+      this.props.history.replace('ask/result');
     }
   }, {
     key: "handleChange",
