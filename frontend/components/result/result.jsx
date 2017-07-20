@@ -47,18 +47,29 @@ class Result extends React.Component{
 
   showSongs(){
     return this.state.songsShowing.map((song, idx) => (
-      <tr key={idx}>
-        <td className="result-song">{song.name}</td>
-        <td className="result-option">
-          <span className="play-pause" onClick={this.playSong(song)}>
-            <i className="material-icons init md-36">play_circle_outline</i>
-            <i className="material-icons hover md-36">play_circle_filled</i>
+      <div className="result-list sub">
+        <div className="result-song" key={idx} onClick={this.playSong(song)}>
+          <span className="result-name">{song.name}</span>
+          <span className="result-option">
+            <i className="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
           </span>
-          <i className="material-icons md-24" id="thumbup-btn" onclick="thumbUpInit()">thumb_up</i>
-          <i className="material-icons md-24" id="thumbdown-btn" onclick="thumbDownInit()">thumb_down</i>
-          <i className="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
-        </td>
-      </tr>
+        </div>
+
+        <div className="result-detail"> // To expand upon click on more_vert
+          <div className="result-detail sub">
+            <span className="result-artist">Performed by {song.artist}</span>
+            <span className="result-option">
+              <i className="material-icons md-24" id="thumbup-btn" onclick="thumbUpInit()">thumb_up</i>
+              <i className="material-icons md-24" id="thumbdown-btn" onclick="thumbDownInit()">thumb_down</i>
+            </span>
+          </div>
+          <div className="result-detail sub">
+            <span className="result-review">
+              -insert review-
+            </span>
+          </div>
+        </div>
+      </div>
     ));
   }
 
@@ -104,54 +115,65 @@ class Result extends React.Component{
     console.log(played);
   }
 
+  resultBG(){
+    document.body.id = "result";
+  }
+
   render(){
     return(
       <div className="main-container">
-        <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg" alt="The Sound Mind" className="logo-header" />
+        <div className="main-container result">
+          <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg"
+            alt="The Sound Mind"
+            className="logo-header" />
+          <h1 className="result-title">Other users recommend these songs for you:</h1>
 
-        <h1 className="result-title">Other users recommend these songs for you:</h1>
-
-        <div className="content-container-left">
-          <table className="result-list">
+          <div className="result-container">
+            <div className="result-list">
               {this.showSongs()}
-          </table>
-          <h2 className="result-expand" onClick={this.nextFive}>Load 5 More</h2>
-          <a href="ask.html" className="result-reset">Ask again</a>
-          <div className="result-feedback">
-            Was this recommendation useful?<br></br>
-            <i className="material-icons md-24" id="satisfied-btn" onclick="satisfiedInit()">sentiment_very_satisfied</i>
-            <i className="material-icons md-24" id="dissatisfied-btn" onclick="dissatisfiedInit()">sentiment_very_dissatisfied</i>
+            </div>
+            <h2 className="result-expand" onClick={this.nextFive}>Load 5 More</h2>
+            <div className="result-end">
+              <a href="ask.html" className="result-reset">Ask again</a>
+              <div className="result-feedback">
+                Was this recommendation useful?<br></br>
+              <i className="material-icons md-24" id="satisfied-btn" onclick="satisfiedInit()">sentiment_very_satisfied</i>
+              <i className="material-icons md-24" id="dissatisfied-btn" onclick="dissatisfiedInit()">sentiment_very_dissatisfied</i>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="footer-container player">
-          <ReactPlayer
+      <div className="footer-container player">
+
+        <ReactPlayer
           url={this.state.currentSong.url}
           playing={this.state.playing}
           hidden={true}
           onEnded={this.startNextSong}
           onProgress={this.updatePlaybar}/>
 
-          <input type="range" className="player-time" />
-          <div className="player-container">
-            <div className="player-song">
-              <h3 className="player-song-name">{this.state.currentSong.name}</h3>
-              <h4 className="player-song-artist">{this.state.currentSong.artist}</h4>
-            </div>
+        <input type="range" className="player-time" />
+        <div className="player-container">
+          <div className="player-song">
+            <h3 className="player-song-name">{this.state.currentSong.name}</h3>
+            <h4 className="player-song-artist">{this.state.currentSong.artist}</h4>
+          </div>
 
-            <div className="player-option">
-              <i className="material-icons md-24-light" onClick={this.startPreviousSong}>skip_previous</i>
-              <span className="play-pause" onClick={this.togglePlay}>
-                <i className="material-icons init md-36-light">play_circle_outline</i>
-                <i className="material-icons hover md-36-light">play_circle_filled</i>
-              </span>
-              <i className="material-icons md-24-light" onClick={this.startNextSong}>skip_next</i>
-            </div>
+          <div className="player-option">
+            <i className="material-icons md-24-light" onClick={this.startPreviousSong}>skip_previous</i>
+            <span className="play-pause" onClick={this.togglePlay}>
+              <i className="material-icons init md-36-light">play_circle_outline</i>
+              <i className="material-icons hover md-36-light">play_circle_filled</i>
+            </span>
+            <i className="material-icons md-24-light" onClick={this.startNextSong}>skip_next</i>
           </div>
         </div>
       </div>
-    )
-  }
+      {this.resultBG()}
+    </div>
+  )
+}
 }
 
 

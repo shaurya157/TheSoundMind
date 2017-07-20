@@ -25,11 +25,12 @@ class Splash extends React.Component{
     }
   }
 
-  runBackgroundCarousel(interval, frames) {
+  runBackgroundCarousel(interval, frames){
+      document.body.id = "index-bg0";
       let int = 0;
 
       function func() {
-          var x = document.getElementById("index-bg" + int);
+          let x = document.getElementById("index-bg" + int);
           if(int === frames) { int = 1; } else { int++; }
           x.id = "index-bg" + int;
       }
@@ -46,25 +47,24 @@ class Splash extends React.Component{
     // <div style={ divStyle } className='login background'></div>
 
     return (
-      <div id="index-bg0">
       <div className="main-container">
         <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png"
              alt="Logo"
-             className="logo"></img>
-           <div className="content-container-center-center">
+             className="logo" />
+
+           <div className="vp-container">
              <span className="vp-main">Music for your every moment</span>
              <span className="vp-sub">Powered by you. For you.</span>
+             </div>
+
              <div className="signup-container">
                <p className="cta">Register your email now to start your experience today!</p>
+
                  <form className="form-w-btn" onSubmit={this.handleSubmit}>
-                    <h1>Music for your every moment.</h1>
-                    <h3>Try our alpha now!</h3>
                     <input type="text" className="email-input" onChange={this.handleChange} />
                     <input type="submit" className="login-btn" value="Sign In"/>
                 </form>
-             </div>
            </div>
-      </div>
       {this.runBackgroundCarousel(5000, 7)}
     </div>
     );

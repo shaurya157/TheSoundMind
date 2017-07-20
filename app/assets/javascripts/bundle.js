@@ -13545,13 +13545,11 @@ function compose() {
     return funcs[0];
   }
 
-  var last = funcs[funcs.length - 1];
-  var rest = funcs.slice(0, -1);
-  return function () {
-    return rest.reduceRight(function (composed, f) {
-      return f(composed);
-    }, last.apply(undefined, arguments));
-  };
+  return funcs.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(undefined, arguments));
+    };
+  });
 }
 
 /***/ }),
@@ -13575,34 +13573,33 @@ function compose() {
  */
 var ActionTypes = {
   INIT: '@@redux/INIT'
-};
 
-/**
- * Creates a Redux store that holds the state tree.
- * The only way to change the data in the store is to call `dispatch()` on it.
- *
- * There should only be a single store in your app. To specify how different
- * parts of the state tree respond to actions, you may combine several reducers
- * into a single reducer function by using `combineReducers`.
- *
- * @param {Function} reducer A function that returns the next state tree, given
- * the current state tree and the action to handle.
- *
- * @param {any} [preloadedState] The initial state. You may optionally specify it
- * to hydrate the state from the server in universal apps, or to restore a
- * previously serialized user session.
- * If you use `combineReducers` to produce the root reducer function, this must be
- * an object with the same shape as `combineReducers` keys.
- *
- * @param {Function} enhancer The store enhancer. You may optionally specify it
- * to enhance the store with third-party capabilities such as middleware,
- * time travel, persistence, etc. The only store enhancer that ships with Redux
- * is `applyMiddleware()`.
- *
- * @returns {Store} A Redux store that lets you read the state, dispatch actions
- * and subscribe to changes.
- */
-function createStore(reducer, preloadedState, enhancer) {
+  /**
+   * Creates a Redux store that holds the state tree.
+   * The only way to change the data in the store is to call `dispatch()` on it.
+   *
+   * There should only be a single store in your app. To specify how different
+   * parts of the state tree respond to actions, you may combine several reducers
+   * into a single reducer function by using `combineReducers`.
+   *
+   * @param {Function} reducer A function that returns the next state tree, given
+   * the current state tree and the action to handle.
+   *
+   * @param {any} [preloadedState] The initial state. You may optionally specify it
+   * to hydrate the state from the server in universal apps, or to restore a
+   * previously serialized user session.
+   * If you use `combineReducers` to produce the root reducer function, this must be
+   * an object with the same shape as `combineReducers` keys.
+   *
+   * @param {Function} [enhancer] The store enhancer. You may optionally specify it
+   * to enhance the store with third-party capabilities such as middleware,
+   * time travel, persistence, etc. The only store enhancer that ships with Redux
+   * is `applyMiddleware()`.
+   *
+   * @returns {Store} A Redux store that lets you read the state, dispatch actions
+   * and subscribe to changes.
+   */
+};function createStore(reducer, preloadedState, enhancer) {
   var _ref2;
 
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
@@ -13736,7 +13733,8 @@ function createStore(reducer, preloadedState, enhancer) {
 
     var listeners = currentListeners = nextListeners;
     for (var i = 0; i < listeners.length; i++) {
-      listeners[i]();
+      var listener = listeners[i];
+      listener();
     }
 
     return action;
@@ -13765,7 +13763,7 @@ function createStore(reducer, preloadedState, enhancer) {
    * Interoperability point for observable/reactive libraries.
    * @returns {observable} A minimal observable of state changes.
    * For more information, see the observable proposal:
-   * https://github.com/zenparsing/es-observable
+   * https://github.com/tc39/proposal-observable
    */
   function observable() {
     var _ref;
@@ -14016,6 +14014,11 @@ var Ask = function (_React$Component) {
       }
     }
   }, {
+    key: "askBG",
+    value: function askBG() {
+      document.body.id = "ask";
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -14026,7 +14029,7 @@ var Ask = function (_React$Component) {
           className: "logo-header" }),
         _react2.default.createElement(
           "div",
-          { "class": "content-container-center-dynamic" },
+          { className: "search-container" },
           _react2.default.createElement(
             "form",
             { className: "searchForm", onSubmit: this.handleSubmit },
@@ -14179,7 +14182,8 @@ var Ask = function (_React$Component) {
             ),
             _react2.default.createElement("input", { type: "submit", className: "search-btn", value: "Ask" })
           )
-        )
+        ),
+        this.askBG()
       );
     }
   }]);
@@ -14313,44 +14317,62 @@ var Result = function (_React$Component) {
 
       return this.state.songsShowing.map(function (song, idx) {
         return _react2.default.createElement(
-          'tr',
-          { key: idx },
+          'div',
+          { className: 'result-list sub' },
           _react2.default.createElement(
-            'td',
-            { className: 'result-song' },
-            song.name
-          ),
-          _react2.default.createElement(
-            'td',
-            { className: 'result-option' },
+            'div',
+            { className: 'result-song', key: idx, onClick: _this2.playSong(song) },
             _react2.default.createElement(
               'span',
-              { className: 'play-pause', onClick: _this2.playSong(song) },
+              { className: 'result-name' },
+              song.name
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'result-option' },
               _react2.default.createElement(
                 'i',
-                { className: 'material-icons init md-36' },
-                'play_circle_outline'
+                { className: 'material-icons md-24', id: 'more-btn', onclick: 'moreInit()' },
+                'more_vert'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'result-detail' },
+            ' // To expand upon click on more_vert',
+            _react2.default.createElement(
+              'div',
+              { className: 'result-detail sub' },
+              _react2.default.createElement(
+                'span',
+                { className: 'result-artist' },
+                'Performed by ',
+                song.artist
               ),
               _react2.default.createElement(
-                'i',
-                { className: 'material-icons hover md-36' },
-                'play_circle_filled'
+                'span',
+                { className: 'result-option' },
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24', id: 'thumbup-btn', onclick: 'thumbUpInit()' },
+                  'thumb_up'
+                ),
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24', id: 'thumbdown-btn', onclick: 'thumbDownInit()' },
+                  'thumb_down'
+                )
               )
             ),
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'thumbup-btn', onclick: 'thumbUpInit()' },
-              'thumb_up'
-            ),
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'thumbdown-btn', onclick: 'thumbDownInit()' },
-              'thumb_down'
-            ),
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'more-btn', onclick: 'moreInit()' },
-              'more_vert'
+              'div',
+              { className: 'result-detail sub' },
+              _react2.default.createElement(
+                'span',
+                { className: 'result-review' },
+                '-insert review-'
+              )
             )
           )
         );
@@ -14413,49 +14435,64 @@ var Result = function (_React$Component) {
       console.log(played);
     }
   }, {
+    key: 'resultBG',
+    value: function resultBG() {
+      document.body.id = "result";
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         { className: 'main-container' },
-        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg', alt: 'The Sound Mind', className: 'logo-header' }),
-        _react2.default.createElement(
-          'h1',
-          { className: 'result-title' },
-          'Other users recommend these songs for you:'
-        ),
         _react2.default.createElement(
           'div',
-          { className: 'content-container-left' },
+          { className: 'main-container result' },
+          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg',
+            alt: 'The Sound Mind',
+            className: 'logo-header' }),
           _react2.default.createElement(
-            'table',
-            { className: 'result-list' },
-            this.showSongs()
-          ),
-          _react2.default.createElement(
-            'h2',
-            { className: 'result-expand', onClick: this.nextFive },
-            'Load 5 More'
-          ),
-          _react2.default.createElement(
-            'a',
-            { href: 'ask.html', className: 'result-reset' },
-            'Ask again'
+            'h1',
+            { className: 'result-title' },
+            'Other users recommend these songs for you:'
           ),
           _react2.default.createElement(
             'div',
-            { className: 'result-feedback' },
-            'Was this recommendation useful?',
-            _react2.default.createElement('br', null),
+            { className: 'result-container' },
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'satisfied-btn', onclick: 'satisfiedInit()' },
-              'sentiment_very_satisfied'
+              'div',
+              { className: 'result-list' },
+              this.showSongs()
             ),
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'dissatisfied-btn', onclick: 'dissatisfiedInit()' },
-              'sentiment_very_dissatisfied'
+              'h2',
+              { className: 'result-expand', onClick: this.nextFive },
+              'Load 5 More'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'result-end' },
+              _react2.default.createElement(
+                'a',
+                { href: 'ask.html', className: 'result-reset' },
+                'Ask again'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'result-feedback' },
+                'Was this recommendation useful?',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24', id: 'satisfied-btn', onclick: 'satisfiedInit()' },
+                  'sentiment_very_satisfied'
+                ),
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24', id: 'dissatisfied-btn', onclick: 'dissatisfiedInit()' },
+                  'sentiment_very_dissatisfied'
+                )
+              )
             )
           )
         ),
@@ -14515,7 +14552,8 @@ var Result = function (_React$Component) {
               )
             )
           )
-        )
+        ),
+        this.resultBG()
       );
     }
   }]);
@@ -14623,6 +14661,7 @@ var Splash = function (_React$Component) {
   }, {
     key: 'runBackgroundCarousel',
     value: function runBackgroundCarousel(interval, frames) {
+      document.body.id = "index-bg0";
       var int = 0;
 
       function func() {
@@ -14649,51 +14688,37 @@ var Splash = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { id: 'index-bg0' },
+        { className: 'main-container' },
+        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
+          alt: 'Logo',
+          className: 'logo' }),
         _react2.default.createElement(
           'div',
-          { className: 'main-container' },
-          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
-            alt: 'Logo',
-            className: 'logo' }),
+          { className: 'vp-container' },
           _react2.default.createElement(
-            'div',
-            { className: 'content-container-center-center' },
-            _react2.default.createElement(
-              'span',
-              { className: 'vp-main' },
-              'Music for your every moment'
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'vp-sub' },
-              'Powered by you. For you.'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'signup-container' },
-              _react2.default.createElement(
-                'p',
-                { className: 'cta' },
-                'Register your email now to start your experience today!'
-              ),
-              _react2.default.createElement(
-                'form',
-                { className: 'form-w-btn', onSubmit: this.handleSubmit },
-                _react2.default.createElement(
-                  'h1',
-                  null,
-                  'Music for your every moment.'
-                ),
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Try our alpha now!'
-                ),
-                _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
-                _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
-              )
-            )
+            'span',
+            { className: 'vp-main' },
+            'Music for your every moment'
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'vp-sub' },
+            'Powered by you. For you.'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'signup-container' },
+          _react2.default.createElement(
+            'p',
+            { className: 'cta' },
+            'Register your email now to start your experience today!'
+          ),
+          _react2.default.createElement(
+            'form',
+            { className: 'form-w-btn', onSubmit: this.handleSubmit },
+            _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
+            _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
           )
         ),
         this.runBackgroundCarousel(5000, 7)
@@ -35723,7 +35748,7 @@ function getUndefinedStateErrorMessage(key, action) {
   var actionType = action && action.type;
   var actionName = actionType && '"' + actionType.toString() + '"' || 'an action';
 
-  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
+  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state. ' + 'If you want this reducer to hold no value, you can return null instead of undefined.';
 }
 
 function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
@@ -35751,18 +35776,18 @@ function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, une
   }
 }
 
-function assertReducerSanity(reducers) {
+function assertReducerShape(reducers) {
   Object.keys(reducers).forEach(function (key) {
     var reducer = reducers[key];
     var initialState = reducer(undefined, { type: __WEBPACK_IMPORTED_MODULE_0__createStore__["a" /* ActionTypes */].INIT });
 
     if (typeof initialState === 'undefined') {
-      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined.');
+      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined. If you don\'t want to set a value for this reducer, ' + 'you can use null instead of undefined.');
     }
 
     var type = '@@redux/PROBE_UNKNOWN_ACTION_' + Math.random().toString(36).substring(7).split('').join('.');
     if (typeof reducer(undefined, { type: type }) === 'undefined') {
-      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + __WEBPACK_IMPORTED_MODULE_0__createStore__["a" /* ActionTypes */].INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined.');
+      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + __WEBPACK_IMPORTED_MODULE_0__createStore__["a" /* ActionTypes */].INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined, but can be null.');
     }
   });
 }
@@ -35801,23 +35826,24 @@ function combineReducers(reducers) {
   }
   var finalReducerKeys = Object.keys(finalReducers);
 
+  var unexpectedKeyCache = void 0;
   if (process.env.NODE_ENV !== 'production') {
-    var unexpectedKeyCache = {};
+    unexpectedKeyCache = {};
   }
 
-  var sanityError;
+  var shapeAssertionError = void 0;
   try {
-    assertReducerSanity(finalReducers);
+    assertReducerShape(finalReducers);
   } catch (e) {
-    sanityError = e;
+    shapeAssertionError = e;
   }
 
   return function combination() {
-    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
-    if (sanityError) {
-      throw sanityError;
+    if (shapeAssertionError) {
+      throw shapeAssertionError;
     }
 
     if (process.env.NODE_ENV !== 'production') {
@@ -35829,16 +35855,16 @@ function combineReducers(reducers) {
 
     var hasChanged = false;
     var nextState = {};
-    for (var i = 0; i < finalReducerKeys.length; i++) {
-      var key = finalReducerKeys[i];
-      var reducer = finalReducers[key];
-      var previousStateForKey = state[key];
+    for (var _i = 0; _i < finalReducerKeys.length; _i++) {
+      var _key = finalReducerKeys[_i];
+      var reducer = finalReducers[_key];
+      var previousStateForKey = state[_key];
       var nextStateForKey = reducer(previousStateForKey, action);
       if (typeof nextStateForKey === 'undefined') {
-        var errorMessage = getUndefinedStateErrorMessage(key, action);
+        var errorMessage = getUndefinedStateErrorMessage(_key, action);
         throw new Error(errorMessage);
       }
-      nextState[key] = nextStateForKey;
+      nextState[_key] = nextStateForKey;
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
     }
     return hasChanged ? nextState : state;
