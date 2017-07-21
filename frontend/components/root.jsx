@@ -6,7 +6,6 @@ import AskContainer from './ask/ask_container';
 import ResultContainer from './result/result_container';
 
 const Root = ({ store }) => {
-  // TODO: this doesnt work, need to fix routing
   const _requireLogin = (nextState, replace) => {
     if(!store.getState().session.currentUser) {
       replace("/");

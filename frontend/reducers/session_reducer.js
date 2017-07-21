@@ -24,11 +24,11 @@ const SessionReducer = (oldState = _defaultState, action) => {
       return newState;
     case LOGOUT:
       return _defaultState;
-    case RECEIVE_NEW_DISLIKED_SONGS:
-      newState.currentUser.liked_songs = action.liked_songs
+    case RECEIVE_NEW_LIKED_SONGS:
+      newState.currentUser.liked_songs = action.songs.liked_songs
       return newState;
     case RECEIVE_NEW_DISLIKED_SONGS:
-      newState.currentUser.disliked_songs = action.disliked_songs
+      newState.currentUser.disliked_songs = action.songs.disliked_songs
       return newState;
     default:
       return oldState;

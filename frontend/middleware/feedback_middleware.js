@@ -10,7 +10,7 @@ import {like,
         undoDislike} from '../util/feedback_util';
 
 const FeedbackMiddleware = ({dispatch}) => next => action => {
-  const likeSuccess = (data) => dispatch(receiveNewDislikedSongs(data));
+  const likeSuccess = (data) => dispatch(receiveNewLikedSongs(data));
   const dislikeSuccess = (data) => dispatch(receiveNewDislikedSongs(data));
 
   switch(action.type) {

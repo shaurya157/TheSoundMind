@@ -12,7 +12,7 @@ CSV.foreach('./db/thesoundmind_recommendations.csv', encoding: 'iso-8859-1') do 
 
   song = Song.where(url: row[6])
   id = song.first.id unless song.empty?
-  
+
   if song.empty?
     song = Song.new
     song.name = row[3]
@@ -26,3 +26,10 @@ CSV.foreach('./db/thesoundmind_recommendations.csv', encoding: 'iso-8859-1') do 
   Location.create(name: row[0], song_id: id)
   Activity.create(name: row[1], song_id: id)
 end
+
+
+# Creating a placeholder like and dislike for now.
+# These are created because we DELETE needs an ID to function properly
+# TODO: HACKY! Find a fix.
+Like.create(user_id: 1, song_id: 1)
+Dislike.create(user_id: 1, song_id: 2)

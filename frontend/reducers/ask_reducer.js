@@ -4,7 +4,12 @@ import merge from 'lodash/merge';
 const _defaultState = {
   firstRecommendation: [],
   secondRecommendation: [],
-  thirdRecommendation: []
+  thirdRecommendation: [],
+  id: null,
+  feedback: null,
+  mood: "",
+  location: "",
+  activity: ""
 }
 
 const AskReducer = (oldState = _defaultState, action) => {
@@ -16,6 +21,11 @@ const AskReducer = (oldState = _defaultState, action) => {
       newState.firstRecommendation = action.recommendations.firstRecommendation;
       newState.secondRecommendation = action.recommendations.secondRecommendation;
       newState.thirdRecommendation = action.recommendations.thirdRecommendation;
+      newState.id = action.recommendations.id;
+      newState.mood = action.recommendations.mood;
+      newState.location = action.recommendations.location;
+      newState.activity = action.recommendations.activity;
+      newState.feedback = action.recommendations.feedback;
 
       return newState
     default:
