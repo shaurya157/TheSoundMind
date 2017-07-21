@@ -223,22 +223,24 @@ class Result extends React.Component{
   render(){
     return(
       <div className="main-container">
-        <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg" alt="The Sound Mind" className="logo-header" />
-
-        <h1 className="result-title">Other users recommend these songs for you:</h1>
-
-        <div className="content-container-left">
-          <table className="result-list">
-              {this.showSongs()}
-          </table>
-          <h2 className="result-expand" onClick={this.nextFive}>
-            {this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"}
-          </h2>
-          <a onClick={this.goBack} className="result-reset">Ask again</a>
-          <div className="result-feedback">
-            Was this recommendation useful?<br></br>
-            <i className="material-icons md-24" id="satisfied-btn" onclick="satisfiedInit()">sentiment_very_satisfied</i>
-            <i className="material-icons md-24" id="dissatisfied-btn" onclick="dissatisfiedInit()">sentiment_very_dissatisfied</i>
+        <div className="main-container result">
+          <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg" alt="The Sound Mind" className="logo-header" />
+          <h1 className="result-title">Other users recommend these songs for you:</h1>
+            <div className="result-container">
+              <div className="result-list">
+                {this.showSongs()}
+              </div>
+              <h2 className="result-expand" onClick={this.nextFive}>
+                {this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"}
+              </h2>
+              <div className="result-end">
+                <a onClick={this.goBack} className="result-reset">Ask again</a>
+                <div className="result-feedback">
+                  Was this recommendation useful?<br></br>
+                <i className="material-icons md-24" id="satisfied-btn" onclick="satisfiedInit()">sentiment_very_satisfied</i>
+                <i className="material-icons md-24" id="dissatisfied-btn" onclick="dissatisfiedInit()">sentiment_very_dissatisfied</i>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -255,23 +257,23 @@ class Result extends React.Component{
                className="player-time"
                onChange = {this.handleSlider}
                value = {this.state.played}/>
-          <div className="player-container">
-            <div className="player-song">
-              <h3 className="player-song-name">{this.state.currentSong.name}</h3>
-              <h4 className="player-song-artist">{this.state.currentSong.artist}</h4>
-            </div>
+        <div className="player-container">
+          <div className="player-song">
+            <h3 className="player-song-name">{this.state.currentSong.name}</h3>
+            <h4 className="player-song-artist">{this.state.currentSong.artist}</h4>
+          </div>
 
-            <div className="player-option">
-              <i className="material-icons md-24-light" onClick={this.startPreviousSong}>skip_previous</i>
-              <span className="play-pause" onClick={this.togglePlay}>
-                <i className="material-icons init md-36-light">play_circle_outline</i>
-                <i className="material-icons hover md-36-light">play_circle_filled</i>
-              </span>
-              <i className="material-icons md-24-light" onClick={this.startNextSong}>skip_next</i>
-            </div>
+          <div className="player-option">
+            <i className="material-icons md-24-light" onClick={this.startPreviousSong}>skip_previous</i>
+            <span className="play-pause" onClick={this.togglePlay}>
+              <i className="material-icons init md-36-light">play_circle_outline</i>
+              <i className="material-icons hover md-36-light">play_circle_filled</i>
+            </span>
+            <i className="material-icons md-24-light" onClick={this.startNextSong}>skip_next</i>
           </div>
         </div>
       </div>
+    </div>
     )
   }
 }

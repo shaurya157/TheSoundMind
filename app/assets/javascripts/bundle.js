@@ -14614,44 +14614,52 @@ var Result = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'main-container' },
-        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg', alt: 'The Sound Mind', className: 'logo-header' }),
-        _react2.default.createElement(
-          'h1',
-          { className: 'result-title' },
-          'Other users recommend these songs for you:'
-        ),
         _react2.default.createElement(
           'div',
-          { className: 'content-container-left' },
+          { className: 'main-container result' },
+          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg', alt: 'The Sound Mind', className: 'logo-header' }),
           _react2.default.createElement(
-            'table',
-            { className: 'result-list' },
-            this.showSongs()
-          ),
-          _react2.default.createElement(
-            'h2',
-            { className: 'result-expand', onClick: this.nextFive },
-            this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"
-          ),
-          _react2.default.createElement(
-            'a',
-            { onClick: this.goBack, className: 'result-reset' },
-            'Ask again'
+            'h1',
+            { className: 'result-title' },
+            'Other users recommend these songs for you:'
           ),
           _react2.default.createElement(
             'div',
-            { className: 'result-feedback' },
-            'Was this recommendation useful?',
-            _react2.default.createElement('br', null),
+            { className: 'result-container' },
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'satisfied-btn', onclick: 'satisfiedInit()' },
-              'sentiment_very_satisfied'
+              'div',
+              { className: 'result-list' },
+              this.showSongs()
             ),
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'dissatisfied-btn', onclick: 'dissatisfiedInit()' },
-              'sentiment_very_dissatisfied'
+              'h2',
+              { className: 'result-expand', onClick: this.nextFive },
+              this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'result-end' },
+              _react2.default.createElement(
+                'a',
+                { onClick: this.goBack, className: 'result-reset' },
+                'Ask again'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'result-feedback' },
+                'Was this recommendation useful?',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24', id: 'satisfied-btn', onclick: 'satisfiedInit()' },
+                  'sentiment_very_satisfied'
+                ),
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24', id: 'dissatisfied-btn', onclick: 'dissatisfiedInit()' },
+                  'sentiment_very_dissatisfied'
+                )
+              )
             )
           )
         ),
