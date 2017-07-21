@@ -20,7 +20,7 @@ class Ask extends React.Component{
                    this.state.activity,
                    this.props.currentUser.id);
 
-    this.props.history.push('ask/result')
+    this.props.history.replace('ask/result')
   };
 
   handleChange(event){
@@ -39,18 +39,13 @@ class Ask extends React.Component{
     }
   }
 
-  askBG(){
-    document.body.id = "ask";
-  }
-
   render(){
     return (
       <div className="main-container">
         <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg"
           alt="The Sound Mind"
           className="logo-header" />
-        
-        <div className="search-container">
+        <div className="content-container-center-dynamic">
           <form className="searchForm" onSubmit = { this.handleSubmit }>
             <h1>Where are you right now?</h1>
             <select name="location" onChange = { this.handleChange } className='search-option'>
@@ -90,8 +85,7 @@ class Ask extends React.Component{
 
             <input type="submit" className="search-btn" value="Ask" />
           </form>
-          </div>
-        {this.askBG()}
+        </div>
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store'
 import Root from './components/root'
-import {ask} from './actions/ask_actions'
+import {like, dislike, undoLike, undoDislike} from './actions/feedback_actions'
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootEl = document.getElementById('root');
@@ -15,8 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // debugging purposes
   window.store = store;
+  window.like = like;
+  window.dislike = dislike;
+  window.undoLike = undoLike;
+  window.undoDislike = undoDislike;
   window.success = (data) => console.log(data);
   window.error = data => console.log(data);
-  window.ask = ask;
   ReactDOM.render(<Root store={store} />, rootEl);
 });
