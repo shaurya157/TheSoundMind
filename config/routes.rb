@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:create, :show, :destroy]
-    resources :recommendations, only: [:index]
+    resources :recommendations, only: [:index] do
+      member do
+        post :feedback
+      end
+    end
     resource :likes, only: [:create, :destroy]
     resource :dislikes, only: [:create, :destroy]
   end

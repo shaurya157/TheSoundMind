@@ -8,8 +8,8 @@ const mapStateToProps = ({session, recommendations}) => ({
   firstRecommendation: recommendations.firstRecommendation,
   secondRecommendation: recommendations.secondRecommendation,
   thirdRecommendation: recommendations.thirdRecommendation,
-  likedSongs: session.currentUser.likedSongs,
-  dislikedSongs: session.currentUser.dislikedSongs
+  likedSongs: session.currentUser.liked_songs,
+  dislikedSongs: session.currentUser.disliked_songs
 });
 
 const mapDispatchToProps = dispatch  => ({

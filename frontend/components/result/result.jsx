@@ -9,8 +9,6 @@ class Result extends React.Component{
     this.state = { songsShowing: [],
                    playing: false,
                    currentSong: {name: "", artist: "", url: ""},
-                   playedSongs: [],
-                   songsToPlay: [],
                    shuffle: false,
                    played: 0,
                    firstClick: false};
@@ -19,27 +17,44 @@ class Result extends React.Component{
     // TODO: Find a fix.
 
     this.counter = 0;
+    this.firstRender = false;
     this.togglePlay = this.togglePlay.bind(this);
     this.updatePlaybar = this.updatePlaybar.bind(this);
     this.startPreviousSong = this.startPreviousSong.bind(this);
     this.startNextSong = this.startNextSong.bind(this);
     this.goBack = this.goBack.bind(this);
     this.handleSlider = this.handleSlider.bind(this);
+    this.likeOrUndoLike = this.likeOrUndoLike.bind(this);
+    this.dislikeOrUndoDislike = this.dislikeOrUndoDislike.bind(this);
+    this.likeOrDislikeChecker = this.likeOrDislikeChecker.bind(this);
   }
 
-  nextFive(){
-    let firstLength = this.props.firstRecommendation.length
-    let secondLength = this.props.secondRecommendation.length
-    let thirdLength = this.props.thirdRecommendation.length
+  // First X songs to be loaded
+  componentWillReceiveProps(nextProps){
+    if(!this.firstRender){
+      this.firstRender = true;
+      this.nextFive(nextProps);
+    }
+  }
+
+  nextFive(props){
+  // Checking to see if this is the correct props. React is passing in something as well
+    if(!props.currentUser){
+      props = this.props;
+    }
+
+    let firstLength = props.firstRecommendation.length
+    let secondLength = props.secondRecommendation.length
+    let thirdLength = props.thirdRecommendation.length
 
     let songsToAdd = []
     for(let i = 5; i > 0; i-- ){
       if(this.counter < firstLength){
-        songsToAdd.push(this.props.firstRecommendation[this.counter]);
+        songsToAdd.push(props.firstRecommendation[this.counter]);
       } else if (this.counter < secondLength) {
-        songsToAdd.push(this.props.secondRecommendation[this.counter - firstLength]);
+        songsToAdd.push(props.secondRecommendation[this.counter - firstLength]);
       } else {
-        songsToAdd.push(this.props.thirdRecommendation[this.counter - (firstLength + secondLength)]);
+        songsToAdd.push(props.thirdRecommendation[this.counter - (firstLength + secondLength)]);
       }
 
       this.counter += 1;
@@ -57,8 +72,12 @@ class Result extends React.Component{
             <i className="material-icons init md-36">play_circle_outline</i>
             <i className="material-icons hover md-36">play_circle_filled</i>
           </span>
-          <i className="material-icons md-24" id="thumbup-btn" onclick="thumbUpInit()">thumb_up</i>
-          <i className="material-icons md-24" id="thumbdown-btn" onclick="thumbDownInit()">thumb_down</i>
+          <i className="material-icons md-24"
+              id={this.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn'}
+              onClick={this.likeOrUndoLike(song)}>thumb_up</i>
+          <i className="material-icons md-24"
+            id={this.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn'}
+            onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
           <i className="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
         </td>
       </tr>
@@ -68,30 +87,30 @@ class Result extends React.Component{
   playSong(song){
     return (event) => {
       event.preventDefault();
-        this.setState({currentSong: song,
-                       playing: true})
+      this.setState({currentSong: song,
+                     playing: true})
     }
   }
 
   togglePlay(event){
-    event.target.innerHTML = 'pause_circle_outline';
-    this.state.playing ? this.setState({playing: false}) : this.setState({playing: true});
+
+    let arr = event.currentTarget.children;
+    if(this.state.playing){
+      arr[0].innerHTML = 'pause_circle_outline';
+      arr[1].innerHTML = 'pause_circle_filled';
+      this.setState({playing: false})
+    } else {
+      arr[0].innerHTML = 'play_circle_outline';
+      arr[1].innerHTML = 'play_circle_filled';
+      this.setState({playing: true});
+    }
   }
 
   startNextSong(){
-    let arr = [];
-    let index = this.state.songsShowing.indexOf(this.state.currentSong)
-
-    if(this.state.songsToPlay.length === 0){
-      arr = this.state.songsShowing.slice(0)
-    } else {
-      arr = this.state.songsToPlay.slice(index + 1)
-    }
+    let index = this.state.songsShowing.indexOf(this.state.currentSong);
 
     this.setState((oldState) => ({
-      playedSongs: oldState.playedSongs.concat([oldState.currentSong]),
-      currentSong: arr[0],
-      songsToPlay: arr.slice(1),
+      currentSong: oldState.songsShowing[index + 1],
       played: 0
     }));
   }
@@ -108,10 +127,10 @@ class Result extends React.Component{
   }
 
   startPreviousSong(){
+    let index = this.state.songsShowing.indexOf(this.state.currentSong);
+
     this.setState((oldState) => ({
-      playedSongs: oldState.playedSongs.slice(0, oldState.playedSongs.length - 1),
-      currentSong: oldState.playedSongs[oldState.playedSongs.length - 1],
-      songsToPlay: oldState.songsToPlay.concat([oldState.currentSong]),
+      currentSong: oldState.songsShowing[index - 1],
       played: 0
     }));
   }
@@ -135,18 +154,70 @@ class Result extends React.Component{
   }
 
   likeOrUndoLike(song){
+    let that = this;
     return (event) => {
       event.preventDefault();
-      if(this.props.currentUser.likedSongs[song]){
-        "";
+
+      if(that.likeOrDislikeChecker(song, 'like')){
+        event.target.id = 'thumbup-btn';
+        that.props.undoLike(that.props.currentUser.id, song.id);
+      } else {
+        let disliked = that.likeOrDislikeChecker(song, 'dislike');
+
+// this sucks. TODO: change to have like and dislike done together instead of 2 api calls
+        event.target.id = 'thumbup-btn-1';
+        if(disliked){
+          event.target.nextSibling.id = 'thumbdown-btn';
+          that.props.undoDislike(this.props.currentUser.id, song.id);
+        }
+
+        that.props.like(that.props.currentUser.id, song.id);
       }
     }
   }
 
-  dislikeOrUndoDislike(song) {
+  dislikeOrUndoDislike(song){
+    let that = this;
     return (event) => {
-      event.preventDefault();
+      if(that.likeOrDislikeChecker(song, 'dislike')){
+        event.target.id = 'thumbdown-btn';
+        that.props.undoDislike(that.props.currentUser.id, song.id);
+      } else {
+        let liked = that.likeOrDislikeChecker(song, 'like');
+
+// this sucks. TODO: change to have like and dislike done together instead of 2 api calls
+        event.target.id = 'thumbdown-btn-1';
+        if(liked){
+          event.target.previousSibling.id = 'thumbdown-btn';
+          that.props.undoLike(this.props.currentUser.id, song.id);
+        }
+
+        that.props.dislike(that.props.currentUser.id, song.id);
+      }
     }
+  }
+
+// Returns true if song is liked or disliked, false otherwise
+  likeOrDislikeChecker(song, like){
+    let status = false;
+
+    if(like === 'like'){
+      this.props.likedSongs.forEach((micCheck) => {
+          if(song.name === micCheck.name){
+            status = true;
+            return;
+          }
+      });
+    } else {
+      this.props.dislikedSongs.forEach((micCheck) => {
+          if(song.name === micCheck.name){
+            status = true;
+            return;
+          }
+      });
+    }
+
+    return status;
   }
 
   render(){
