@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // debugging purposes
   window.store = store;
   window.like = like;
+  window.dislike = dislike;
   window.undoLike = undoLike;
   window.undoDislike = undoDislike;
   window.success = (data) => console.log(data);
