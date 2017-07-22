@@ -30,8 +30,8 @@ const AskReducer = (oldState = _defaultState, action) => {
 
       return newState;
     case RECEIVE_RECO_FEEDBACK:
-      newState.feedback = action.feedback
-      
+      newState.feedback = action.recommendation.feedback
+
       return newState;
     default:
       return oldState;

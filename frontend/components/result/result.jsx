@@ -27,6 +27,7 @@ class Result extends React.Component{
     this.likeOrUndoLike = this.likeOrUndoLike.bind(this);
     this.dislikeOrUndoDislike = this.dislikeOrUndoDislike.bind(this);
     this.likeOrDislikeChecker = this.likeOrDislikeChecker.bind(this);
+    this.handleRecoFeedback = this.handleRecoFeedback.bind(this);
   }
 
   // First X songs to be loaded
@@ -220,6 +221,12 @@ class Result extends React.Component{
     return status;
   }
 
+  handleRecoFeedback(event){
+    let id = this.props.recommendation.id;
+
+    event.target.id == 'satisfied-btn' ? this.props.recoFeedback(id, true) : this.props.recoFeedback(id, false)
+  }
+
   render(){
     return(
       <div className="main-container">
@@ -237,8 +244,12 @@ class Result extends React.Component{
                 <a onClick={this.goBack} className="result-reset">Ask again</a>
                 <div className="result-feedback">
                   Was this recommendation useful?<br></br>
-                <i className="material-icons md-24" id="satisfied-btn" onclick="satisfiedInit()">sentiment_very_satisfied</i>
-                <i className="material-icons md-24" id="dissatisfied-btn" onclick="dissatisfiedInit()">sentiment_very_dissatisfied</i>
+                <i className="material-icons md-24"
+                  id={this.props.recommendation.feedback === true ? 'satisfied-btn-1' : 'satisfied-btn'}
+                  onClick={this.handleRecoFeedback}>sentiment_very_satisfied</i>
+                <i className="material-icons md-24"
+                  id={this.props.recommendation.feedback === false ? 'dissatisfied-btn-1' : 'dissatisfied-btn'}
+                  onClick={this.handleRecoFeedback}>sentiment_very_dissatisfied</i>
               </div>
             </div>
           </div>
@@ -264,7 +275,8 @@ class Result extends React.Component{
           </div>
 
           <div className="player-option">
-            <i className="material-icons md-24-light" onClick={this.startPreviousSong}>skip_previous</i>
+            <i className="material-icons md-24-light"
+               onClick={this.startPreviousSong}>skip_previous</i>
             <span className="play-pause" onClick={this.togglePlay}>
               <i className="material-icons init md-36-light">play_circle_outline</i>
               <i className="material-icons hover md-36-light">play_circle_filled</i>
