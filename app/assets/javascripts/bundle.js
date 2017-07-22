@@ -14843,24 +14843,33 @@ var Splash = function (_React$Component) {
   }, {
     key: 'runBackgroundCarousel',
     value: function runBackgroundCarousel(interval, frames) {
-      document.body.id = "index-bg0";
       var int = 0;
-
       function func() {
-        var x = document.getElementById("index-bg" + int);
-        if (int === frames) {
-          int = 1;
+        var carouselBG = document.getElementById("index-bg" + int);
+        if (carouselBG) {
+          if (int === frames) {
+            int = 1;
+          } else {
+            int++;
+          }
+          carouselBG.id = "index-bg" + int;
         } else {
-          int++;
+          return;
         }
-        x.id = "index-bg" + int;
       }
 
-      var swap = window.setInterval(func, interval);
+      setInterval(func, interval);
     }
   }, {
     key: 'render',
     value: function render() {
+      // let divStyle = {
+      //   backgroundImage: `url(http://res.cloudinary.com/djv7nouxz/image/upload/v1498198211/jukebox_df5swz.jpg)`,
+      //   backgroundSize: `cover`,
+      //   backgroundPosition: `50%`,
+      // };
+      // <div style={ divStyle } className='login background'></div>
+
       return _react2.default.createElement(
         'div',
         { className: 'main-container' },
