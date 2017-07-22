@@ -14095,6 +14095,11 @@ var Ask = function (_React$Component) {
       }
     }
   }, {
+    key: "askBG",
+    value: function askBG() {
+      document.body.id = "ask";
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -14105,7 +14110,7 @@ var Ask = function (_React$Component) {
           className: "logo-header" }),
         _react2.default.createElement(
           "div",
-          { className: "content-container-center-dynamic" },
+          { className: "search-container" },
           _react2.default.createElement(
             "form",
             { className: "searchForm", onSubmit: this.handleSubmit },
@@ -14258,7 +14263,8 @@ var Ask = function (_React$Component) {
             ),
             _react2.default.createElement("input", { type: "submit", className: "search-btn", value: "Ask" })
           )
-        )
+        ),
+        this.askBG()
       );
     }
   }]);
@@ -14415,48 +14421,65 @@ var Result = function (_React$Component) {
 
       return this.state.songsShowing.map(function (song, idx) {
         return _react2.default.createElement(
-          'tr',
-          { key: idx },
+          'div',
+          { className: 'result-list sub' },
           _react2.default.createElement(
-            'td',
-            { className: 'result-song' },
-            song.name
-          ),
-          _react2.default.createElement(
-            'td',
-            { className: 'result-option' },
+            'div',
+            { className: 'result-song', key: idx, onClick: _this2.playSong(song) },
             _react2.default.createElement(
               'span',
-              { className: 'play-pause', onClick: _this2.playSong(song) },
+              { className: 'result-name' },
+              song.name
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'result-option' },
               _react2.default.createElement(
                 'i',
-                { className: 'material-icons init md-36' },
-                'play_circle_outline'
+                { className: 'material-icons md-24', id: 'more-btn', onclick: 'moreInit()' },
+                'more_vert'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'result-detail' },
+            _react2.default.createElement(
+              'div',
+              { className: 'result-detail sub' },
+              _react2.default.createElement(
+                'span',
+                { className: 'result-artist' },
+                'Performed by ',
+                song.artist
               ),
               _react2.default.createElement(
-                'i',
-                { className: 'material-icons hover md-36' },
-                'play_circle_filled'
+                'span',
+                { className: 'result-option' },
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24',
+                    id: _this2.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn',
+                    onClick: _this2.likeOrUndoLike(song) },
+                  'thumb_up'
+                ),
+                _react2.default.createElement(
+                  'i',
+                  { className: 'material-icons md-24',
+                    id: _this2.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn',
+                    onClick: _this2.dislikeOrUndoDislike(song) },
+                  'thumb_down'
+                )
               )
             ),
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24',
-                id: _this2.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn',
-                onClick: _this2.likeOrUndoLike(song) },
-              'thumb_up'
-            ),
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24',
-                id: _this2.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn',
-                onClick: _this2.dislikeOrUndoDislike(song) },
-              'thumb_down'
-            ),
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons md-24', id: 'more-btn', onclick: 'moreInit()' },
-              'more_vert'
+              'div',
+              { className: 'result-detail sub' },
+              _react2.default.createElement(
+                'span',
+                { className: 'result-review' },
+                '-insert review-'
+              )
             )
           )
         );
@@ -14632,6 +14655,11 @@ var Result = function (_React$Component) {
       event.target.id == 'satisfied-btn' ? this.props.recoFeedback(id, true) : this.props.recoFeedback(id, false);
     }
   }, {
+    key: 'resultBG',
+    value: function resultBG() {
+      document.body.id = "result";
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this6 = this;
@@ -14694,7 +14722,7 @@ var Result = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'footer-container player' },
+          { className: 'footer-container stream' },
           _react2.default.createElement(_reactPlayer2.default, {
             ref: function ref(player) {
               _this6.player = player;
@@ -14703,7 +14731,8 @@ var Result = function (_React$Component) {
             playing: this.state.playing,
             hidden: true,
             onEnded: this.startNextSong,
-            onProgress: this.updatePlaybar }),
+            onProgress: this.updatePlaybar,
+            className: 'hidden' }),
           _react2.default.createElement('input', { type: 'range',
             className: 'player-time',
             onChange: this.handleSlider,
@@ -14755,7 +14784,8 @@ var Result = function (_React$Component) {
               )
             )
           )
-        )
+        ),
+        this.resultBG()
       );
     }
   }]);
@@ -14886,14 +14916,14 @@ var Splash = function (_React$Component) {
     value: function runBackgroundCarousel(interval, frames) {
       var int = 0;
       function func() {
-        var x = document.getElementById("index-bg" + int);
-        if (x) {
+        var carouselBG = document.getElementById("index-bg" + int);
+        if (carouselBG) {
           if (int === frames) {
             int = 1;
           } else {
             int++;
           }
-          x.id = "index-bg" + int;
+          carouselBG.id = "index-bg" + int;
         } else {
           return;
         }
@@ -14913,54 +14943,40 @@ var Splash = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { id: 'index-bg0' },
+        { className: 'main-container' },
+        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
+          alt: 'Logo',
+          className: 'logo' }),
         _react2.default.createElement(
           'div',
-          { className: 'main-container' },
-          this.runBackgroundCarousel(5000, 7),
-          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
-            alt: 'Logo',
-            className: 'logo' }),
+          { className: 'vp-container' },
           _react2.default.createElement(
-            'div',
-            { className: 'content-container-center-center' },
-            _react2.default.createElement(
-              'span',
-              { className: 'vp-main' },
-              'Music for your every moment'
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'vp-sub' },
-              'Powered by you. For you.'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'signup-container' },
-              _react2.default.createElement(
-                'p',
-                { className: 'cta' },
-                'Register your email now to start your experience today!'
-              ),
-              _react2.default.createElement(
-                'form',
-                { className: 'form-w-btn', onSubmit: this.handleSubmit },
-                _react2.default.createElement(
-                  'h1',
-                  null,
-                  'Music for your every moment.'
-                ),
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Try our alpha now!'
-                ),
-                _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
-                _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
-              )
-            )
+            'span',
+            { className: 'vp-main' },
+            'Music for your every moment'
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'vp-sub' },
+            'Powered by you. For you.'
           )
-        )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'signup-container' },
+          _react2.default.createElement(
+            'p',
+            { className: 'cta' },
+            'Register your email now to start your experience today!'
+          ),
+          _react2.default.createElement(
+            'form',
+            { className: 'form-w-btn', onSubmit: this.handleSubmit },
+            _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
+            _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
+          )
+        ),
+        this.runBackgroundCarousel(5000, 7)
       );
     }
   }]);

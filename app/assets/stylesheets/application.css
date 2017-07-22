@@ -454,10 +454,14 @@ table, th, td, tr {
   line-height: 1.2em;
 }
 
-.footer-container.player {
+.footer-container.stream {
   background: #4B4F54;
   height: 67px;
   color: white;
+}
+
+.hidden {
+  display: none;
 }
 
 .player-container {

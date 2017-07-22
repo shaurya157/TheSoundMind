@@ -66,22 +66,33 @@ class Result extends React.Component{
 
   showSongs(){
     return this.state.songsShowing.map((song, idx) => (
-      <tr key={idx}>
-        <td className="result-song">{song.name}</td>
-        <td className="result-option">
-          <span className="play-pause" onClick={this.playSong(song)}>
-            <i className="material-icons init md-36">play_circle_outline</i>
-            <i className="material-icons hover md-36">play_circle_filled</i>
+      <div className="result-list sub">
+        <div className="result-song" key={idx} onClick={this.playSong(song)}>
+          <span className="result-name">{song.name}</span>
+          <span className="result-option">
+            <i className="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
           </span>
-          <i className="material-icons md-24"
-              id={this.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn'}
-              onClick={this.likeOrUndoLike(song)}>thumb_up</i>
-          <i className="material-icons md-24"
-            id={this.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn'}
-            onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
-          <i className="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
-        </td>
-      </tr>
+        </div>
+
+        <div className="result-detail">
+          <div className="result-detail sub">
+            <span className="result-artist">Performed by {song.artist}</span>
+            <span className="result-option">
+              <i className="material-icons md-24"
+                  id={this.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn'}
+                  onClick={this.likeOrUndoLike(song)}>thumb_up</i>
+              <i className="material-icons md-24"
+                  id={this.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn'}
+                  onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
+            </span>
+          </div>
+          <div className="result-detail sub">
+            <span className="result-review">
+              -insert review-
+            </span>
+          </div>
+        </div>
+      </div>
     ));
   }
 
@@ -227,6 +238,10 @@ class Result extends React.Component{
     event.target.id == 'satisfied-btn' ? this.props.recoFeedback(id, true) : this.props.recoFeedback(id, false)
   }
 
+  resultBG(){
+    document.body.id = "result";
+  }
+
   render(){
     return(
       <div className="main-container">
@@ -255,14 +270,15 @@ class Result extends React.Component{
           </div>
         </div>
 
-        <div className="footer-container player">
-          <ReactPlayer
-            ref={player => {this.player = player}}
-            url={this.state.currentSong.url}
-            playing={this.state.playing}
-            hidden={true}
-            onEnded={this.startNextSong}
-            onProgress={this.updatePlaybar} />
+        <div className="footer-container stream">
+        <ReactPlayer
+          ref={player => {this.player = player}}
+          url={this.state.currentSong.url}
+          playing={this.state.playing}
+          hidden={true}
+          onEnded={this.startNextSong}
+          onProgress={this.updatePlaybar}
+          className='hidden'/>
 
         <input type="range"
                className="player-time"
@@ -285,6 +301,7 @@ class Result extends React.Component{
           </div>
         </div>
       </div>
+      {this.resultBG()}
     </div>
     )
   }
