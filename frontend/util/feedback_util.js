@@ -36,3 +36,12 @@ export const undoDislike = (userId, songId, success) => {
     success
   });
 }
+
+export const recoFeedback = (recommendationId, feedback, success) => {
+  $.ajax({
+    method: "POST",
+    url: `api/recommendations/${recommendationId}/feedback`,
+    data: {recommendation: {id: recommendationId, feedback: feedback}},
+    success
+  });
+}

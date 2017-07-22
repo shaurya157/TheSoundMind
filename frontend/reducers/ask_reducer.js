@@ -1,4 +1,5 @@
 import { RECEIVE_RECOMMENDATIONS } from '../actions/ask_actions';
+import { RECEIVE_RECO_FEEDBACK } from '../actions/feedback_actions';
 import merge from 'lodash/merge';
 
 const _defaultState = {
@@ -27,7 +28,11 @@ const AskReducer = (oldState = _defaultState, action) => {
       newState.activity = action.recommendations.activity;
       newState.feedback = action.recommendations.feedback;
 
-      return newState
+      return newState;
+    case RECEIVE_RECO_FEEDBACK:
+      newState.feedback = action.feedback
+      
+      return newState;
     default:
       return oldState;
   }

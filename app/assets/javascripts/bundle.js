@@ -4104,6 +4104,23 @@ var UNDO_LIKE = exports.UNDO_LIKE = 'UNDO_LIKE';
 var UNDO_DISLIKE = exports.UNDO_DISLIKE = 'UNDO_DISLIKE';
 var RECEIVE_NEW_LIKED_SONGS = exports.RECEIVE_NEW_LIKED_SONGS = 'RECEIVE_NEW_LIKED_SONGS';
 var RECEIVE_NEW_DISLIKED_SONGS = exports.RECEIVE_NEW_DISLIKED_SONGS = 'RECEIVE_NEW_DISLIKED_SONGS';
+var RECO_FEEDBACK = exports.RECO_FEEDBACK = 'RECOMMENDATION_FEEDBACK';
+var RECEIVE_RECO_FEEDBACK = exports.RECEIVE_RECO_FEEDBACK = 'RECEIVE_RECCO_FEEDBACK';
+
+var recoFeedback = exports.recoFeedback = function recoFeedback(recommendationId, feedback) {
+  return {
+    type: RECO_FEEDBACK,
+    recommendationId: recommendationId,
+    feedback: feedback
+  };
+};
+
+var receiveRecoFeedback = exports.receiveRecoFeedback = function receiveRecoFeedback(recommendation) {
+  return {
+    type: RECEIVE_RECO_FEEDBACK,
+    recommendation: recommendation
+  };
+};
 
 var receiveNewLikedSongs = exports.receiveNewLikedSongs = function receiveNewLikedSongs(songs) {
   return {
@@ -15041,7 +15058,9 @@ var FeedbackMiddleware = function FeedbackMiddleware(_ref) {
       var dislikeSuccess = function dislikeSuccess(data) {
         return dispatch((0, _feedback_actions.receiveNewDislikedSongs)(data));
       };
-
+      var recoSuccess = function recoSuccess(data) {
+        return dispatch((0, _feedback_actions.receiveRecoFeedback)(data));
+      };
       switch (action.type) {
         case _feedback_actions.LIKE:
           (0, _feedback_util.like)(action.userId, action.songId, likeSuccess);
@@ -15054,6 +15073,9 @@ var FeedbackMiddleware = function FeedbackMiddleware(_ref) {
           return next(action);
         case _feedback_actions.UNDO_DISLIKE:
           (0, _feedback_util.undoDislike)(action.userId, action.songId, dislikeSuccess);
+          return next(action);
+        case _feedback_actions.RECO_FEEDBACK:
+          (0, _feedback_util.recoFeedback)(action.recommendationId, action.feedback, recoSuccess);
           return next(action);
         default:
           return next(action);
@@ -15147,6 +15169,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _ask_actions = __webpack_require__(55);
 
+var _feedback_actions = __webpack_require__(35);
+
 var _merge = __webpack_require__(107);
 
 var _merge2 = _interopRequireDefault(_merge);
@@ -15181,6 +15205,10 @@ var AskReducer = function AskReducer() {
       newState.location = action.recommendations.location;
       newState.activity = action.recommendations.activity;
       newState.feedback = action.recommendations.feedback;
+
+      return newState;
+    case _feedback_actions.RECEIVE_RECO_FEEDBACK:
+      newState.feedback = action.feedback;
 
       return newState;
     default:
@@ -15317,10 +15345,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // debugging purposes
   window.store = store;
-  window.like = _feedback_actions.like;
-  window.dislike = _feedback_actions.dislike;
-  window.undoLike = _feedback_actions.undoLike;
-  window.undoDislike = _feedback_actions.undoDislike;
+  window.recoFeedback = _feedback_actions.recoFeedback;
   window.success = function (data) {
     return console.log(data);
   };
@@ -15399,6 +15424,15 @@ var undoDislike = exports.undoDislike = function undoDislike(userId, songId, suc
     method: "POST",
     url: 'api/dislikes',
     data: { dislike: { user_id: userId, song_id: songId, dislike: false } },
+    success: success
+  });
+};
+
+var recoFeedback = exports.recoFeedback = function recoFeedback(recommendationId, feedback, success) {
+  $.ajax({
+    method: "POST",
+    url: "api/recommendations/" + recommendationId + "/feedback",
+    data: { recommendation: { id: recommendationId, feedback: feedback } },
     success: success
   });
 };

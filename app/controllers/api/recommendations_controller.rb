@@ -14,13 +14,22 @@ class Api::RecommendationsController < ApplicationController
     render 'api/recommendations/index'
   end
 
+  def feedback
+    @recommendation = Recommendation.find(recommendation_params[:id])
+    recommendation_params[:feedback] == 'true' ? @recommendation.feedback = true : @recommendation.feedback = false
+    @recommendation.save
+    render 'api/recommendations/show'
+  end
+
   private
 
   def recommendation_params
     params.require(:recommendation).permit([:mood,
                                             :activity,
                                             :location,
-                                            :user_id])
+                                            :user_id,
+                                            :id,
+                                            :feedback])
   end
 
   def increment_query
@@ -33,6 +42,7 @@ class Api::RecommendationsController < ApplicationController
   # only 1 array least important
   # TODO: Refactor later, method too big
   # TODO: Add likes and dislikes as a measure of sorting
+  # TODO: Add number of recommendations as a measure of sorting
   def song_sorter(arr1, arr2, arr3)
     sorted_songs = {}
 
