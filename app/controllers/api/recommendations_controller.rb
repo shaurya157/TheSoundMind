@@ -23,7 +23,7 @@ class Api::RecommendationsController < ApplicationController
 
   def song_played
     recommendation = Recommendation.find(recommendation_params[:id])
-    recommendation.song_played += 1;
+    recommendation.num_songs_played += 1;
     recommendation.save
 
     render json: {}
