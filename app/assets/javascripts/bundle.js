@@ -3410,6 +3410,7 @@ var RECEIVE_NEW_LIKED_SONGS = exports.RECEIVE_NEW_LIKED_SONGS = 'RECEIVE_NEW_LIK
 var RECEIVE_NEW_DISLIKED_SONGS = exports.RECEIVE_NEW_DISLIKED_SONGS = 'RECEIVE_NEW_DISLIKED_SONGS';
 var RECO_FEEDBACK = exports.RECO_FEEDBACK = 'RECOMMENDATION_FEEDBACK';
 var RECEIVE_RECO_FEEDBACK = exports.RECEIVE_RECO_FEEDBACK = 'RECEIVE_RECCO_FEEDBACK';
+var SONG_PLAYED = exports.SONG_PLAYED = 'SONG_PLAYED';
 
 var recoFeedback = exports.recoFeedback = function recoFeedback(recommendationId, feedback) {
   return {
@@ -3469,6 +3470,13 @@ var undoDislike = exports.undoDislike = function undoDislike(userId, songId) {
     type: UNDO_DISLIKE,
     userId: userId,
     songId: songId
+  };
+};
+
+var songPlayed = exports.songPlayed = function songPlayed(recoId) {
+  return {
+    type: SONG_PLAYED,
+    recoId: recoId
   };
 };
 
@@ -13958,10 +13966,10 @@ var Root = function Root(_ref) {
   var store = _ref.store;
 
   var _requireLogin = function _requireLogin(nextState, replace) {
-    if (!store.getState().session.currentUser) {
-      replace("/");
-    } else {
+    if (store.getState().session.currentUser.id) {
       replace("/ask");
+    } else {
+      replace("/");
     }
   };
 
@@ -13976,7 +13984,7 @@ var Root = function Root(_ref) {
         null,
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _splash_container2.default, onEnter: _requireLogin }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/ask', component: _ask_container2.default, onEnter: _requireLogin }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/ask/result', component: _result_container2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/ask/result', component: _result_container2.default, onEnter: _requireLogin })
       )
     )
   );
@@ -14066,16 +14074,49 @@ var Ask = function (_React$Component) {
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.refresh = _this.refresh.bind(_this);
     return _this;
   }
 
   _createClass(Ask, [{
+    key: "refresh",
+    value: function refresh() {
+      this.props.history.replace('/ask');
+    }
+
+    // Clusterfuck incoming!
+    // TODO: pls for the love of god, do something about this monstrosity
+
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.ask(this.state.mood, this.state.location, this.state.activity, this.props.currentUser.id);
+      var location = event.target.children[1];
+      var activity = event.target.children[3];
+      var mood = event.target.children[5];
+      if (this.state.mood === "" || this.state.location === "" || this.state.activity === "") {
+        if (location.value != this.state.location) {
+          location.className = 'search-option unfilled';
+        } else {
+          location.className = 'search-option';
+        }
 
-      this.props.history.replace('ask/result');
+        if (activity.value != this.state.activity) {
+          activity.className = 'search-option unfilled';
+        } else {
+          activity.className = 'search-option';
+        }
+
+        if (mood.value != this.state.mood) {
+          mood.className = 'search-option unfilled';
+        } else {
+          mood.className = 'search-option';
+        }
+      } else {
+        this.props.ask(this.state.mood, this.state.location, this.state.activity, this.props.currentUser.id);
+
+        this.props.history.replace('ask/result');
+      }
     }
   }, {
     key: "handleChange",
@@ -14107,7 +14148,8 @@ var Ask = function (_React$Component) {
         { className: "main-container" },
         _react2.default.createElement("img", { src: "http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg",
           alt: "The Sound Mind",
-          className: "logo-header" }),
+          className: "logo-header",
+          onClick: this.refresh }),
         _react2.default.createElement(
           "div",
           { className: "search-container" },
@@ -14349,7 +14391,7 @@ var Result = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
 
-    _this.nextFive = _this.nextFive.bind(_this);
+    _this.loadNumSongs = _this.loadNumSongs.bind(_this);
     _this.showSongs = _this.showSongs.bind(_this);
     _this.state = { songsShowing: [],
       playing: false,
@@ -14373,6 +14415,7 @@ var Result = function (_React$Component) {
     _this.dislikeOrUndoDislike = _this.dislikeOrUndoDislike.bind(_this);
     _this.likeOrDislikeChecker = _this.likeOrDislikeChecker.bind(_this);
     _this.handleRecoFeedback = _this.handleRecoFeedback.bind(_this);
+    _this.showDetails = _this.showDetails.bind(_this);
     return _this;
   }
 
@@ -14384,12 +14427,12 @@ var Result = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       if (!this.firstRender) {
         this.firstRender = true;
-        this.nextFive(nextProps);
+        this.loadNumSongs(nextProps, 10);
       }
     }
   }, {
-    key: 'nextFive',
-    value: function nextFive(props) {
+    key: 'loadNumSongs',
+    value: function loadNumSongs(props, endIdx) {
       // Checking to see if this is the correct props. React is passing in something as well
       if (!props.currentUser) {
         props = this.props;
@@ -14398,9 +14441,10 @@ var Result = function (_React$Component) {
       var firstLength = props.firstRecommendation.length;
       var secondLength = props.secondRecommendation.length;
       var thirdLength = props.thirdRecommendation.length;
-
       var songsToAdd = [];
-      for (var i = 5; i > 0; i--) {
+      endIdx = typeof endIdx === 'number' ? endIdx : 5;
+
+      for (var i = endIdx; i > 0; i--) {
         if (this.counter < firstLength) {
           songsToAdd.push(props.firstRecommendation[this.counter]);
         } else if (this.counter < secondLength) {
@@ -14415,6 +14459,19 @@ var Result = function (_React$Component) {
       this.setState({ songsShowing: this.state.songsShowing.concat(songsToAdd) });
     }
   }, {
+    key: 'showDetails',
+    value: function showDetails(event) {
+      event.preventDefault();
+
+      // LMAO so jank! TODO: pls be less jank
+      var el = event.target.parentElement.parentElement.parentElement.children[1];
+      if (el.className === 'result-detail') {
+        el.className = 'result-detail hidden';
+      } else {
+        el.className = 'result-detail';
+      }
+    }
+  }, {
     key: 'showSongs',
     value: function showSongs() {
       var _this2 = this;
@@ -14422,10 +14479,10 @@ var Result = function (_React$Component) {
       return this.state.songsShowing.map(function (song, idx) {
         return _react2.default.createElement(
           'div',
-          { className: 'result-list sub' },
+          { className: _this2.state.currentSong.name === song.name ? "result-list sub current-song" : "result-list sub", key: idx },
           _react2.default.createElement(
             'div',
-            { className: 'result-song', key: idx, onClick: _this2.playSong(song) },
+            { className: 'result-song', onClick: _this2.playSong(song) },
             _react2.default.createElement(
               'span',
               { className: 'result-name' },
@@ -14436,14 +14493,14 @@ var Result = function (_React$Component) {
               { className: 'result-option' },
               _react2.default.createElement(
                 'i',
-                { className: 'material-icons md-24', id: 'more-btn', onclick: 'moreInit()' },
+                { className: 'material-icons md-24', id: 'more-btn', onClick: _this2.showDetails },
                 'more_vert'
               )
             )
           ),
           _react2.default.createElement(
             'div',
-            { className: 'result-detail' },
+            { className: 'result-detail hidden' },
             _react2.default.createElement(
               'div',
               { className: 'result-detail sub' },
@@ -14471,15 +14528,6 @@ var Result = function (_React$Component) {
                   'thumb_down'
                 )
               )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'result-detail sub' },
-              _react2.default.createElement(
-                'span',
-                { className: 'result-review' },
-                '-insert review-'
-              )
             )
           )
         );
@@ -14492,6 +14540,7 @@ var Result = function (_React$Component) {
 
       return function (event) {
         event.preventDefault();
+        _this3.props.songPlayed(_this3.props.recommendation.id);
         _this3.setState({ currentSong: song,
           playing: true });
       };
@@ -14502,12 +14551,12 @@ var Result = function (_React$Component) {
 
       var arr = event.currentTarget.children;
       if (this.state.playing) {
-        arr[0].innerHTML = 'pause_circle_outline';
-        arr[1].innerHTML = 'pause_circle_filled';
-        this.setState({ playing: false });
-      } else {
         arr[0].innerHTML = 'play_circle_outline';
         arr[1].innerHTML = 'play_circle_filled';
+        this.setState({ playing: false });
+      } else {
+        arr[0].innerHTML = 'pause_circle_outline';
+        arr[1].innerHTML = 'pause_circle_filled';
         this.setState({ playing: true });
       }
     }
@@ -14670,7 +14719,10 @@ var Result = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'main-container result' },
-          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg', alt: 'The Sound Mind', className: 'logo-header' }),
+          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg',
+            alt: 'The Sound Mind',
+            className: 'logo-header',
+            onClick: this.goBack }),
           _react2.default.createElement(
             'h1',
             { className: 'result-title' },
@@ -14686,7 +14738,7 @@ var Result = function (_React$Component) {
             ),
             _react2.default.createElement(
               'h2',
-              { className: 'result-expand', onClick: this.nextFive },
+              { className: 'result-expand', onClick: this.loadNumSongs },
               this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"
             ),
             _react2.default.createElement(
@@ -14722,7 +14774,7 @@ var Result = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'footer-container stream' },
+          { className: this.state.currentSong.name === "" ? "footer-container stream hidden" : "footer-container stream" },
           _react2.default.createElement(_reactPlayer2.default, {
             ref: function ref(player) {
               _this6.player = player;
@@ -14769,12 +14821,12 @@ var Result = function (_React$Component) {
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons init md-36-light' },
-                  'play_circle_outline'
+                  'pause_circle_outline'
                 ),
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons hover md-36-light' },
-                  'play_circle_filled'
+                  'pause_circle_filled'
                 )
               ),
               _react2.default.createElement(
@@ -14847,6 +14899,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     recoFeedback: function recoFeedback(recoId, feedback) {
       return dispatch((0, _feedback_actions.recoFeedback)(recoId, feedback));
+    },
+    songPlayed: function songPlayed(recoId) {
+      return dispatch((0, _feedback_actions.songPlayed)(recoId));
     }
   };
 };
@@ -15108,6 +15163,9 @@ var FeedbackMiddleware = function FeedbackMiddleware(_ref) {
           return next(action);
         case _feedback_actions.RECO_FEEDBACK:
           (0, _feedback_util.recoFeedback)(action.recommendationId, action.feedback, recoSuccess);
+          return next(action);
+        case _feedback_actions.SONG_PLAYED:
+          (0, _feedback_util.songPlayed)(action.recoId);
           return next(action);
         default:
           return next(action);
@@ -15466,6 +15524,14 @@ var recoFeedback = exports.recoFeedback = function recoFeedback(recommendationId
     url: "api/recommendations/" + recommendationId + "/feedback",
     data: { recommendation: { id: recommendationId, feedback: feedback } },
     success: success
+  });
+};
+
+var songPlayed = exports.songPlayed = function songPlayed(recommendationId) {
+  $.ajax({
+    method: "POST",
+    url: "api/recommendations/" + recommendationId + "/song_played",
+    data: { recommendation: { id: recommendationId } }
   });
 };
 

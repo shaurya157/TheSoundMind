@@ -11,16 +11,46 @@ class Ask extends React.Component{
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
+  refresh(){
+    this.props.history.replace('/ask');
+  }
+
+// Clusterfuck incoming!
+// TODO: pls for the love of god, do something about this monstrosity
   handleSubmit(event){
     event.preventDefault();
-    this.props.ask(this.state.mood,
-                   this.state.location,
-                   this.state.activity,
-                   this.props.currentUser.id);
+    let location = event.target.children[1];
+    let activity = event.target.children[3];
+    let mood = event.target.children[5];
+    if(this.state.mood === "" || this.state.location === "" || this.state.activity === ""){
+      if(location.value != this.state.location){
+        location.className = 'search-option unfilled';
+      } else {
+        location.className = 'search-option';
+      }
 
-    this.props.history.replace('ask/result')
+      if(activity.value != this.state.activity){
+        activity.className = 'search-option unfilled';
+      } else {
+        activity.className = 'search-option';
+      }
+
+      if(mood.value != this.state.mood){
+        mood.className = 'search-option unfilled';
+      } else {
+        mood.className = 'search-option';
+      }
+    } else {
+      this.props.ask(this.state.mood,
+                     this.state.location,
+                     this.state.activity,
+                     this.props.currentUser.id);
+
+       this.props.history.replace('ask/result');
+    }
   };
 
   handleChange(event){
@@ -48,7 +78,8 @@ class Ask extends React.Component{
       <div className="main-container">
         <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg"
           alt="The Sound Mind"
-          className="logo-header" />
+          className="logo-header"
+          onClick={this.refresh} />
 
         <div className="search-container">
           <form className="searchForm" onSubmit = { this.handleSubmit }>

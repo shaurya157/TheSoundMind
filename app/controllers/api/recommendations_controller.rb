@@ -21,6 +21,14 @@ class Api::RecommendationsController < ApplicationController
     render 'api/recommendations/show'
   end
 
+  def song_played
+    recommendation = Recommendation.find(recommendation_params[:id])
+    recommendation.song_played += 1;
+    recommendation.save
+
+    render json: {}
+  end
+
   private
 
   def recommendation_params

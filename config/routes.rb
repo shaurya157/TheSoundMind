@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :recommendations, only: [:index] do
       member do
         post :feedback
+        post :song_played
       end
     end
     resource :likes, only: [:create, :destroy]

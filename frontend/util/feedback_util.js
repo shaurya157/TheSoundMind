@@ -45,3 +45,11 @@ export const recoFeedback = (recommendationId, feedback, success) => {
     success
   });
 }
+
+export const songPlayed = (recommendationId) => {
+  $.ajax({
+    method: "POST",
+    url: `api/recommendations/${recommendationId}/song_played`,
+    data: {recommendation: {id: recommendationId}}
+  });
+}

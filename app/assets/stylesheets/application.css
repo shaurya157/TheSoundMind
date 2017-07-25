@@ -71,6 +71,7 @@ table, th, td, tr {
   margin: auto;
   width: 400px;
   max-width: 100%;
+  cursor: pointer;
 }
 
 .material-icons {
@@ -175,6 +176,10 @@ table, th, td, tr {
     font-weight: 600;
     line-height: 1.2em;
   }
+}
+
+select.search-option.unfilled {
+    border: 2px solid red;
 }
 
 .signup-container {
@@ -356,6 +361,10 @@ table, th, td, tr {
 }
 
 .result-song:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.current-song {
   background: rgba(0, 0, 0, 0.1);
 }
 

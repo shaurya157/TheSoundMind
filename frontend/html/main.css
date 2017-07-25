@@ -232,6 +232,10 @@ table, th, td {
   color: black;
 }
 
+.unfilled {
+    border: 2px solid red;
+}
+
 .search-option {
   display: block;
   margin: auto;

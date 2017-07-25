@@ -7,10 +7,10 @@ import ResultContainer from './result/result_container';
 
 const Root = ({ store }) => {
   const _requireLogin = (nextState, replace) => {
-    if(!store.getState().session.currentUser) {
-      replace("/");
-    } else {
+    if(store.getState().session.currentUser.id) {
       replace("/ask");
+    } else {
+      replace("/");
     }
   }
 
@@ -20,7 +20,7 @@ const Root = ({ store }) => {
         <div>
           <Route exact path="/" component={ SplashContainer } onEnter={ _requireLogin }/>
           <Route exact path="/ask" component={ AskContainer } onEnter={ _requireLogin }/>
-          <Route exact path="/ask/result" component={ ResultContainer }/>
+          <Route exact path="/ask/result" component={ ResultContainer } onEnter={ _requireLogin }/>
         </div>
       </HashRouter>
     </Provider>

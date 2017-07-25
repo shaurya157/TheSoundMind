@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 class Result extends React.Component{
   constructor(props){
     super(props);
-    this.nextFive = this.nextFive.bind(this);
+    this.loadNumSongs = this.loadNumSongs.bind(this);
     this.showSongs = this.showSongs.bind(this);
     this.state = { songsShowing: [],
                    playing: false,
@@ -28,28 +28,30 @@ class Result extends React.Component{
     this.dislikeOrUndoDislike = this.dislikeOrUndoDislike.bind(this);
     this.likeOrDislikeChecker = this.likeOrDislikeChecker.bind(this);
     this.handleRecoFeedback = this.handleRecoFeedback.bind(this);
+    this.showDetails = this.showDetails.bind(this);
   }
 
   // First X songs to be loaded
   componentWillReceiveProps(nextProps){
     if(!this.firstRender){
       this.firstRender = true;
-      this.nextFive(nextProps);
+      this.loadNumSongs(nextProps, 10);
     }
   }
 
-  nextFive(props){
+  loadNumSongs(props, endIdx){
   // Checking to see if this is the correct props. React is passing in something as well
     if(!props.currentUser){
       props = this.props;
     }
 
-    let firstLength = props.firstRecommendation.length
-    let secondLength = props.secondRecommendation.length
-    let thirdLength = props.thirdRecommendation.length
+    let firstLength = props.firstRecommendation.length;
+    let secondLength = props.secondRecommendation.length;
+    let thirdLength = props.thirdRecommendation.length;
+    let songsToAdd = [];
+    endIdx = typeof(endIdx) === 'number' ? endIdx : 5;
 
-    let songsToAdd = []
-    for(let i = 5; i > 0; i-- ){
+    for(let i = endIdx; i > 0; i-- ){
       if(this.counter < firstLength){
         songsToAdd.push(props.firstRecommendation[this.counter]);
       } else if (this.counter < secondLength) {
@@ -64,17 +66,29 @@ class Result extends React.Component{
     this.setState({songsShowing: this.state.songsShowing.concat(songsToAdd)});
   }
 
+  showDetails(event){
+    event.preventDefault();
+
+    // LMAO so jank! TODO: pls be less jank
+    let el = event.target.parentElement.parentElement.parentElement.children[1]
+    if(el.className === 'result-detail'){
+      el.className = 'result-detail hidden';
+    } else {
+      el.className = 'result-detail';
+    }
+  }
+
   showSongs(){
     return this.state.songsShowing.map((song, idx) => (
-      <div className="result-list sub">
-        <div className="result-song" key={idx} onClick={this.playSong(song)}>
+      <div className={this.state.currentSong.name === song.name ? "result-list sub current-song" : "result-list sub"}  key={idx}>
+        <div className="result-song" onClick={this.playSong(song)}>
           <span className="result-name">{song.name}</span>
           <span className="result-option">
-            <i className="material-icons md-24" id="more-btn" onclick="moreInit()">more_vert</i>
+            <i className="material-icons md-24" id="more-btn" onClick={this.showDetails}>more_vert</i>
           </span>
         </div>
 
-        <div className="result-detail">
+        <div className="result-detail hidden">
           <div className="result-detail sub">
             <span className="result-artist">Performed by {song.artist}</span>
             <span className="result-option">
@@ -86,11 +100,6 @@ class Result extends React.Component{
                   onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
             </span>
           </div>
-          <div className="result-detail sub">
-            <span className="result-review">
-              -insert review-
-            </span>
-          </div>
         </div>
       </div>
     ));
@@ -99,6 +108,7 @@ class Result extends React.Component{
   playSong(song){
     return (event) => {
       event.preventDefault();
+      this.props.songPlayed(this.props.recommendation.id);
       this.setState({currentSong: song,
                      playing: true})
     }
@@ -108,12 +118,12 @@ class Result extends React.Component{
 
     let arr = event.currentTarget.children;
     if(this.state.playing){
-      arr[0].innerHTML = 'pause_circle_outline';
-      arr[1].innerHTML = 'pause_circle_filled';
-      this.setState({playing: false})
-    } else {
       arr[0].innerHTML = 'play_circle_outline';
       arr[1].innerHTML = 'play_circle_filled';
+      this.setState({playing: false})
+    } else {
+      arr[0].innerHTML = 'pause_circle_outline';
+      arr[1].innerHTML = 'pause_circle_filled';
       this.setState({playing: true});
     }
   }
@@ -246,13 +256,16 @@ class Result extends React.Component{
     return(
       <div className="main-container">
         <div className="main-container result">
-          <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg" alt="The Sound Mind" className="logo-header" />
+          <img src="http://res.cloudinary.com/djv7nouxz/image/upload/v1500287109/logo-header_dychne.jpg"
+             alt="The Sound Mind"
+             className="logo-header"
+             onClick={this.goBack}/>
           <h1 className="result-title">Other users recommend these songs for you:</h1>
             <div className="result-container">
               <div className="result-list">
                 {this.showSongs()}
               </div>
-              <h2 className="result-expand" onClick={this.nextFive}>
+              <h2 className="result-expand" onClick={this.loadNumSongs}>
                 {this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"}
               </h2>
               <div className="result-end">
@@ -270,7 +283,7 @@ class Result extends React.Component{
           </div>
         </div>
 
-        <div className="footer-container stream">
+        <div className={this.state.currentSong.name === "" ? "footer-container stream hidden" : "footer-container stream"}>
         <ReactPlayer
           ref={player => {this.player = player}}
           url={this.state.currentSong.url}
@@ -294,8 +307,8 @@ class Result extends React.Component{
             <i className="material-icons md-24-light"
                onClick={this.startPreviousSong}>skip_previous</i>
             <span className="play-pause" onClick={this.togglePlay}>
-              <i className="material-icons init md-36-light">play_circle_outline</i>
-              <i className="material-icons hover md-36-light">play_circle_filled</i>
+              <i className="material-icons init md-36-light">pause_circle_outline</i>
+              <i className="material-icons hover md-36-light">pause_circle_filled</i>
             </span>
             <i className="material-icons md-24-light" onClick={this.startNextSong}>skip_next</i>
           </div>

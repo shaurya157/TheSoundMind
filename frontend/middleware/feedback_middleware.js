@@ -5,12 +5,14 @@ import {LIKE,
         receiveNewLikedSongs,
         receiveNewDislikedSongs,
         RECO_FEEDBACK,
-        receiveRecoFeedback} from '../actions/feedback_actions';
+        receiveRecoFeedback,
+        SONG_PLAYED} from '../actions/feedback_actions';
 import {like,
         dislike,
         undoLike,
         undoDislike,
-        recoFeedback} from '../util/feedback_util';
+        recoFeedback,
+        songPlayed} from '../util/feedback_util';
 
 const FeedbackMiddleware = ({dispatch}) => next => action => {
   const likeSuccess = (data) => dispatch(receiveNewLikedSongs(data));
@@ -31,6 +33,9 @@ const FeedbackMiddleware = ({dispatch}) => next => action => {
       return next(action);
     case RECO_FEEDBACK:
       recoFeedback(action.recommendationId, action.feedback, recoSuccess);
+      return next(action);
+    case SONG_PLAYED:
+      songPlayed(action.recoId);
       return next(action);
     default:
       return next(action);
