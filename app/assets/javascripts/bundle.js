@@ -14947,32 +14947,39 @@ var Splash = function (_React$Component) {
   }
 
   _createClass(Splash, [{
-    key: 'handleSubmit',
+    key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      this.props.login(this.state.email);
+      var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (!regex.test(this.state.email)) {
+        event.target.children[0].className = "email-input unfilled";
+      } else {
+        event.target.children[0].className = "email-input";
+        this.props.login(this.state.email);
+      }
     }
   }, {
-    key: 'componentWillMount',
+    key: "componentWillMount",
     value: function componentWillMount() {
       if (this.props.currentUser.id) {
         this.props.history.replace('/ask');
       }
     }
   }, {
-    key: 'handleChange',
+    key: "handleChange",
     value: function handleChange(event) {
       this.setState({ email: event.target.value });
     }
   }, {
-    key: 'componentWillReceiveProps',
+    key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(newProps) {
       if (Object.keys(newProps.currentUser).length !== 0) {
         this.props.history.push('ask');
       }
     }
   }, {
-    key: 'runBackgroundCarousel',
+    key: "runBackgroundCarousel",
     value: function runBackgroundCarousel(interval, frames) {
       var int = 0;
       function func() {
@@ -14992,7 +14999,7 @@ var Splash = function (_React$Component) {
       setInterval(func, interval);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       // let divStyle = {
       //   backgroundImage: `url(http://res.cloudinary.com/djv7nouxz/image/upload/v1498198211/jukebox_df5swz.jpg)`,
@@ -15002,38 +15009,38 @@ var Splash = function (_React$Component) {
       // <div style={ divStyle } className='login background'></div>
 
       return _react2.default.createElement(
-        'div',
-        { className: 'main-container' },
-        _react2.default.createElement('img', { src: 'http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png',
-          alt: 'Logo',
-          className: 'logo' }),
+        "div",
+        { className: "main-container" },
+        _react2.default.createElement("img", { src: "http://res.cloudinary.com/djv7nouxz/image/upload/v1500317162/logo_juo2mb.png",
+          alt: "Logo",
+          className: "logo" }),
         _react2.default.createElement(
-          'div',
-          { className: 'vp-container' },
+          "div",
+          { className: "vp-container" },
           _react2.default.createElement(
-            'span',
-            { className: 'vp-main' },
-            'Music for your every moment'
+            "span",
+            { className: "vp-main" },
+            "Music for your every moment"
           ),
           _react2.default.createElement(
-            'span',
-            { className: 'vp-sub' },
-            'Powered by you. For you.'
+            "span",
+            { className: "vp-sub" },
+            "Powered by you. For you."
           )
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'signup-container' },
+          "div",
+          { className: "signup-container" },
           _react2.default.createElement(
-            'p',
-            { className: 'cta' },
-            'Register your email now to start your experience today!'
+            "p",
+            { className: "cta" },
+            "Register your email now to start your experience today!"
           ),
           _react2.default.createElement(
-            'form',
-            { className: 'form-w-btn', onSubmit: this.handleSubmit },
-            _react2.default.createElement('input', { type: 'text', className: 'email-input', onChange: this.handleChange }),
-            _react2.default.createElement('input', { type: 'submit', className: 'login-btn', value: 'Sign In' })
+            "form",
+            { className: "form-w-btn", onSubmit: this.handleSubmit },
+            _react2.default.createElement("input", { type: "text", className: "email-input", onChange: this.handleChange }),
+            _react2.default.createElement("input", { type: "submit", className: "login-btn", value: "Sign In" })
           )
         ),
         this.runBackgroundCarousel(5000, 7)
