@@ -178,8 +178,8 @@ table, th, td, tr {
   }
 }
 
-select.search-option.unfilled {
-    border: 2px solid red;
+input.email-input.unfilled {
+    border: 1px solid red;
 }
 
 .signup-container {
@@ -252,6 +252,10 @@ select.search-option.unfilled {
 .search-container {
   justify-content: center;
   text-align: center;
+}
+
+select.search-option.unfilled {
+    border: 2px solid red;
 }
 
 .searchForm {

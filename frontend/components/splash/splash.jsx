@@ -12,7 +12,20 @@ class Splash extends React.Component{
 
   handleSubmit(event){
     event.preventDefault();
-    this.props.login(this.state.email);
+    let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    
+    if(!regex.test(this.state.email)) {
+      event.target.children[0].className = "email-input unfilled";
+    } else {
+      event.target.children[0].className = "email-input";
+      this.props.login(this.state.email);
+    }
+  }
+
+  componentWillMount(){
+    if(this.props.currentUser.id){
+      this.props.history.replace('/ask');
+    }
   }
 
   handleChange(event){
@@ -58,7 +71,7 @@ class Splash extends React.Component{
           <span className="vp-main">Music for your every moment</span>
           <span className="vp-sub">Powered by you. For you.</span>
         </div>
-        
+
         <div className="signup-container">
           <p className="cta">Register your email now to start your experience today!</p>
 
