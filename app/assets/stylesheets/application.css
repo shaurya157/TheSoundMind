@@ -7,7 +7,7 @@
 *
 * You're free to add application-wide styles to this file and they'll appear at the bottom of the
 * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
-* files in this directory. Styles in this file should be added after the last require_* statement.
+* files in this directory. Styles in this file should be added after the last require_* statpxent.
 * It is generally better to create a new file per style scope.
 *
 *= require_tree .
@@ -33,16 +33,16 @@ html, body, main, div {
   flex-direction: column;
   justify-content: space-between;
   align-content: space-between;
-  align-items: center;
+  align-itpxs: center;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-size: 100%;
+  font-size: 16px;
   font-weight: 300;
-  line-height: 1.2em;
-  letter-spacing: -0.03em;
+  line-height: 19px;
+  letter-spacing: -0.48px;
 }
 
 table, th, td, tr {
@@ -146,35 +146,35 @@ table, th, td, tr {
 
 .vp-main {
   align-self: center;
-  font-size: 2em;
+  font-size: 32px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .vp-main {
     align-self: center;
-    font-size: 3em;
+    font-size: 3px;
     font-weight: 800;
-    line-height: 1.2em;
+    line-height: 1.2px;
   }
 }
 
 .vp-sub {
   align-self: center;
-  padding-top: 0.5em;
-  font-size: 1em;
+  padding-top: 0.5px;
+  font-size: 1px;
   font-weight: 600;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .vp-sub {
     align-self: center;
-    padding-top: 0.5em;
-    font-size: 1.5em;
+    padding-top: 0.5px;
+    font-size: 1.5px;
     font-weight: 600;
-    line-height: 1.2em;
+    line-height: 1.2px;
   }
 }
 
@@ -189,10 +189,10 @@ select.search-option.unfilled {
   padding-right: 15px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .cta {
-    font-size: 1.25em;
-    line-height: 1.2em;
+    font-size: 1.25px;
+    line-height: 1.2px;
   }
 }
 
@@ -201,23 +201,23 @@ select.search-option.unfilled {
   width: 100%;
 }
 
-.email-input {
+.pxail-input {
   display: inline-block;
   margin: 0;
-  font-size: 0.75em;
+  font-size: 0.75px;
   width: 250px;
   max-width: 60%;
   background: white;
   border: none;
   border-radius: 15px 0 0 15px;
-  padding: 0.75em;
+  padding: 0.75px;
 }
 
 .login-btn {
   display: inline-block;
   position: relative;
   margin: 0;
-  font-size: 0.75em;
+  font-size: 0.75px;
   width: 150px;
   max-width: 30%;
   background: #0630CB;
@@ -226,14 +226,14 @@ select.search-option.unfilled {
   border-radius: 0 15px 15px 0;
   transition: all 0.4s;
   cursor: pointer;
-  padding: 0.75em;
+  padding: 0.75px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05px;
 }
 
-@media (min-width: 37.5em) {
-  .login-btn, .email-input {
-    font-size: 1em;
+@media (min-width: 37.5px) {
+  .login-btn, .pxail-input {
+    font-size: 1px;
   }
 }
 
@@ -262,7 +262,7 @@ select.search-option.unfilled {
 .search-option {
   display: block;
   margin: auto;
-  font-size: 0.75em;
+  font-size: 0.75px;
   width: 50%;
   background: #fff;
   border: 2px solid black;
@@ -270,29 +270,29 @@ select.search-option.unfilled {
   cursor: pointer;
 }
 
-@media (min-height: 32em) {
+@media (min-height: 32px) {
   .search-option {
-    margin-bottom: 2.5em;
+    margin-bottom: 2.5px;
   }
 }
 
-@media (min-height: 37.5em) {
+@media (min-height: 37.5px) {
   .search-option {
-    font-size: 1em;
+    font-size: 1px;
   }
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .search-option {
-    font-size: 1em;
-    margin-bottom: 3em;
+    font-size: 1px;
+    margin-bottom: 3px;
   }
 }
 
 .search-btn {
   display: block;
-  margin: 1.75em auto auto auto;
-  font-size: 0.75em;
+  margin: 1.75px auto auto auto;
+  font-size: 0.75px;
   width: 125px;
   background: #0630CB;
   border: none;
@@ -300,21 +300,21 @@ select.search-option.unfilled {
   border-radius: 20px;
   transition: all 0.4s;
   cursor: pointer;
-  padding: 0.55em;
+  padding: 0.55px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05px;
 }
 
-@media (min-height: 32em) {
+@media (min-height: 32px) {
   .search-btn {
-    font-size: 1em;
+    font-size: 1px;
     margin-top: 0;
   }
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .search-btn {
-    font-size: 1em;
+    font-size: 1px;
     margin-top: 0;
   }
 }
@@ -369,24 +369,24 @@ select.search-option.unfilled {
 }
 
 .result-name {
-  font-size: 1.125em;
+  font-size: 1.125px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
   padding-right: 10px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .result-name {
-    font-size: 1.25em;
+    font-size: 1.25px;
     font-weight: 800;
-    line-height: 1.2em;
+    line-height: 1.2px;
     padding-right: 10px;
   }
 }
 
 .result-option {
   flex-direction: row;
-  line-height: 1.2em;
+  line-height: 1.2px;
   padding-left: 10px;
 }
 
@@ -401,17 +401,17 @@ select.search-option.unfilled {
 }
 
 .result-artist {
-  font-size: 0.875em;
+  font-size: 0.875px;
   font-weight: 300;
-  line-height: 1.2em;
+  line-height: 1.2px;
   padding-right: 10px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .result-artist {
-    font-size: 1em;
+    font-size: 1px;
     font-weight: 300;
-    line-height: 1.2em;
+    line-height: 1.2px;
     padding-right: 10px;
   }
 }
@@ -422,18 +422,18 @@ select.search-option.unfilled {
 
 .result-expand {
   text-align: center;
-  font-size: 0.875em;
+  font-size: 0.875px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
   cursor: pointer;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   .result-expand {
     text-align: center;
-    font-size: 1em;
+    font-size: 1px;
     font-weight: 800;
-    line-height: 1.2em;
+    line-height: 1.2px;
     cursor: pointer;
   }
 }
@@ -449,18 +449,18 @@ select.search-option.unfilled {
   display: inline-block;
   float: left;
   text-align: left;
-  font-size: 0.75em;
+  font-size: 0.75px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
 .result-feedback {
   display: inline-block;
   float: right;
   text-align: right;
-  font-size: 0.75em;
+  font-size: 0.75px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
 .footer-container.stream {
@@ -498,15 +498,15 @@ select.search-option.unfilled {
 }
 
 .player-song-name {
-  font-size: 1em;
+  font-size: 1px;
   font-weight: 800;
-  line-height: 0.1em;
+  line-height: 0.1px;
 }
 
 .player-song-artist {
-  font-size: 0.75em;
+  font-size: 0.75px;
   font-weight: 600;
-  line-height: 0.1em;
+  line-height: 0.1px;
 }
 
 .player-time {
@@ -553,51 +553,51 @@ select.search-option.unfilled {
 /* Typography */
 
 h1 {
-  font-size: 1.25em;
+  font-size: 1.25px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   h1 {
-    font-size: 1.5em;
+    font-size: 1.5px;
     font-weight: 800;
-    line-height: 1.2em;
+    line-height: 1.2px;
   }
 }
 
 h2 {
-  font-size: 1.125em;
+  font-size: 1.125px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   h2 {
-    font-size: 1.25em;
+    font-size: 1.25px;
     font-weight: 800;
-    line-height: 1.2em;
+    line-height: 1.2px;
   }
 }
 
 h3 {
-  font-size: 0.875em;
+  font-size: 0.875px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
-@media (min-width: 37.5em) {
+@media (min-width: 37.5px) {
   h3 {
-    font-size: 1em;
+    font-size: 1px;
     font-weight: 800;
-    line-height: 1.2em;
+    line-height: 1.2px;
   }
 }
 
 h4 {
-  font-size: 0.75em;
+  font-size: 0.75px;
   font-weight: 800;
-  line-height: 1.2em;
+  line-height: 1.2px;
 }
 
 a:link, a:visited { /* Links maintain at black */

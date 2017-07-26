@@ -15,6 +15,12 @@ class Splash extends React.Component{
     this.props.login(this.state.email);
   }
 
+  componentWillMount(){
+    if(this.props.currentUser.id){
+      this.props.history.replace('/ask');
+    }
+  }
+
   handleChange(event){
     this.setState({ email: event.target.value })
   }
@@ -58,7 +64,7 @@ class Splash extends React.Component{
           <span className="vp-main">Music for your every moment</span>
           <span className="vp-sub">Powered by you. For you.</span>
         </div>
-        
+
         <div className="signup-container">
           <p className="cta">Register your email now to start your experience today!</p>
 
