@@ -14425,7 +14425,7 @@ var Result = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       if (!this.firstRender) {
         this.firstRender = true;
-        this.loadNumSongs(nextProps, 10);
+        this.loadNumSongs(nextProps, 5);
       }
     }
   }, {
@@ -14491,6 +14491,20 @@ var Result = function (_React$Component) {
               { className: 'result-option' },
               _react2.default.createElement(
                 'i',
+                { className: 'material-icons md-24',
+                  id: _this2.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn',
+                  onClick: _this2.likeOrUndoLike(song) },
+                'thumb_up'
+              ),
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons md-24',
+                  id: _this2.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn',
+                  onClick: _this2.dislikeOrUndoDislike(song) },
+                'thumb_down'
+              ),
+              _react2.default.createElement(
+                'i',
                 { className: 'material-icons md-24', id: 'more-btn', onClick: _this2.showDetails },
                 'more_vert'
               )
@@ -14508,24 +14522,7 @@ var Result = function (_React$Component) {
                 'Performed by ',
                 song.artist
               ),
-              _react2.default.createElement(
-                'span',
-                { className: 'result-option' },
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons md-24',
-                    id: _this2.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn',
-                    onClick: _this2.likeOrUndoLike(song) },
-                  'thumb_up'
-                ),
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons md-24',
-                    id: _this2.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn',
-                    onClick: _this2.dislikeOrUndoDislike(song) },
-                  'thumb_down'
-                )
-              )
+              _react2.default.createElement('span', { className: 'result-option' })
             )
           )
         );
@@ -14541,6 +14538,10 @@ var Result = function (_React$Component) {
         _this3.props.songPlayed(_this3.props.recommendation.id);
         _this3.setState({ currentSong: song,
           playing: true });
+        // CF edit - button now changed to pause when song starts playing
+        var ppButton = document.getElementsByClassName('play-pause')[0].children;
+        ppButton[0].innerHTML = 'pause_circle_outline';
+        ppButton[1].innerHTML = 'pause_circle_filled';
       };
     }
   }, {
@@ -14738,20 +14739,27 @@ var Result = function (_React$Component) {
               'h2',
               { className: 'result-expand', onClick: this.loadNumSongs },
               this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"
-            ),
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'result-end container' },
             _react2.default.createElement(
               'div',
               { className: 'result-end' },
               _react2.default.createElement(
                 'a',
                 { onClick: this.goBack, className: 'result-reset' },
-                'Ask again'
+                'Back'
               ),
               _react2.default.createElement(
                 'div',
                 { className: 'result-feedback' },
-                'Was this recommendation useful?',
-                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'result-prompt' },
+                  'Was this useful?'
+                ),
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons md-24',
@@ -14772,7 +14780,7 @@ var Result = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: this.state.currentSong.name === "" ? "footer-container stream hidden" : "footer-container stream" },
+          { className: this.state.currentSong.name === "" ? "footer-container stream" : "footer-container stream" },
           _react2.default.createElement(_reactPlayer2.default, {
             ref: function ref(player) {
               _this6.player = player;
@@ -14794,12 +14802,12 @@ var Result = function (_React$Component) {
               'div',
               { className: 'player-song' },
               _react2.default.createElement(
-                'h3',
+                'span',
                 { className: 'player-song-name' },
                 this.state.currentSong.name
               ),
               _react2.default.createElement(
-                'h4',
+                'span',
                 { className: 'player-song-artist' },
                 this.state.currentSong.artist
               )
@@ -14819,12 +14827,12 @@ var Result = function (_React$Component) {
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons init md-36-light' },
-                  'pause_circle_outline'
+                  'play_circle_outline'
                 ),
                 _react2.default.createElement(
                   'i',
                   { className: 'material-icons hover md-36-light' },
-                  'pause_circle_filled'
+                  'play_circle_filled'
                 )
               ),
               _react2.default.createElement(

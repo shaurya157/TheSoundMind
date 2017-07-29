@@ -13,7 +13,7 @@ class Splash extends React.Component{
   handleSubmit(event){
     event.preventDefault();
     let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    
+
     if(!regex.test(this.state.email)) {
       event.target.children[0].className = "email-input unfilled";
     } else {
@@ -79,6 +79,7 @@ class Splash extends React.Component{
             <input type="text" className="email-input" onChange={this.handleChange} />
             <input type="submit" className="login-btn" value="Sign In"/>
           </form>
+
         </div>
         {this.runBackgroundCarousel(5000, 7)}
       </div>

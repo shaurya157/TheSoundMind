@@ -28,6 +28,7 @@
 }
 
 html, body, main, div {
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -51,7 +52,7 @@ table, th, td, tr {
 }
 
 .main-container {
-  max-width: 800px;
+
 }
 
 .footer-container {
@@ -65,6 +66,7 @@ table, th, td, tr {
   align-self: flex-start;
   margin: 20px auto;
 }
+
 
 .logo-header {
   align-self: flex-start;
@@ -178,10 +180,6 @@ table, th, td, tr {
   }
 }
 
-input.email-input.unfilled {
-    border: 1px solid red;
-}
-
 .signup-container {
   justify-content: flex-start;
   text-align: center;
@@ -208,9 +206,13 @@ input.email-input.unfilled {
   width: 250px;
   max-width: 60%;
   background: white;
-  border: none;
+  border: 2px solid #fff;
   border-radius: 15px 0 0 15px;
   padding: 0.75em;
+}
+
+input.email-input.unfilled {
+    border: 2px solid #D01C1F;
 }
 
 .login-btn {
@@ -221,7 +223,7 @@ input.email-input.unfilled {
   width: 150px;
   max-width: 30%;
   background: #0630CB;
-  border: none;
+  border: 2px solid #0630CB;
   color: white;
   border-radius: 0 15px 15px 0;
   transition: all 0.4s;
@@ -239,13 +241,13 @@ input.email-input.unfilled {
 
 .login-btn:hover {
   background: #14F;
-  border: none;
+  border: 2px solid #14F;
 }
 
 /* ask.html */
 
 #ask {
-  background-image: linear-gradient(180deg, #fff 60%, #F0F1F2 100%);
+  background-image: linear-gradient(180deg, #fff 65%, #E3E5E7 100%);
   color: black;
 }
 
@@ -254,20 +256,20 @@ input.email-input.unfilled {
   text-align: center;
 }
 
-select.search-option.unfilled {
-    border: 2px solid red;
-}
-
 .searchForm {
   align-self: center;
   width: 100%;
+}
+
+select.search-option.unfilled {
+    border: 2px solid #D01C1F;
 }
 
 .search-option {
   display: block;
   margin: auto;
   font-size: 0.75em;
-  width: 50%;
+  width: 150px;
   background: #fff;
   border: 2px solid black;
   font-weight: 300;
@@ -277,12 +279,14 @@ select.search-option.unfilled {
 @media (min-height: 32em) {
   .search-option {
     margin-bottom: 2.5em;
+    width: 150px;
   }
 }
 
 @media (min-height: 37.5em) {
   .search-option {
     font-size: 1em;
+    width: 200px;
   }
 }
 
@@ -290,6 +294,7 @@ select.search-option.unfilled {
   .search-option {
     font-size: 1em;
     margin-bottom: 3em;
+    width: 200px;
   }
 }
 
@@ -331,7 +336,8 @@ select.search-option.unfilled {
 /* result.html */
 
 #result {
-  background-image: linear-gradient(180deg, #fff 60%, #F0F1F2 100%);
+  background-image: linear-gradient(180deg, #fff 65%, #E3E5E7 100%);
+  color: black;
 }
 
 .main-container.result {
@@ -341,8 +347,8 @@ select.search-option.unfilled {
 .result-title {
   align-self: flex-start;
   text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
+  margin: auto;
 }
 
 .result-container {
@@ -357,19 +363,25 @@ select.search-option.unfilled {
   height: auto;
 }
 
-.result-song {
+.result-list.sub {
   width: 100%;
+  max-width: 800px;
+  margin: auto;
   flex-direction: row;
   padding: 5px 10px;
-  cursor: pointer;
 }
 
-.result-song:hover {
-  background: rgba(0, 0, 0, 0.1);
+.result-song {
+  cursor: pointer;
+  flex-direction: row;
+}
+
+.result-list.sub:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .current-song {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .result-name {
@@ -389,6 +401,7 @@ select.search-option.unfilled {
 }
 
 .result-option {
+  display: inline-flex;
   flex-direction: row;
   line-height: 1.2em;
   padding-left: 10px;
@@ -396,7 +409,8 @@ select.search-option.unfilled {
 
 .result-detail {
   width: 100%;
-  padding: 2px 10px;
+  max-width: 800px;
+  margin: auto;
 }
 
 .result-detail.sub {
@@ -442,29 +456,38 @@ select.search-option.unfilled {
   }
 }
 
-.result-end {
+.result-end.container {
   display: block;
-  width: 100%;
   height: auto;
-  padding: 0 10px 5px 10px;
+  padding: 5px 10px;
+  margin: auto;
+  width: 100%;
+}
+
+.result-end {
+  flex-direction: row;
+  max-width: 800px;
 }
 
 .result-reset {
   display: inline-block;
-  float: left;
   text-align: left;
+  font-size: 0.75em;
+  font-weight: 800;
+  line-height: 1.2em;
+  padding: 2px;
+}
+
+.result-feedback {
+  display: inline-block;
+  text-align: right;
   font-size: 0.75em;
   font-weight: 800;
   line-height: 1.2em;
 }
 
-.result-feedback {
-  display: inline-block;
-  float: right;
-  text-align: right;
-  font-size: 0.75em;
-  font-weight: 800;
-  line-height: 1.2em;
+.result-prompt {
+  padding: 2px;
 }
 
 .footer-container.stream {
@@ -478,39 +501,34 @@ select.search-option.unfilled {
 }
 
 .player-container {
-  display: table;
-  height: 60px;
-  margin: auto;
+  flex-direction: row;
+  height: 67px;
   width: 100%;
   max-width: 600px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 7px 20px 0 20px;
 }
 
 .player-song {
-  display: table-cell;
-  vertical-align: middle;
-  width: 100% - 112px;
-  text-align: left;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .player-option {
-  display: table-cell;
-  vertical-align: middle;
-  width: 112px;
-  text-align: right;
+  display: inline-flex;
+  justify-content: flex-end;
+  flex-direction: row;
 }
 
 .player-song-name {
   font-size: 1em;
   font-weight: 800;
-  line-height: 0.1em;
+  line-height: 1.2em;
 }
 
 .player-song-artist {
   font-size: 0.75em;
   font-weight: 600;
-  line-height: 0.1em;
+  line-height: 1.2em;
 }
 
 .player-time {

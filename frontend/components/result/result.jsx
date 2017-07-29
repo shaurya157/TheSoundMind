@@ -35,7 +35,7 @@ class Result extends React.Component{
   componentWillReceiveProps(nextProps){
     if(!this.firstRender){
       this.firstRender = true;
-      this.loadNumSongs(nextProps, 10);
+      this.loadNumSongs(nextProps, 5);
     }
   }
 
@@ -84,6 +84,12 @@ class Result extends React.Component{
         <div className="result-song" onClick={this.playSong(song)}>
           <span className="result-name">{song.name}</span>
           <span className="result-option">
+            <i className="material-icons md-24"
+                id={this.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn'}
+                onClick={this.likeOrUndoLike(song)}>thumb_up</i>
+            <i className="material-icons md-24"
+                id={this.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn'}
+                onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
             <i className="material-icons md-24" id="more-btn" onClick={this.showDetails}>more_vert</i>
           </span>
         </div>
@@ -91,14 +97,7 @@ class Result extends React.Component{
         <div className="result-detail hidden">
           <div className="result-detail sub">
             <span className="result-artist">Performed by {song.artist}</span>
-            <span className="result-option">
-              <i className="material-icons md-24"
-                  id={this.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn'}
-                  onClick={this.likeOrUndoLike(song)}>thumb_up</i>
-              <i className="material-icons md-24"
-                  id={this.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn'}
-                  onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
-            </span>
+            <span className="result-option"></span>
           </div>
         </div>
       </div>
@@ -110,7 +109,11 @@ class Result extends React.Component{
       event.preventDefault();
       this.props.songPlayed(this.props.recommendation.id);
       this.setState({currentSong: song,
-                     playing: true})
+                     playing: true});
+      // CF edit - button now changed to pause when song starts playing
+      let ppButton = document.getElementsByClassName('play-pause')[0].children;
+      ppButton[0].innerHTML = 'pause_circle_outline';
+      ppButton[1].innerHTML = 'pause_circle_filled';
     }
   }
 
@@ -268,22 +271,24 @@ class Result extends React.Component{
               <h2 className="result-expand" onClick={this.loadNumSongs}>
                 {this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"}
               </h2>
-              <div className="result-end">
-                <a onClick={this.goBack} className="result-reset">Ask again</a>
-                <div className="result-feedback">
-                  Was this recommendation useful?<br></br>
-                <i className="material-icons md-24"
-                  id={this.props.recommendation.feedback === true ? 'satisfied-btn-1' : 'satisfied-btn'}
-                  onClick={this.handleRecoFeedback}>sentiment_very_satisfied</i>
-                <i className="material-icons md-24"
-                  id={this.props.recommendation.feedback === false ? 'dissatisfied-btn-1' : 'dissatisfied-btn'}
-                  onClick={this.handleRecoFeedback}>sentiment_very_dissatisfied</i>
-              </div>
+            </div>
+            <div className="result-end container">
+            <div className="result-end">
+              <a onClick={this.goBack} className="result-reset">Back</a>
+              <div className="result-feedback">
+                <span className="result-prompt">Was this useful?</span>
+              <i className="material-icons md-24"
+                id={this.props.recommendation.feedback === true ? 'satisfied-btn-1' : 'satisfied-btn'}
+                onClick={this.handleRecoFeedback}>sentiment_very_satisfied</i>
+              <i className="material-icons md-24"
+                id={this.props.recommendation.feedback === false ? 'dissatisfied-btn-1' : 'dissatisfied-btn'}
+                onClick={this.handleRecoFeedback}>sentiment_very_dissatisfied</i>
+            </div>
             </div>
           </div>
         </div>
 
-        <div className={this.state.currentSong.name === "" ? "footer-container stream hidden" : "footer-container stream"}>
+        <div className={this.state.currentSong.name === "" ? "footer-container stream" : "footer-container stream"}>
         <ReactPlayer
           ref={player => {this.player = player}}
           url={this.state.currentSong.url}
@@ -299,16 +304,16 @@ class Result extends React.Component{
                value = {this.state.played}/>
         <div className="player-container">
           <div className="player-song">
-            <h3 className="player-song-name">{this.state.currentSong.name}</h3>
-            <h4 className="player-song-artist">{this.state.currentSong.artist}</h4>
+            <span className="player-song-name">{this.state.currentSong.name}</span>
+            <span className="player-song-artist">{this.state.currentSong.artist}</span>
           </div>
 
           <div className="player-option">
             <i className="material-icons md-24-light"
                onClick={this.startPreviousSong}>skip_previous</i>
             <span className="play-pause" onClick={this.togglePlay}>
-              <i className="material-icons init md-36-light">pause_circle_outline</i>
-              <i className="material-icons hover md-36-light">pause_circle_filled</i>
+              <i className="material-icons init md-36-light">play_circle_outline</i>
+              <i className="material-icons hover md-36-light">play_circle_filled</i>
             </span>
             <i className="material-icons md-24-light" onClick={this.startNextSong}>skip_next</i>
           </div>
