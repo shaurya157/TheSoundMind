@@ -70,7 +70,7 @@ table, th, td, tr {
 
 .logo-header {
   align-self: flex-start;
-  margin: auto;
+  margin: 0 auto;
   width: 400px;
   max-width: 100%;
   cursor: pointer;
@@ -347,7 +347,7 @@ select.search-option.unfilled {
 .result-title {
   align-self: flex-start;
   text-align: left;
-  padding: 10px;
+  padding: 5px 10px;
   margin: auto;
 }
 
@@ -444,6 +444,11 @@ select.search-option.unfilled {
   font-weight: 800;
   line-height: 1.2em;
   cursor: pointer;
+  color: #000;
+}
+
+.result-expand:hover {
+  color: #0630CB;
 }
 
 @media (min-width: 37.5em) {
@@ -453,20 +458,21 @@ select.search-option.unfilled {
     font-weight: 800;
     line-height: 1.2em;
     cursor: pointer;
+    color: #000;
   }
 }
 
-.result-end.container {
-  display: block;
+.result-end-container {
+  display: flex;
   height: auto;
-  padding: 5px 10px;
-  margin: auto;
+  margin: 0 auto auto auto;
   width: 100%;
 }
 
 .result-end {
   flex-direction: row;
   max-width: 800px;
+  padding: 5px 10px;
 }
 
 .result-reset {
@@ -568,7 +574,7 @@ select.search-option.unfilled {
 }
 
 #dissatisfied-btn-1 {
-  color: black;
+  color: #D01C1F;
   opacity: 1;
 }
 

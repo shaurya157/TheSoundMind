@@ -14418,6 +14418,7 @@ var Result = function (_React$Component) {
   }
 
   // First X songs to be loaded
+  // CF edit - changed from 10 to 5 songs
 
 
   _createClass(Result, [{
@@ -14460,13 +14461,18 @@ var Result = function (_React$Component) {
     key: 'showDetails',
     value: function showDetails(event) {
       event.preventDefault();
-
       // LMAO so jank! TODO: pls be less jank
+      // CF edit - changed button to info button
       var el = event.target.parentElement.parentElement.parentElement.children[1];
+      var infoButton = event.target.parentElement.parentElement.parentElement.children[0].children[1].children[0];
       if (el.className === 'result-detail') {
         el.className = 'result-detail hidden';
+        infoButton.innerHTML = 'info_outline';
+        infoButton.id = "more-btn";
       } else {
         el.className = 'result-detail';
+        infoButton.innerHTML = 'info';
+        infoButton.id = "more-btn-1";
       }
     }
   }, {
@@ -14491,6 +14497,11 @@ var Result = function (_React$Component) {
               { className: 'result-option' },
               _react2.default.createElement(
                 'i',
+                { className: 'material-icons md-24', id: 'more-btn', onClick: _this2.showDetails },
+                'info_outline'
+              ),
+              _react2.default.createElement(
+                'i',
                 { className: 'material-icons md-24',
                   id: _this2.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn',
                   onClick: _this2.likeOrUndoLike(song) },
@@ -14502,11 +14513,6 @@ var Result = function (_React$Component) {
                   id: _this2.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn',
                   onClick: _this2.dislikeOrUndoDislike(song) },
                 'thumb_down'
-              ),
-              _react2.default.createElement(
-                'i',
-                { className: 'material-icons md-24', id: 'more-btn', onClick: _this2.showDetails },
-                'more_vert'
               )
             )
           ),
@@ -14699,7 +14705,6 @@ var Result = function (_React$Component) {
     key: 'handleRecoFeedback',
     value: function handleRecoFeedback(event) {
       var id = this.props.recommendation.id;
-
       event.target.id == 'satisfied-btn' ? this.props.recoFeedback(id, true) : this.props.recoFeedback(id, false);
     }
   }, {
@@ -14723,27 +14728,8 @@ var Result = function (_React$Component) {
             className: 'logo-header',
             onClick: this.goBack }),
           _react2.default.createElement(
-            'h1',
-            { className: 'result-title' },
-            'Other users recommend these songs for you:'
-          ),
-          _react2.default.createElement(
             'div',
-            { className: 'result-container' },
-            _react2.default.createElement(
-              'div',
-              { className: 'result-list' },
-              this.showSongs()
-            ),
-            _react2.default.createElement(
-              'h2',
-              { className: 'result-expand', onClick: this.loadNumSongs },
-              this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'result-end container' },
+            { className: 'result-end-container' },
             _react2.default.createElement(
               'div',
               { className: 'result-end' },
@@ -14774,6 +14760,25 @@ var Result = function (_React$Component) {
                     onClick: this.handleRecoFeedback },
                   'sentiment_very_dissatisfied'
                 )
+              )
+            ),
+            _react2.default.createElement(
+              'h1',
+              { className: 'result-title' },
+              'Other users recommend these songs for you:'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'result-container' },
+              _react2.default.createElement(
+                'div',
+                { className: 'result-list' },
+                this.showSongs()
+              ),
+              _react2.default.createElement(
+                'h2',
+                { className: 'result-expand', onClick: this.loadNumSongs },
+                this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"
               )
             )
           )
@@ -15042,13 +15047,13 @@ var Splash = function (_React$Component) {
           _react2.default.createElement(
             "p",
             { className: "cta" },
-            "Register your email now to start your experience today!"
+            "Type your email below to get your first playlist recommendation now!"
           ),
           _react2.default.createElement(
             "form",
             { className: "form-w-btn", onSubmit: this.handleSubmit },
             _react2.default.createElement("input", { type: "text", className: "email-input", onChange: this.handleChange }),
-            _react2.default.createElement("input", { type: "submit", className: "login-btn", value: "Sign In" })
+            _react2.default.createElement("input", { type: "submit", className: "login-btn", value: "Try now!" })
           )
         ),
         this.runBackgroundCarousel(5000, 7)

@@ -32,6 +32,7 @@ class Result extends React.Component{
   }
 
   // First X songs to be loaded
+  // CF edit - changed from 10 to 5 songs
   componentWillReceiveProps(nextProps){
     if(!this.firstRender){
       this.firstRender = true;
@@ -68,13 +69,18 @@ class Result extends React.Component{
 
   showDetails(event){
     event.preventDefault();
-
     // LMAO so jank! TODO: pls be less jank
-    let el = event.target.parentElement.parentElement.parentElement.children[1]
+    // CF edit - changed button to info button
+    let el = event.target.parentElement.parentElement.parentElement.children[1];
+    let infoButton = event.target.parentElement.parentElement.parentElement.children[0].children[1].children[0];
     if(el.className === 'result-detail'){
       el.className = 'result-detail hidden';
+      infoButton.innerHTML = 'info_outline';
+      infoButton.id = "more-btn";
     } else {
       el.className = 'result-detail';
+      infoButton.innerHTML = 'info';
+      infoButton.id = "more-btn-1";
     }
   }
 
@@ -84,13 +90,13 @@ class Result extends React.Component{
         <div className="result-song" onClick={this.playSong(song)}>
           <span className="result-name">{song.name}</span>
           <span className="result-option">
+            <i className="material-icons md-24" id="more-btn" onClick={this.showDetails}>info_outline</i>
             <i className="material-icons md-24"
                 id={this.likeOrDislikeChecker(song, 'like') ? "thumbup-btn-1" : 'thumbup-btn'}
                 onClick={this.likeOrUndoLike(song)}>thumb_up</i>
             <i className="material-icons md-24"
                 id={this.likeOrDislikeChecker(song, 'dislike') ? "thumbdown-btn-1" : 'thumbdown-btn'}
                 onClick={this.dislikeOrUndoDislike(song)}>thumb_down</i>
-            <i className="material-icons md-24" id="more-btn" onClick={this.showDetails}>more_vert</i>
           </span>
         </div>
 
@@ -247,8 +253,7 @@ class Result extends React.Component{
 
   handleRecoFeedback(event){
     let id = this.props.recommendation.id;
-
-    event.target.id == 'satisfied-btn' ? this.props.recoFeedback(id, true) : this.props.recoFeedback(id, false)
+    event.target.id == 'satisfied-btn' ? this.props.recoFeedback(id, true) : this.props.recoFeedback(id, false);
   }
 
   resultBG(){
@@ -263,6 +268,19 @@ class Result extends React.Component{
              alt="The Sound Mind"
              className="logo-header"
              onClick={this.goBack}/>
+           <div className="result-end-container">
+             <div className="result-end">
+               <a onClick={this.goBack} className="result-reset">Back</a>
+               <div className="result-feedback">
+                 <span className="result-prompt">Was this useful?</span>
+               <i className="material-icons md-24"
+                 id={this.props.recommendation.feedback === true ? 'satisfied-btn-1' : 'satisfied-btn'}
+                 onClick={this.handleRecoFeedback}>sentiment_very_satisfied</i>
+               <i className="material-icons md-24"
+                 id={this.props.recommendation.feedback === false ? 'dissatisfied-btn-1' : 'dissatisfied-btn'}
+                 onClick={this.handleRecoFeedback}>sentiment_very_dissatisfied</i>
+             </div>
+             </div>
           <h1 className="result-title">Other users recommend these songs for you:</h1>
             <div className="result-container">
               <div className="result-list">
@@ -272,19 +290,7 @@ class Result extends React.Component{
                 {this.props.thirdRecommendation.length == 0 ? "" : "Load 5 more"}
               </h2>
             </div>
-            <div className="result-end container">
-            <div className="result-end">
-              <a onClick={this.goBack} className="result-reset">Back</a>
-              <div className="result-feedback">
-                <span className="result-prompt">Was this useful?</span>
-              <i className="material-icons md-24"
-                id={this.props.recommendation.feedback === true ? 'satisfied-btn-1' : 'satisfied-btn'}
-                onClick={this.handleRecoFeedback}>sentiment_very_satisfied</i>
-              <i className="material-icons md-24"
-                id={this.props.recommendation.feedback === false ? 'dissatisfied-btn-1' : 'dissatisfied-btn'}
-                onClick={this.handleRecoFeedback}>sentiment_very_dissatisfied</i>
-            </div>
-            </div>
+
           </div>
         </div>
 

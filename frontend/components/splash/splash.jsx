@@ -73,11 +73,11 @@ class Splash extends React.Component{
         </div>
 
         <div className="signup-container">
-          <p className="cta">Register your email now to start your experience today!</p>
+          <p className="cta">Type your email below to get your first playlist recommendation now!</p>
 
           <form className="form-w-btn" onSubmit={this.handleSubmit}>
             <input type="text" className="email-input" onChange={this.handleChange} />
-            <input type="submit" className="login-btn" value="Sign In"/>
+            <input type="submit" className="login-btn" value="Try now!"/>
           </form>
 
         </div>
